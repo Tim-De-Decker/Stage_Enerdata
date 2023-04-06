@@ -1,0 +1,552 @@
+
+# AJOUT DES TRANSFERT DE SERIES SANS CALCUL ENTRE COLLECTE ET CALCUL 
+
+resOdy = affectation(resOdy, 'cmbecieao', 'co2ieao', 'MtCO2', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'cmbecenp', 'co2enp', 'MtCO2', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'cmbecie', 'co2ie', 'MtCO2', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'chatv', 'chatv', 'Mtoe', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'gzltv', 'gzltv', 'Mtoe', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'foltv', 'foltv', 'Mtoe', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'gnatv', 'gnatv', 'Mtoe', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'vappd', 'vappd', 'Mtoe', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'elcpd', 'elcpd', 'Mtoe', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'elepd', 'elepd', 'TWh', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'eleci', 'eleci', 'TWh', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'cmbecene', 'co2ene')
+resOdy = affectation(resOdy, 'cmbeciepu', 'co2iepu')
+resOdy = affectation(resOdy, 'cmbecipsr', 'co2ipsr')
+resOdy = affectation(resOdy, 'cmbecsf', 'co2sf')
+resOdy = affectation(resOdy, 'cmbecoth', 'co2oth')
+
+# ========================================================================== 
+# ===================== CALCULATION OF CO2 EMISSIONS ======================= 
+# ========================================================================== 
+# CALCULATIONS ON CO2 EMISSIONS OF INDUSTRIE
+
+resOdy = affectation(resOdy, 'gzlecind', 'gzlcfind', 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'])
+resOdy = affectation(resOdy, 'folecind', 'folcfind', 'MtCO2', poids=const.VALEUR['cst_folco2ccbl'])
+resOdy = affectation(resOdy, 'pdvecind', 'pdvcfind', 'MtCO2', poids=const.VALEUR['cst_pdvco2ccbl'])
+if recupSerie(resOdy,'gzlecind'):
+	resOdy = multiAffectation(resOdy, 'petecind', ['essecind','gzlecind','folecind','pdvecind','gplecind','holecind','carecind','esaecind'], 'MtCO2')
+else:
+	resOdy = affectation(resOdy, 'petecind', 'petcfind', 'MtCO2', poids=const.VALEUR['cst_folco2ccbl'])
+resOdy = affectation(resOdy, 'chaecind', 'chacfind', 'MtCO2', poids=const.VALEUR['cst_cbico2ccbl'])
+resOdy = affectation(resOdy, 'cokecind', 'cokcfind', 'MtCO2', poids=const.VALEUR['cst_cokco2ccbl'])
+resOdy = affectation(resOdy, 'ligecind', 'ligcfind', 'MtCO2', poids=const.VALEUR['cst_ligco2ccbl'])
+resOdy = affectation(resOdy, 'osfecind', 'osfcfind', 'MtCO2', poids=const.VALEUR['cst_touco2ccbl'])
+if recupSerie(resOdy,'chacfind'):
+	resOdy = multiAffectation(resOdy, 'cmsecind', ['chaecind','ligecind','cokecind','osfecind','touecind'], 'MtCO2')
+else:
+	resOdy = affectation(resOdy, 'cmsecind', 'cmscfind', 'MtCO2', poids=const.VALEUR['cst_cbico2ccbl'])
+resOdy = affectation(resOdy, 'gnaecind', 'gnacfind', 'MtCO2', poids=const.VALEUR['cst_gnaco2ccbl'])
+resOdy = affectation(resOdy, 'gadecind', 'gadcfind', 'MtCO2', poids=const.VALEUR['cst_gnaco2ccbl'])
+if recupSerie(resOdy,'gnacfind'):
+	resOdy = multiAffectation(resOdy, 'gazecind', ['gnaecind','gadecind'], 'MtCO2')
+else:
+	resOdy = affectation(resOdy, 'gazecind', 'gazcfind', 'MtCO2', poids=const.VALEUR['cst_gnaco2ccbl'])
+
+# CALCULATIONS ON CO2 EMISSIONS OF TRANSPORT
+
+resOdy = affectation(resOdy, 'gzlectra', 'gzlcftra', 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'])
+resOdy = affectation(resOdy, 'essectra', 'esscftra', 'MtCO2', poids=const.VALEUR['cst_essco2ccbl'])
+resOdy = affectation(resOdy, 'gplectra', 'gplcftra', 'MtCO2', poids=const.VALEUR['cst_gplco2ccbl'])
+resOdy = affectationConv(resOdy, 'carecair', 'carcfair', 'pcairint', '*', 'MtCO2', poids=const.VALEUR['cst_carco2ccbl'])
+
+# CALCULATIONS ON CO2 EMISSIONS OF RESIDENTIAL
+
+resOdy = affectation(resOdy, 'folecres', 'folcfres', 'MtCO2', poids=const.VALEUR['cst_folco2ccbl'])
+resOdy = affectation(resOdy, 'gplecres', 'gplcfres', 'MtCO2', poids=const.VALEUR['cst_gplco2ccbl'])
+resOdy = affectation(resOdy, 'holecres', 'holcfres', 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'])
+if recupSerie(resOdy,'holcfres') & recupSerie(resOdy,'gplcfres'):
+	resOdy = multiAffectation(resOdy, 'petecres', ['essecres','gzlecres','folecres','pdvecres','gplecres','holecres','carecres','esaecres'], 'MtCO2')
+else:
+	resOdy = affectation(resOdy, 'petecres', 'petcfres', 'MtCO2', poids=const.VALEUR['cst_gplco2ccbl'])
+resOdy = affectation(resOdy, 'chaecres', 'chacfres', 'MtCO2', poids=const.VALEUR['cst_cbico2ccbl'])
+resOdy = affectation(resOdy, 'cokecres', 'cokcfres', 'MtCO2', poids=const.VALEUR['cst_cokco2ccbl'])
+resOdy = affectation(resOdy, 'ligecres', 'ligcfres', 'MtCO2', poids=const.VALEUR['cst_ligco2ccbl'])
+resOdy = affectation(resOdy, 'touecres', 'toucfres', 'MtCO2', poids=const.VALEUR['cst_touco2ccbl'])
+if recupSerie(resOdy,'chacfres'):
+	resOdy = multiAffectation(resOdy, 'cmsecres', ['chaecres','ligecres','cokecres','osfecres','touecres'], 'MtCO2')
+else:
+	resOdy = affectation(resOdy, 'cmsecres', 'cmscfres', 'MtCO2', poids=const.VALEUR['cst_cbico2ccbl'])
+resOdy = affectation(resOdy, 'gazecres', 'gazcfres', 'MtCO2', poids=const.VALEUR['cst_gnaco2ccbl'])
+
+# CO2 EMISSIONS CALCULATIONS
+
+resOdy = affectation(resOdy, 'chaectv', 'chatv', 'MtCO2', poids=const.VALEUR['cst_cbico2ccbl'])
+resOdy = affectation(resOdy, 'gzlectv', 'gzltv', 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'])
+resOdy = affectation(resOdy, 'folectv', 'foltv', 'MtCO2', poids=const.VALEUR['cst_folco2ccbl'])
+resOdy = affectation(resOdy, 'gnaectv', 'gnatv', 'MtCO2', poids=const.VALEUR['cst_gnaco2ccbl'])
+resOdy = multiAffectation(resOdy, 'cmsectv', ['chaectv','ligectv','cokectv','osfectv','touectv'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'gazectv', ['gnaectv','gadectv'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'petectv', ['essectv','gzlectv','folectv','pdvectv','gplectv','holectv','carectv','esaectv'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbectv', ['cmsectv','gazectv','petectv'], 'MtCO2')
+
+
+resOdy = affectationParMultiplication(resOdy, 'vapcef', [('cmbectv','MtCO2')], [('vappd','Mtoe')], 'tCO2/toe')
+resOdy = affectationParMultiplication(resOdy, 'elccef', [('cmbecie','MtCO2')], [('elcpd','Mtoe')], 'tCO2/toe')
+resOdy = affectationParMultiplication(resOdy, 'cmscefind', [('cmsecind','MtCO2')], [('cmscfind','Mtoe')], 'tCO2/toe')
+resOdy = affectationParMultiplication(resOdy, 'gazcefind', [('gazecind','MtCO2')], [('gazcfind','Mtoe')], 'tCO2/toe')
+resOdy = affectationParMultiplication(resOdy, 'petcefind', [('petecind','MtCO2')], [('petcfind','Mtoe')], 'tCO2/toe')
+resOdy = affectationParMultiplication(resOdy, 'cmscefres', [('cmsecres','MtCO2')], [('cmscfres','Mtoe')], 'tCO2/toe')
+resOdy = affectationParMultiplication(resOdy, 'gazcefres', [('gazecres','MtCO2')], [('gazcfres','Mtoe')], 'tCO2/toe')
+resOdy = affectationParMultiplication(resOdy, 'petcefres', [('petecres','MtCO2')], [('petcfres','Mtoe')], 'tCO2/toe')
+
+
+
+
+
+
+resOdy = affectationRecopie(resOdy, 'cmscefind', 'cmscefind', 'tCO2/toe', anneedef-1)
+
+
+
+resOdy = affectationRecopie(resOdy, 'gazcefind', 'gazcefind', 'tCO2/toe', anneedef-1)
+
+
+
+resOdy = affectationRecopie(resOdy, 'petcefind', 'petcefind', 'tCO2/toe', anneedef-1)
+
+
+
+resOdy = affectationRecopie(resOdy, 'cmscefres', 'cmscefres', 'tCO2/toe', anneedef-1)
+
+
+
+resOdy = affectationRecopie(resOdy, 'gazcefres', 'gazcefres', 'tCO2/toe', anneedef-1)
+
+
+
+resOdy = affectationRecopie(resOdy, 'petcefres', 'petcefres', 'tCO2/toe', anneedef-1)
+
+
+
+resOdy = affectationRecopie(resOdy, 'vapcef', 'vapcef', 'tCO2/toe', anneedef-1)
+
+
+
+# ==================  CALCUL DES EMISSIONS DE CO2 ===================
+
+# CO2 EMISSIONS 
+resOdy = affectationParMultiplication(resOdy, 'elcecind', [('elccfind','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecind', 'vapcfind', 'vapcef', '*', 'MtCO2')
+if recupSerie(resOdy,'co2ina'):
+	resOdy = affectation(resOdy, 'cmbecind', 'co2ina')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecind', ['cmsecind','gazecind','petecind','cmbecieao'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecind', ['cmbecind','elcecind','vapecind'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecima', 'cmscfima', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecima', 'gazcfima', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecima', 'petcfima', 'petcefind', '*', 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecima', [('elccfima','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecima', 'vapcfima', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbecima', ['cmsecima','gazecima','petecima'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecima', ['cmbecima','elcecima','vapecima'], 'MtCO2')
+
+
+resOdy = affectationConv(resOdy, 'carecair', 'carcfair', 'pcairint', '*', 'MtCO2', poids=const.VALEUR['cst_carco2ccbl'])
+
+resOdy = multiAffectation(resOdy, 'cmbecair', ['cmsecair','gazecair','petecair'], 'MtCO2')
+if recupSerie(resOdy,'co2air'):
+	resOdy = affectation(resOdy, 'carecado', 'co2air')
+else:
+	resOdy = affectation(resOdy, 'carecado', 'carcfado', 'MtCO2', poids=const.VALEUR['cst_carco2ccbl'])
+resOdy = multiAffectation(resOdy, 'tceecair', ['cmbecair','elcecair','vapecair'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'petecado', ['essecado','gzlecado','folecado','pdvecado','gplecado','holecado','carecado','esaecado'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbecado', ['cmsecado','gazecado','petecado'], 'MtCO2')
+resOdy = affectation(resOdy, 'carectra', 'carecado', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'petectra', ['essectra','gzlectra','folectra','pdvectra','gplectra','holectra','carectra','esaectra'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'petceftra', [('petectra','MtCO2')], [('petcftra','Mtoe')], 'tCO2/toe')
+
+
+
+
+
+
+resOdy = affectationRecopie(resOdy, 'petceftra', 'petceftra', 'tCO2/toe', anneedef-1)
+
+
+
+if recupSerie(resOdy,'co2traoth'):
+	resOdy = affectation(resOdy, 'cmbecdvt', 'co2traoth')
+resOdy = affectation(resOdy, 'cmsectra', 'cmscftra', 'MtCO2', poids=const.VALEUR['cst_cbico2ccbl'])
+resOdy = affectation(resOdy, 'gazectra', 'gazcftra', 'MtCO2', poids=const.VALEUR['cst_gnaco2ccbl'])
+resOdy = affectationParMultiplication(resOdy, 'elcectra', [('elccftra','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapectra', 'vapcftra', 'vapcef', '*', 'MtCO2')
+
+if recupSerie(resOdy,'co2tra'):
+	resOdy = affectation(resOdy, 'cmbectra', 'co2tra')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbectra', ['cmsectra','gazectra','petectra'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceectra', ['cmbectra','elcectra','vapectra'], 'MtCO2')
+
+
+resOdy = affectationConv(resOdy, 'cmsecret', 'cmscfret', 'cmscefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecret', 'gazcfret', 'gazcefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecret', 'petcfret', 'petcefres', '*', 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecret', [('elccfret','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecret', 'vapcfret', 'vapcef', '*', 'MtCO2')
+if recupSerie(resOdy,'co2ret'):
+	resOdy = affectation(resOdy, 'cmbecret', 'co2ret')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecret', ['cmsecret','gazecret','petecret'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecret', ['cmbecret','elcecret','vapecret'], 'MtCO2')
+
+
+resOdy = affectationParMultiplication(resOdy, 'elcecres', [('elccfres','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecres', 'vapcfres', 'vapcef', '*', 'MtCO2')
+if recupSerie(resOdy,'co2res'):
+	resOdy = affectation(resOdy, 'cmbecres', 'co2res')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecres', ['cmsecres','gazecres','petecres'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecres', ['cmbecres','elcecres','vapecres'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecter', 'cmscfter', 'cmscefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecter', 'gazcfter', 'gazcefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecter', 'petcfter', 'petcefres', '*', 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecter', [('elccfter','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecter', 'vapcfter', 'vapcef', '*', 'MtCO2')
+if recupSerie(resOdy,'co2ter'):
+	resOdy = affectation(resOdy, 'cmbecter', 'co2ter')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecter', ['cmsecter','gazecter','petecter'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecter', ['cmbecter','elcecter','vapecter'], 'MtCO2')
+
+resOdy = multiAffectation(resOdy, 'cmbecrester', ['cmbecres','cmbecter'], 'MtCO2')
+
+
+resOdy = affectation(resOdy, 'cmsecagr', 'cmscfagr', 'MtCO2', poids=const.VALEUR['cst_cbico2ccbl'])
+resOdy = affectation(resOdy, 'gazecagr', 'gazcfagr', 'MtCO2', poids=const.VALEUR['cst_gnaco2ccbl'])
+resOdy = affectation(resOdy, 'petecagr', 'petcfagr', 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'])
+resOdy = affectationParMultiplication(resOdy, 'elcecagr', [('elccfagr','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecagr', 'vapcfagr', 'vapcef', '*', 'MtCO2')
+if recupSerie(resOdy,'co2agr'):
+	resOdy = affectation(resOdy, 'cmbecagr', 'co2agr')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecagr', ['cmsecagr','gazecagr','petecagr'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecagr', ['cmbecagr','elcecagr','vapecagr'], 'MtCO2')
+
+resOdy = multiAffectation(resOdy, 'cmsectfc', ['cmsectra','cmsecind','cmsecret'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'petectfc', ['petectra','petecind','petecret'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'gazectfc', ['gazectra','gazecind','gazecret'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'elcectfc', ['elcectra','elcecind','elcecret'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'vapectfc', ['vapectra','vapecind','vapecret'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbectfc', ['cmbectra','cmbecind','cmbecret'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceectfc', ['cmbectfc','elcectfc','vapectfc'], 'MtCO2')
+
+# FINAL EMISSIONS CORRECTED
+
+resOdy = multiAffectation(resOdy, 'cmbecotr', ['cmbecenp','-cmbecie'], 'MtCO2')
+resOdy = affectation(resOdy, 'cmbectot', 'co2cmb')
+
+resOdy = affectationConv(resOdy, 'cmsecsid1', 'cmscfsid1', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecsid1', 'gazcfsid1', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecsid1', 'petcfsid1', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2sid'):
+	resOdy = affectation(resOdy, 'cmbecsid1', 'co2sid')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecsid1', ['cmsecsid1','gazecsid1','petecsid1'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecsid1', [('elccfsid1','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecsid1', 'vapcfsid1', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecsid1', ['cmbecsid1','elcecsid1','vapecsid1'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmseccim', 'cmscfcim', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazeccim', 'gazcfcim', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'peteccim', 'petcfcim', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2cim'):
+	resOdy = affectation(resOdy, 'cmbeccim', 'co2cim')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbeccim', ['cmseccim','gazeccim','peteccim'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elceccim', [('elccfcim','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapeccim', 'vapcfcim', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceeccim', ['cmbeccim','elceccim','vapeccim'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecchi', 'cmscfchi', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecchi', 'gazcfchi', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecchi', 'petcfchi', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2chi'):
+	resOdy = affectation(resOdy, 'cmbecchi', 'co2chi')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecchi', ['cmsecchi','gazecchi','petecchi'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecchi', [('elccfchi','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecchi', 'vapcfchi', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecchi', ['cmbecchi','elcecchi','vapecchi'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecmnf', 'cmscfmnf', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecmnf', 'gazcfmnf', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecmnf', 'petcfmnf', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2mnf'):
+	resOdy = affectation(resOdy, 'cmbecmnf', 'co2mnf')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecmnf', ['cmsecmnf','gazecmnf','petecmnf'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecmnf', [('elccfmnf','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecmnf', 'vapcfmnf', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecmnf', ['cmbecmnf','elcecmnf','vapecmnf'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecmpr', 'cmscfmpr', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecmpr', 'gazcfmpr', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecmpr', 'petcfmpr', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2mpr'):
+	resOdy = affectation(resOdy, 'cmbecmpr', 'co2mpr')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecmpr', ['cmsecmpr','gazecmpr','petecmpr'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecmpr', [('elccfmpr','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecmpr', 'vapcfmpr', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecmpr', ['cmbecmpr','elcecmpr','vapecmpr'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecmnm', 'cmscfmnm', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecmnm', 'gazcfmnm', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecmnm', 'petcfmnm', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2mnm'):
+	resOdy = affectation(resOdy, 'cmbecmnm', 'co2mnm')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecmnm', ['cmsecmnm','gazecmnm','petecmnm'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecmnm', [('elccfmnm','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecmnm', 'vapcfmnm', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecmnm', ['cmbecmnm','elcecmnm','vapecmnm'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecver', 'cmscfver', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecver', 'gazcfver', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecver', 'petcfver', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2ver'):
+	resOdy = affectation(resOdy, 'cmbecver', 'co2ver')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecver', ['cmsecver','gazecver','petecver'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecver', [('elccfver','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecver', 'vapcfver', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecver', ['cmbecver','elcecver','vapecver'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecmac', 'cmscfmac', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecmac', 'gazcfmac', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecmac', 'petcfmac', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2mac'):
+	resOdy = affectation(resOdy, 'cmbecmac', 'co2mac')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecmac', ['cmsecmac','gazecmac','petecmac'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecmac', [('elccfmac','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecmac', 'vapcfmac', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecmac', ['cmbecmac','elcecmac','vapecmac'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecveh', 'cmscfveh', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecveh', 'gazcfveh', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecveh', 'petcfveh', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2veh'):
+	resOdy = affectation(resOdy, 'cmbecveh', 'co2veh')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecveh', ['cmsecveh','gazecveh','petecveh'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecveh', [('elccfveh','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecveh', 'vapcfveh', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecveh', ['cmbecveh','elcecveh','vapecveh'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecfab', 'cmscffab', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecfab', 'gazcffab', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecfab', 'petcffab', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2fab'):
+	resOdy = affectation(resOdy, 'cmbecfab', 'co2fab')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecfab', ['cmsecfab','gazecfab','petecfab'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecfab', [('elccffab','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecfab', 'vapcffab', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecfab', ['cmbecfab','elcecfab','vapecfab'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmseciaa', 'cmscfiaa', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazeciaa', 'gazcfiaa', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'peteciaa', 'petcfiaa', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2iaa'):
+	resOdy = affectation(resOdy, 'cmbeciaa', 'co2iaa')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbeciaa', ['cmseciaa','gazeciaa','peteciaa'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elceciaa', [('elccfiaa','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapeciaa', 'vapcfiaa', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceeciaa', ['cmbeciaa','elceciaa','vapeciaa'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsectex', 'cmscftex', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazectex', 'gazcftex', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petectex', 'petcftex', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2tex'):
+	resOdy = affectation(resOdy, 'cmbectex', 'co2tex')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbectex', ['cmsectex','gazectex','petectex'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcectex', [('elccftex','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapectex', 'vapcftex', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceectex', ['cmbectex','elcectex','vapectex'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecboi', 'cmscfboi', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecboi', 'gazcfboi', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecboi', 'petcfboi', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2boi'):
+	resOdy = affectation(resOdy, 'cmbecboi', 'co2boi')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecboi', ['cmsecboi','gazecboi','petecboi'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecboi', [('elccfboi','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecboi', 'vapcfboi', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecboi', ['cmbecboi','elcecboi','vapecboi'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecppp', 'cmscfppp', 'cmscefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecppp', 'gazcfppp', 'gazcefind', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecppp', 'petcfppp', 'petcefind', '*', 'MtCO2')
+if recupSerie(resOdy,'co2ppp'):
+	resOdy = affectation(resOdy, 'cmbecppp', 'co2ppp')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecppp', ['cmsecppp','gazecppp','petecppp'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecppp', [('elccfppp','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecppp', 'vapcfppp', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecppp', ['cmbecppp','elcecppp','vapecppp'], 'MtCO2')
+
+if recupSerie(resOdy,'co2inaoth'):
+	resOdy = affectation(resOdy, 'cmbecidv', 'co2inaoth')
+
+
+resOdy = affectationConv(resOdy, 'cmsecreschf', 'cmscfreschf', 'cmscefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecreschf', 'gazcfreschf', 'gazcefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecreschf', 'petcfreschf', 'petcefres', '*', 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecreschf', [('elccfreschf','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecreschf', 'vapcfreschf', 'vapcef', '*', 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'cmbecreschf', [('co2res','MtCO2'),('cmbcfreschf','Mtoe')], [('cmbcfres','Mtoe')], 'MtCO2', serieOblig=['co2res','cmbcfreschf'])
+resOdy = multiAffectation(resOdy, 'tceecreschf', ['cmbecreschf','elcecreschf','vapecreschf'], 'MtCO2')
+
+
+resOdy = affectationConv(resOdy, 'cmsecreschc', 'cmscfreschc', 'cmscefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecreschc', 'gazcfreschc', 'gazcefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecreschc', 'petcfreschc', 'petcefres', '*', 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecreschc', [('elccfreschc','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecreschc', 'vapcfreschc', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbecreschc', ['cmsecreschc','gazecreschc','petecreschc'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecreschc', ['cmbecreschc','elcecreschc','vapecreschc'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecretcc', 'cmscfretcc', 'cmscefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecretcc', 'gazcfretcc', 'gazcefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecretcc', 'petcfretcc', 'petcefres', '*', 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecretcc', [('elccfretcc','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecretcc', 'vapcfretcc', 'vapcef', '*', 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'cmbecretcc', [('co2ret','MtCO2'),('cmbcfretcc','Mtoe')], [('cmbcfret','Mtoe')], 'MtCO2', serieOblig=['co2ret','cmbcfretcc'])
+resOdy = multiAffectation(resOdy, 'tceecretcc', ['cmbecretcc','elcecretcc','vapecretcc'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsecrescc', 'cmscfrescc', 'cmscefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazecrescc', 'gazcfrescc', 'gazcefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petecrescc', 'petcfrescc', 'petcefres', '*', 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecrescc', [('elccfrescc','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapecrescc', 'vapcfrescc', 'vapcef', '*', 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'cmbecrescc', [('co2res','MtCO2'),('cmbcfrescc','Mtoe')], [('cmbcfres','Mtoe')], 'MtCO2', serieOblig=['co2res','cmbcfrescc'])
+resOdy = multiAffectation(resOdy, 'tceecrescc', ['cmbecrescc','elcecrescc','vapecrescc'], 'MtCO2')
+
+resOdy = affectationConv(resOdy, 'cmsectercc', 'cmscftercc', 'cmscefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'gazectercc', 'gazcftercc', 'gazcefres', '*', 'MtCO2')
+resOdy = affectationConv(resOdy, 'petectercc', 'petcftercc', 'petcefres', '*', 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcectercc', [('elccftercc','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapectercc', 'vapcftercc', 'vapcef', '*', 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'cmbectercc', [('co2ter','MtCO2'),('cmbcftercc','Mtoe')], [('cmbcfter','Mtoe')], 'MtCO2', serieOblig=['co2ter','cmbcftercc'])
+resOdy = multiAffectation(resOdy, 'tceectercc', ['cmbectercc','elcectercc','vapectercc'], 'MtCO2')
+
+resOdy = affectation(resOdy, 'cmsectfccc', 'cmsectfc')
+resOdy = affectation(resOdy, 'petectfccc', 'petectfc')
+resOdy = affectation(resOdy, 'gazectfccc', 'gazectfc')
+resOdy = affectationParMultiplication(resOdy, 'elcectfccc', [('elccfcc','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = affectationConv(resOdy, 'vapectfccc', 'vapcfcc', 'vapcef', '*', 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbectfccc', ['cmbectra','cmbecind','cmbecretcc'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceectfccc', ['cmbectfccc','elcectfccc','vapectfccc'], 'MtCO2')
+
+resOdy = affectation(resOdy, 'cmbecenpcc', 'cmbecenp', 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'cmbectotcc', [('co2cmb','MtCO2'),('cmbcfcc','Mtoe')], [('cmbcf','Mtoe')], 'MtCO2', serieOblig=['co2cmb','cmbcfcc'])
+
+resOdy = affectation(resOdy, 'essecrou', 'esscfrou', 'MtCO2', poids=const.VALEUR['cst_essco2ccbl'])
+resOdy = affectation(resOdy, 'gzlecrou', 'gzlcfrou', 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'])
+resOdy = affectation(resOdy, 'gplecrou', 'gplcfrou', 'MtCO2', poids=const.VALEUR['cst_gplco2ccbl'])
+resOdy = multiAffectation(resOdy, 'petecrou', ['essecrou','gzlecrou','folecrou','pdvecrou','gplecrou','holecrou','carecrou','esaecrou'], 'MtCO2')
+if recupSerie(resOdy,'co2rou'):
+	resOdy = affectation(resOdy, 'cmbecrou', 'co2rou')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecrou', ['cmsecrou','gazecrou','petecrou'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecrou', ['cmbecrou','elcecrou','vapecrou'], 'MtCO2')
+
+resOdy = affectation(resOdy, 'essecroudom', 'esscfroudom', 'MtCO2', poids=const.VALEUR['cst_essco2ccbl'])
+resOdy = affectation(resOdy, 'gzlecroudom', 'gzlcfroudom', 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'])
+resOdy = affectation(resOdy, 'gplecroudom', 'gplcfroudom', 'MtCO2', poids=const.VALEUR['cst_gplco2ccbl'])
+resOdy = multiAffectation(resOdy, 'petecroudom', ['essecroudom','gzlecroudom','folecroudom','pdvecroudom','gplecroudom','holecroudom','carecroudom','esaecroudom'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbecroudom', ['cmsecroudom','gazecroudom','petecroudom'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecroudom', ['cmbecroudom','elcecroudom','vapecroudom'], 'MtCO2')
+
+resOdy = affectationParMultiplication(resOdy, 'essecmot', [('co2rou','MtCO2'),('esscfmot','Mtoe')], [('cmbecroudom','MtCO2')], 'MtCO2', poids=const.VALEUR['cst_essco2ccbl'], serieOblig=['esscfmot'])
+resOdy = multiAffectation(resOdy, 'petecmot', ['essecmot','gzlecmot','folecmot','pdvecmot','gplecmot','holecmot','carecmot','esaecmot'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbecmot', ['cmsecmot','gazecmot','petecmot'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecmot', ['cmbecmot','elcecmot','vapecmot'], 'MtCO2')
+
+resOdy = affectationParMultiplication(resOdy, 'essecvpc', [('co2rou','MtCO2'),('esscfvpc','Mtoe')], [('cmbecroudom','MtCO2')], 'MtCO2', poids=const.VALEUR['cst_essco2ccbl'], serieOblig=['esscfvpc'])
+resOdy = affectationParMultiplication(resOdy, 'gzlecvpc', [('co2rou','MtCO2'),('gzlcfvpc','Mtoe')], [('cmbecroudom','MtCO2')], 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'], serieOblig=['gzlcfvpc'])
+resOdy = affectationParMultiplication(resOdy, 'gplecvpc', [('co2rou','MtCO2'),('gplcfvpc','Mtoe')], [('cmbecroudom','MtCO2')], 'MtCO2', poids=const.VALEUR['cst_gplco2ccbl'], serieOblig=['gplcfvpc'])
+resOdy = multiAffectation(resOdy, 'petecvpc', ['essecvpc','gzlecvpc','folecvpc','pdvecvpc','gplecvpc','holecvpc','carecvpc','esaecvpc'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbecvpc', ['cmsecvpc','gazecvpc','petecvpc'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecvpc', ['cmbecvpc','elcecvpc','vapecvpc'], 'MtCO2')
+
+resOdy = affectationParMultiplication(resOdy, 'essecbus', [('co2rou','MtCO2'),('esscfbus','Mtoe')], [('cmbecroudom','MtCO2')], 'MtCO2', poids=const.VALEUR['cst_essco2ccbl'], serieOblig=['esscfbus'])
+resOdy = affectationParMultiplication(resOdy, 'gzlecbus', [('co2rou','MtCO2'),('gzlcfbus','Mtoe')], [('cmbecroudom','MtCO2')], 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'], serieOblig=['gzlcfbus'])
+resOdy = multiAffectation(resOdy, 'petecbus', ['essecbus','gzlecbus','folecbus','pdvecbus','gplecbus','holecbus','carecbus','esaecbus'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbecbus', ['cmsecbus','gazecbus','petecbus'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecbus', ['cmbecbus','elcecbus','vapecbus'], 'MtCO2')
+
+resOdy = affectation(resOdy, 'gzlecferpas', 'gzlcfferpas', 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'])
+resOdy = affectation(resOdy, 'folecferpas', 'folcfferpas', 'MtCO2', poids=const.VALEUR['cst_folco2ccbl'])
+resOdy = multiAffectation(resOdy, 'petecferpas', ['essecferpas','gzlecferpas','folecferpas','pdvecferpas','gplecferpas','holecferpas','carecferpas','esaecferpas'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecferpas', [('elccfferpas','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbecferpas', ['cmsecferpas','gazecferpas','petecferpas'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecferpas', ['cmbecferpas','elcecferpas','vapecferpas'], 'MtCO2')
+
+resOdy = affectation(resOdy, 'gzlecfer', 'gzlcffer', 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'])
+resOdy = affectation(resOdy, 'folecfer', 'folcffer', 'MtCO2', poids=const.VALEUR['cst_folco2ccbl'])
+resOdy = multiAffectation(resOdy, 'petecfer', ['essecfer','gzlecfer','folecfer','pdvecfer','gplecfer','holecfer','carecfer','esaecfer'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecfer', [('elccffer','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+if recupSerie(resOdy,'co2fer'):
+	resOdy = affectation(resOdy, 'cmbecfer', 'co2fer')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecfer', ['cmsecfer','gazecfer','petecfer'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecfer', ['cmbecfer','elcecfer','vapecfer'], 'MtCO2')
+
+resOdy = multiAffectation(resOdy, 'cmsecpas', ['cmsecvpc', 'cmsecbus', 'cmsecmot', 'cmsecferpas', 'cmsecado'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'petecpas', ['petecvpc', 'petecbus', 'petecmot', 'petecferpas', 'petecado'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'gazecpas', ['gazecvpc', 'gazecbus', 'gazecmot', 'gazecferpas', 'gazecado'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'elcecpas', ['elcecvpc', 'elcecbus', 'elcecmot', 'elcecferpas', 'elcecado'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'vapecpas', ['vapecvpc', 'vapecbus', 'vapecmot', 'vapecferpas', 'vapecado'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbecpas', ['cmsecpas','gazecpas','petecpas'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecpas', ['cmbecpas','elcecpas','vapecpas'], 'MtCO2')
+
+resOdy = affectation(resOdy, 'gzlecflv', 'gzlcfflv', 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'])
+resOdy = affectation(resOdy, 'folecflv', 'folcfflv', 'MtCO2', poids=const.VALEUR['cst_folco2ccbl'])
+resOdy = multiAffectation(resOdy, 'petecflv', ['essecflv','gzlecflv','folecflv','pdvecflv','gplecflv','holecflv','carecflv','esaecflv'], 'MtCO2')
+if recupSerie(resOdy,'co2nav'):
+	resOdy = affectation(resOdy, 'cmbecflv', 'co2nav')
+else:
+	resOdy = multiAffectation(resOdy, 'cmbecflv', ['cmsecflv','gazecflv','petecflv'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecflv', ['cmbecflv','elcecflv','vapecflv'], 'MtCO2')
+
+resOdy = affectation(resOdy, 'essecvlr', 'esscfvlr', 'MtCO2', poids=const.VALEUR['cst_essco2ccbl'])
+resOdy = affectation(resOdy, 'gzlecvlr', 'gzlcfvlr', 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'])
+resOdy = affectation(resOdy, 'gplecvlr', 'gplcfvlr', 'MtCO2', poids=const.VALEUR['cst_gplco2ccbl'])
+resOdy = multiAffectation(resOdy, 'petecvlr', ['essecvlr','gzlecvlr','folecvlr','pdvecvlr','gplecvlr','holecvlr','carecvlr','esaecvlr'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbecvlr', ['cmsecvlr','gazecvlr','petecvlr'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecvlr', ['cmbecvlr','elcecvlr','vapecvlr'], 'MtCO2')
+
+resOdy = affectation(resOdy, 'gzleccam', 'gzlcfcam', 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'])
+resOdy = multiAffectation(resOdy, 'peteccam', ['esseccam','gzleccam','foleccam','pdveccam','gpleccam','holeccam','careccam','esaeccam'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbeccam', ['cmseccam','gazeccam','peteccam'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceeccam', ['cmbeccam','elceccam','vapeccam'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'esseccamvlr', [('co2rou','MtCO2'),('esscfcamvlr','Mtoe')], [('cmbecroudom','MtCO2')], 'MtCO2', poids=const.VALEUR['cst_essco2ccbl'], serieOblig=['esscfcamvlr'])
+resOdy = affectationParMultiplication(resOdy, 'gzleccamvlr', [('co2rou','MtCO2'),('gzlcfcamvlr','Mtoe')], [('cmbecroudom','MtCO2')], 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'], serieOblig=['gzlcfcamvlr'])
+resOdy = multiAffectation(resOdy, 'peteccamvlr', ['esseccamvlr','gzleccamvlr','foleccamvlr','pdveccamvlr','gpleccamvlr','holeccamvlr','careccamvlr','esaeccamvlr'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'cmbeccamvlr', ['cmseccamvlr','gazeccamvlr','peteccamvlr'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceeccamvlr', ['cmbeccamvlr','elceccamvlr','vapeccamvlr'], 'MtCO2')
+
+resOdy = affectation(resOdy, 'essecmch', 'esscfmch', 'MtCO2', poids=const.VALEUR['cst_essco2ccbl'])
+resOdy = affectation(resOdy, 'gzlecmch', 'gzlcfmch', 'MtCO2', poids=const.VALEUR['cst_gzlco2ccbl'])
+resOdy = multiAffectation(resOdy, 'petecmch', ['essecmch','gzlecmch','folecmch','pdvecmch','gplecmch','holecmch','carecmch','esaecmch'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'elcecmch', [('elccfmch','Mtoe'),('elccef','tCO2/toe'),('elepd','TWh')], [('eleci','TWh')], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbecmch', ['cmsecmch','gazecmch','petecmch'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'tceecmch', ['cmbecmch','elcecmch','vapecmch'], 'MtCO2')
+
+# CO2 INVENTORIES FROM EEA
+resOdy = multiAffectation(resOdy, 'totec', ['cmbectfc','cmbecene'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'totecgen', ['tceectfc','cmbecotr'], 'MtCO2')
+
+# SERIES AVEC CC SOURCE INVENTAIRE
+resOdy = multiAffectation(resOdy, 'toteccc', ['cmbectfccc','cmbecene'], 'MtCO2')
+resOdy = multiAffectation(resOdy, 'totecgencc', ['tceectfccc','cmbecotr'], 'MtCO2')

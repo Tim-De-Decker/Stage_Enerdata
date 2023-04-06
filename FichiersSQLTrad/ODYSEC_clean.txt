@@ -1,0 +1,2026 @@
+# AJOUT DES TRANSFERT DE SERIES SANS CALCUL ENTRE COLLECTE ET CALCUL 
+resOdy = affectation(resOdy, 'djrefcomp', 'djrefcomp')
+resOdy = affectation(resOdy, 'djcomp', 'djcomp')
+resOdy = affectation(resOdy, 'djclicomp', 'djclicomp')
+resOdy = affectation(resOdy, 'djrefclicomp', 'djrefclicomp')
+resOdy = affectation(resOdy, 'actagr', 'actagr')
+resOdy = affectation(resOdy, 'actcar', 'actcar')
+resOdy = affectation(resOdy, 'actfin', 'actfin')
+resOdy = affectation(resOdy, 'actgoods', 'actgoods')
+resOdy = affectation(resOdy, 'actind', 'actind')
+resOdy = affectation(resOdy, 'actpass', 'actpass')
+resOdy = affectation(resOdy, 'actpasstot', 'actpasstot')
+resOdy = affectation(resOdy, 'actres', 'actres')
+resOdy = affectation(resOdy, 'actreschf', 'actreschf')
+resOdy = affectation(resOdy, 'actter', 'actter')
+resOdy = affectation(resOdy, 'acttra', 'acttra')
+resOdy = affectation(resOdy, 'acttratot', 'acttratot')
+resOdy = affectation(resOdy, 'climfin', 'climfin')
+resOdy = affectation(resOdy, 'climfint', 'climfint')
+resOdy = affectation(resOdy, 'climres', 'climres')
+resOdy = affectation(resOdy, 'climreschf', 'climreschf')
+resOdy = affectation(resOdy, 'climter', 'climter')
+
+if pays in ['aut', 'bel', 'dnk', 'fin', 'nld', 'rfa','swe']:
+	c_tep = 0.0001/const.VALEUR['cst_tclun']
+else:
+	c_tep = 0.001
+
+resOdy = affectation(resOdy, 'chacffal', 'chacffal', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcffal', 'ligcffal', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcffal', 'cokcffal', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcffal', 'osfcffal', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacffal', 'gnacffal', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcffal', 'gadcffal', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcffal', 'gzlcffal', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcffal', 'folcffal', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcffal', 'pdvcffal', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecffal', 'elecffal', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccffal', 'enccffal', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcffal', 'vapcffal', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfbla', 'chacfbla', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfbla', 'ligcfbla', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfbla', 'cokcfbla', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfbla', 'osfcfbla', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfbla', 'gnacfbla', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfbla', 'gadcfbla', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfbla', 'gzlcfbla', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfbla', 'folcfbla', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfbla', 'pdvcfbla', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfbla', 'elecfbla', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfbla', 'enccfbla', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfbla', 'vapcfbla', 'Mtoe', poids=c_tep, clean=True)
+resOdy = multiAffectation(resOdy, 'gazcffal', ['gnacffal', 'gadcffal'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscffal', ['chacffal','ligcffal','cokcffal','osfcffal','toucffal'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcffal', ['esscffal','gzlcffal','folcffal','pdvcffal','gplcffal','holcffal','carcffal','esacffal'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcffal', ['cmscffal','gazcffal','petcffal','vapcffal','enccffal'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccffal', ['cmbcffal', 'elccffal'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gazcfbla', ['gnacfbla', 'gadcfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfbla', ['chacfbla','ligcfbla','cokcfbla','osfcfbla','toucfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfbla', ['esscfbla','gzlcfbla','folcfbla','pdvcfbla','gplcfbla','holcfbla','carcfbla','esacfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfbla', ['cmscfbla','gazcfbla','petcfbla','vapcfbla','enccfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfbla', ['cmbcfbla', 'elccfbla'], 'Mtoe')
+resOdy = affectation(resOdy, 'consagr', 'consagr')
+resOdy = affectation(resOdy, 'conscar', 'conscar')
+resOdy = affectation(resOdy, 'consdiv', 'consdiv')
+resOdy = affectation(resOdy, 'consfin', 'consfin')
+resOdy = affectation(resOdy, 'consfin2', 'consfin2')
+resOdy = affectation(resOdy, 'consfint', 'consfint')
+resOdy = affectation(resOdy, 'consfint2', 'consfint2')
+resOdy = affectation(resOdy, 'consgoods', 'consgoods')
+resOdy = affectation(resOdy, 'consind', 'consind')
+resOdy = affectation(resOdy, 'conspass', 'conspass')
+resOdy = affectation(resOdy, 'conspasstot', 'conspasstot')
+resOdy = affectation(resOdy, 'conspow', 'conspow')
+resOdy = affectation(resOdy, 'consprim', 'consprim')
+resOdy = affectation(resOdy, 'consprim2', 'consprim2')
+resOdy = affectation(resOdy, 'consprim2cc', 'consprim2cc')
+resOdy = affectation(resOdy, 'consprimcc', 'consprimcc')
+resOdy = affectation(resOdy, 'consres', 'consres')
+resOdy = affectation(resOdy, 'consres2', 'consres2')
+resOdy = affectation(resOdy, 'consreschc', 'consreschc')
+resOdy = affectation(resOdy, 'consreschf', 'consreschf')
+resOdy = affectation(resOdy, 'consresels', 'consresels')
+resOdy = affectation(resOdy, 'conster', 'conster')
+resOdy = affectation(resOdy, 'conster2', 'conster2')
+resOdy = affectation(resOdy, 'constra', 'constra')
+resOdy = affectation(resOdy, 'constratot', 'constratot')
+resOdy = affectation(resOdy, 'csbus', 'csbus')
+resOdy = affectation(resOdy, 'csbusess', 'csbusess')
+resOdy = affectation(resOdy, 'csbusgna', 'csbusgna')
+resOdy = affectation(resOdy, 'csbusgpl', 'csbusgpl')
+resOdy = affectation(resOdy, 'csbusgzl', 'csbusgzl')
+resOdy = affectation(resOdy, 'csvlr', 'csvlr')
+resOdy = affectation(resOdy, 'csvlrgna', 'csvlrgna')
+resOdy = affectation(resOdy, 'cscam', 'cscam')
+resOdy = affectation(resOdy, 'cscamess', 'cscamess')
+resOdy = affectation(resOdy, 'cscamgna', 'cscamgna')
+resOdy = affectation(resOdy, 'cscamgzl', 'cscamgzl')
+resOdy = affectation(resOdy, 'cscamvlress', 'cscamvlress')
+resOdy = affectation(resOdy, 'cscamvlrgpl', 'cscamvlrgpl')
+resOdy = affectation(resOdy, 'cscamvlrgzl', 'cscamvlrgzl')
+resOdy = affectation(resOdy, 'kmvbus', 'kmvbus')
+resOdy = affectation(resOdy, 'kmvcam', 'kmvcam')
+resOdy = affectation(resOdy, 'kmvcamvlr', 'kmvcamvlr')
+resOdy = affectation(resOdy, 'kmvmot', 'kmvmot')
+resOdy = affectation(resOdy, 'kmvvlr', 'kmvvlr')
+resOdy = affectation(resOdy, 'kmvvpc', 'kmvvpc')
+resOdy = affectation(resOdy, 'kmvvpcess', 'kmvvpcess')
+resOdy = affectation(resOdy, 'kmvvpcgzl', 'kmvvpcgzl')
+resOdy = affectation(resOdy, 'varconsagr', 'varconsagr')
+resOdy = affectation(resOdy, 'varconscar', 'varconscar')
+resOdy = affectation(resOdy, 'varconsdiv', 'varconsdiv')
+resOdy = affectation(resOdy, 'varconsfin', 'varconsfin')
+resOdy = affectation(resOdy, 'varconsfin2', 'varconsfin2')
+resOdy = affectation(resOdy, 'varconsfint', 'varconsfint')
+resOdy = affectation(resOdy, 'varconsfint2', 'varconsfint2')
+resOdy = affectation(resOdy, 'varconsgoods', 'varconsgoods')
+resOdy = affectation(resOdy, 'varconsind', 'varconsind')
+resOdy = affectation(resOdy, 'varconspass', 'varconspass')
+resOdy = affectation(resOdy, 'varconspasstot', 'varconspasstot')
+resOdy = affectation(resOdy, 'varconspow', 'varconspow')
+resOdy = affectation(resOdy, 'varconsprim', 'varconsprim')
+resOdy = affectation(resOdy, 'varconsprim2', 'varconsprim2')
+resOdy = affectation(resOdy, 'varconsprim2cc', 'varconsprim2cc')
+resOdy = affectation(resOdy, 'varconsprimcc', 'varconsprimcc')
+resOdy = affectation(resOdy, 'varconsres', 'varconsres')
+resOdy = affectation(resOdy, 'varconsres2', 'varconsres2')
+resOdy = affectation(resOdy, 'varconsreschc', 'varconsreschc')
+resOdy = affectation(resOdy, 'varconsreschf', 'varconsreschf')
+resOdy = affectation(resOdy, 'varconsresels', 'varconsresels')
+resOdy = affectation(resOdy, 'varconster', 'varconster')
+resOdy = affectation(resOdy, 'varconster2', 'varconster2')
+resOdy = affectation(resOdy, 'varconstra', 'varconstra')
+resOdy = affectation(resOdy, 'varconstratot', 'varconstratot')
+resOdy = affectation(resOdy, 'vareleimports', 'vareleimports')
+resOdy = affectation(resOdy, 'dj', 'dj')
+resOdy = affectation(resOdy, 'djref', 'djref')
+resOdy = affectation(resOdy, 'djcli', 'djcli')
+resOdy = affectation(resOdy, 'djrefcli', 'djrefcli')
+resOdy = affectation(resOdy, 'pcairint', 'pcairint')
+resOdy = affectation(resOdy, 'lifeapplres', 'lifeapplres')
+resOdy = affectation(resOdy, 'lifefin', 'lifefin')
+resOdy = affectation(resOdy, 'lifehomeres', 'lifehomeres')
+resOdy = affectation(resOdy, 'lifehomerescentchf', 'lifehomerescentchf')
+resOdy = affectation(resOdy, 'lifehomereschf', 'lifehomereschf')
+resOdy = affectation(resOdy, 'lifehomeresels', 'lifehomeresels')
+resOdy = affectation(resOdy, 'mixren', 'mixren')
+resOdy = affectation(resOdy, 'nbbeds', 'nbbeds')
+resOdy = affectation(resOdy, 'nbbuildclassA', 'nbbuildclassA')
+resOdy = affectation(resOdy, 'nbbuildclassB', 'nbbuildclassB')
+resOdy = affectation(resOdy, 'nbdwref', 'nbdwref')
+resOdy = affectation(resOdy, 'nbepc', 'nbepc')
+resOdy = affectation(resOdy, 'nblowbuild', 'nblowbuild')
+resOdy = affectation(resOdy, 'nbmencfl1', 'nbmencfl1')
+resOdy = affectation(resOdy, 'nbpersni', 'nbpersni')
+resOdy = affectation(resOdy, 'nbpupil', 'nbpupil')
+resOdy = affectation(resOdy, 'nbrcgl', 'nbrcgl')
+resOdy = affectation(resOdy, 'nbrcli', 'nbrcli')
+resOdy = affectation(resOdy, 'nbrcold', 'nbrcold')
+resOdy = affectation(resOdy, 'nbrfrm', 'nbrfrm')
+resOdy = affectation(resOdy, 'nbrlvl', 'nbrlvl')
+resOdy = affectation(resOdy, 'nbrlvv', 'nbrlvv')
+resOdy = affectation(resOdy, 'nbrrfg', 'nbrrfg')
+resOdy = affectation(resOdy, 'nbrscl', 'nbrscl')
+resOdy = affectation(resOdy, 'nbrtvs', 'nbrtvs')
+resOdy = affectation(resOdy, 'nbripr', 'nbripr')
+resOdy = affectation(resOdy, 'nbriprboi', 'nbriprboi')
+resOdy = affectation(resOdy, 'nbriprcms', 'nbriprcms')
+resOdy = affectation(resOdy, 'nbriprele', 'nbriprele')
+resOdy = affectation(resOdy, 'nbriprgaz', 'nbriprgaz')
+resOdy = affectation(resOdy, 'nbriprpet', 'nbriprpet')
+resOdy = affectation(resOdy, 'nbriprvap', 'nbriprvap')
+
+resOdy = affectation(resOdy, 'nbrlpr', 'nbrlpr')
+
+resOdy = affectation(resOdy, 'nbrlprboi', 'nbrlprboi')
+resOdy = affectation(resOdy, 'nbrlprcms', 'nbrlprcms')
+resOdy = affectation(resOdy, 'nbrlprele', 'nbrlprele')
+resOdy = affectation(resOdy, 'nbrlprgaz', 'nbrlprgaz')
+resOdy = affectation(resOdy, 'nbrlprpet', 'nbrlprpet')
+resOdy = affectation(resOdy, 'nbrlprvap', 'nbrlprvap')
+resOdy = affectation(resOdy, 'nbrmpr', 'nbrmpr')
+resOdy = affectation(resOdy, 'nbrmprboi', 'nbrmprboi')
+resOdy = affectation(resOdy, 'nbrmprcms', 'nbrmprcms')
+resOdy = affectation(resOdy, 'nbrmprele', 'nbrmprele')
+resOdy = affectation(resOdy, 'nbrmprgaz', 'nbrmprgaz')
+resOdy = affectation(resOdy, 'nbrmprpet', 'nbrmprpet')
+resOdy = affectation(resOdy, 'nbrmprvap', 'nbrmprvap')
+resOdy = affectation(resOdy, 'nbrlc', 'nbrlc')
+resOdy = affectation(resOdy, 'nbrmi', 'nbrmi')
+resOdy = affectation(resOdy, 'nbrlog', 'nbrlog')
+resOdy = affectation(resOdy, 'nbrres', 'nbrres')
+resOdy = affectation(resOdy, 'odexind', 'odexind')
+resOdy = affectation(resOdy, 'odexindobs', 'odexindobs')
+resOdy = affectation(resOdy, 'odexman', 'odexman')
+resOdy = affectation(resOdy, 'odexmanobs', 'odexmanobs')
+resOdy = affectation(resOdy, 'odexres', 'odexres')
+resOdy = affectation(resOdy, 'odexrescui', 'odexrescui')
+resOdy = affectation(resOdy, 'odexreschf', 'odexreschf')
+resOdy = affectation(resOdy, 'odexresecs', 'odexresecs')
+resOdy = affectation(resOdy, 'odexresels', 'odexresels')
+resOdy = affectation(resOdy, 'odexresobs', 'odexresobs')
+resOdy = affectation(resOdy, 'odexter', 'odexter')
+resOdy = affectation(resOdy, 'odexterobs', 'odexterobs')
+resOdy = affectation(resOdy, 'odextot', 'odextot')
+resOdy = affectation(resOdy, 'odextottot', 'odextottot')
+resOdy = affectation(resOdy, 'odextottotobs', 'odextottotobs')
+resOdy = affectation(resOdy, 'odextotobs', 'odextotobs')
+resOdy = affectation(resOdy, 'odextra', 'odextra')
+resOdy = affectation(resOdy, 'odextraobs', 'odextraobs')
+resOdy = affectation(resOdy, 'odextratot', 'odextratot')
+resOdy = affectation(resOdy, 'odextratotobs', 'odextratotobs')
+resOdy = affectation(resOdy, 'prdacb', 'prdacb')
+resOdy = affectation(resOdy, 'prdacbele', 'prdacbele')
+resOdy = affectation(resOdy, 'prdacboxy', 'prdacboxy')
+resOdy = affectation(resOdy, 'prdacl', 'prdacl')
+resOdy = affectation(resOdy, 'prdalupre', 'prdalupre')
+resOdy = affectation(resOdy, 'prdalusec', 'prdalusec')
+resOdy = affectation(resOdy, 'prdamm', 'prdamm')
+resOdy = affectation(resOdy, 'prdcim', 'prdcim')
+resOdy = affectation(resOdy, 'prdclk', 'prdclk')
+resOdy = affectation(resOdy, 'prdety', 'prdety')
+resOdy = affectation(resOdy, 'prdfal', 'prdfal')
+resOdy = affectation(resOdy, 'prdpap', 'prdpap')
+resOdy = affectation(resOdy, 'prdpat', 'prdpat')
+resOdy = affectation(resOdy, 'prdpatchi', 'prdpatchi')
+resOdy = affectation(resOdy, 'prdpatmec', 'prdpatmec')
+resOdy = affectation(resOdy, 'prdsug', 'prdsug')
+resOdy = affectation(resOdy, 'prdver', 'prdver')
+resOdy = affectation(resOdy, 'prdverbot', 'prdverbot')
+resOdy = affectation(resOdy, 'prdverfla', 'prdverfla')
+resOdy = affectation(resOdy, 'solm2', 'solm2')
+resOdy = affectation(resOdy, 'solm2an', 'solm2an')
+resOdy = affectation(resOdy, 'txchgeuro', 'txchgeuro')
+resOdy = affectation(resOdy, 'txchgppp', 'txchgppp')
+resOdy = affectation(resOdy, 'pop', 'pop')
+resOdy = affectation(resOdy, 'empagr', 'empagr')
+resOdy = affectation(resOdy, 'empbup', 'empbup')
+resOdy = affectation(resOdy, 'empbur', 'empbur')
+resOdy = affectation(resOdy, 'empcom', 'empcom')
+resOdy = affectation(resOdy, 'empedu', 'empedu')
+resOdy = affectation(resOdy, 'empgov', 'empgov')
+resOdy = affectation(resOdy, 'emphcr', 'emphcr')
+resOdy = affectation(resOdy, 'emphos', 'emphos')
+resOdy = affectation(resOdy, 'empdiv', 'empdiv')
+resOdy = affectation(resOdy, 'empter', 'empter')
+resOdy = affectation(resOdy, 'men', 'men')
+resOdy = affectation(resOdy, 'cselecgl', 'cselecgl')
+resOdy = affectation(resOdy, 'cselelvl', 'cselelvl')
+resOdy = affectation(resOdy, 'cselelvv', 'cselelvv')
+resOdy = affectation(resOdy, 'cselerfg', 'cselerfg')
+resOdy = affectation(resOdy, 'cseletvs', 'cseletvs')
+resOdy = affectation(resOdy, 'nbrlprccc', 'nbrlprccc')
+resOdy = affectation(resOdy, 'nbrlprcci', 'nbrlprcci')
+resOdy = affectation(resOdy, 'nbrlprcdi', 'nbrlprcdi')
+resOdy = affectation(resOdy, 'csvpc', 'csvpc')
+resOdy = affectation(resOdy, 'csvpcgzl', 'csvpcgzl')
+resOdy = affectation(resOdy, 'csvpcess', 'csvpcess')
+resOdy = affectation(resOdy, 'csvpcgna', 'csvpcgna')
+resOdy = affectation(resOdy, 'pcchfrescc', 'pcchfrescc')
+resOdy = affectation(resOdy, 'pcchftercc', 'pcchftercc')
+resOdy = affectation(resOdy, 'pcchfelerescc', 'pcchfelerescc')
+resOdy = affectation(resOdy, 'pcchfelecc', 'pcchfelecc')
+resOdy = affectation(resOdy, 'elecfreslar', 'elecfreslar')
+resOdy = affectation(resOdy, 'pasflv', 'pasflv')
+resOdy = affectation(resOdy, 'pcethess', 'pcethess')
+resOdy = affectation(resOdy, 'pcbiogzl', 'pcbiogzl')
+resOdy = affectation(resOdy, 'pkmnmt', 'pkmnmt')
+resOdy = affectation(resOdy, 'nbrled', 'nbrled')
+resOdy = affectation(resOdy, 'pcled', 'pcled')
+resOdy = affectation(resOdy, 'pcmenled', 'pcmenled')
+resOdy = affectation(resOdy, 'geocfreschf', 'geocfreschf')
+resOdy = affectation(resOdy, 'solcfreschf', 'solcfreschf')
+resOdy = affectation(resOdy, 'paccfreschf', 'paccfreschf')
+resOdy = affectation(resOdy, 'boicfreschf', 'boicfreschf')
+resOdy = affectation(resOdy, 'gbicfreschf', 'gbicfreschf')
+resOdy = affectation(resOdy, 'wascfreschf', 'wascfreschf')
+resOdy = affectation(resOdy, 'geocfresecs', 'geocfresecs')
+resOdy = affectation(resOdy, 'solcfresecs', 'solcfresecs')
+resOdy = affectation(resOdy, 'paccfresecs', 'paccfresecs')
+resOdy = affectation(resOdy, 'boicfresecs', 'boicfresecs')
+resOdy = affectation(resOdy, 'gbicfresecs', 'gbicfresecs')
+resOdy = affectation(resOdy, 'paccf', 'paccf')
+
+# FIN AJOUT 
+
+
+# DONNEES ECONOMIQUES */				
+resOdy = affectation(resOdy, 'pib', 'pib', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'pib', [('pib','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'cpr', 'cpr', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'cpr', [('cpr','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadagr', 'vadagr', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadagr', [('vadagr','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadboi', 'vadboi', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadboi', [('vadboi','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadchi', 'vadchi', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadchi', [('vadchi','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadcmp', 'vadcmp', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadcmp', [('vadcmp','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadcon', 'vadcon', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadcon', [('vadcon','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadegw', 'vadegw', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadegw', [('vadegw','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadfab', 'vadfab', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadfab', [('vadfab','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadiaa', 'vadiaa', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadiaa', [('vadiaa','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadidv', 'vadidv', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadidv', [('vadidv','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadind', 'vadind', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadind', [('vadind','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadmac', 'vadmac', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadmac', [('vadmac','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadman', 'vadman', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadman', [('vadman','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadmin', 'vadmin', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadmin', [('vadmin','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadmnm', 'vadmnm', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadmnm', [('vadmnm','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadmpr', 'vadmpr', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadmpr', [('vadmpr','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadpap', 'vadpap', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadpap', [('vadpap','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadppp', 'vadppp', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadppp', [('vadppp','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadref', 'vadref', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadref', [('vadref','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadter', 'vadter', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadter', [('vadter','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadtex', 'vadtex', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadtex', [('vadtex','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadveh', 'vadveh', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadveh', [('vadveh','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadidc', 'vadidc', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadidc', [('vadidc','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+resOdy = affectation(resOdy, 'vadeqp', 'vadeqp', 'MEUR', stop=1998)
+resOdy = affectationParMultiplication(resOdy, 'vadeqp', [('vadeqp','MEUR')], [('txchgeuro','lc/EUR')], 'MEUR', start=1999)
+
+resOdy = affectation(resOdy, 'pibxx', 'pibxx', 'MEUR2010', poids=recupSerie(resOdy,'pib',2010)/recupSerie(resOdy,'pibxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'cprxx', 'cprxx', 'MEUR2010', poids=recupSerie(resOdy,'cpr',2010)/recupSerie(resOdy,'cprxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+# VALUE ADDED AT CONSTANT PRICES
+resOdy = affectation(resOdy, 'vadagrxx', 'vadagrxx', 'MEUR2010', poids=recupSerie(resOdy,'vadagr',2010)/recupSerie(resOdy,'vadagrxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadindxx', 'vadindxx', 'MEUR2010', poids=recupSerie(resOdy,'vadind',2010)/recupSerie(resOdy,'vadindxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadterxx', 'vadterxx', 'MEUR2010', poids=recupSerie(resOdy,'vadter',2010)/recupSerie(resOdy,'vadterxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadminxx', 'vadminxx', 'MEUR2010', poids=recupSerie(resOdy,'vadmin',2010)/recupSerie(resOdy,'vadminxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadmanxx', 'vadmanxx', 'MEUR2010', poids=recupSerie(resOdy,'vadman',2010)/recupSerie(resOdy,'vadmanxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadiaaxx', 'vadiaaxx', 'MEUR2010', poids=recupSerie(resOdy,'vadiaa',2010)/recupSerie(resOdy,'vadiaaxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadtexxx', 'vadtexxx', 'MEUR2010', poids=recupSerie(resOdy,'vadtex',2010)/recupSerie(resOdy,'vadtexxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadboixx', 'vadboixx', 'MEUR2010', poids=recupSerie(resOdy,'vadboi',2010)/recupSerie(resOdy,'vadboixx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadpppxx', 'vadpppxx', 'MEUR2010', poids=recupSerie(resOdy,'vadppp',2010)/recupSerie(resOdy,'vadpppxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadpapxx', 'vadpapxx', 'MEUR2010', poids=recupSerie(resOdy,'vadpap',2010)/recupSerie(resOdy,'vadpapxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadrefxx', 'vadrefxx', 'MEUR2010', poids=recupSerie(resOdy,'vadref',2010)/recupSerie(resOdy,'vadrefxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadchixx', 'vadchixx', 'MEUR2010', poids=recupSerie(resOdy,'vadchi',2010)/recupSerie(resOdy,'vadchixx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadmnmxx', 'vadmnmxx', 'MEUR2010', poids=recupSerie(resOdy,'vadmnm',2010)/recupSerie(resOdy,'vadmnmxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadmprxx', 'vadmprxx', 'MEUR2010', poids=recupSerie(resOdy,'vadmpr',2010)/recupSerie(resOdy,'vadmprxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadmacxx', 'vadmacxx', 'MEUR2010', poids=recupSerie(resOdy,'vadmac',2010)/recupSerie(resOdy,'vadmacxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadfabxx', 'vadfabxx', 'MEUR2010', poids=recupSerie(resOdy,'vadfab',2010)/recupSerie(resOdy,'vadfabxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadvehxx', 'vadvehxx', 'MEUR2010', poids=recupSerie(resOdy,'vadveh',2010)/recupSerie(resOdy,'vadvehxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadidvxx', 'vadidvxx', 'MEUR2010', poids=recupSerie(resOdy,'vadidv',2010)/recupSerie(resOdy,'vadidvxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadcmpxx', 'vadcmpxx', 'MEUR2010', poids=recupSerie(resOdy,'vadcmp',2010)/recupSerie(resOdy,'vadcmpxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadegwxx', 'vadegwxx', 'MEUR2010', poids=recupSerie(resOdy,'vadegw',2010)/recupSerie(resOdy,'vadegwxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadenexx', 'vadegwxx', 'MEUR2010')
+resOdy = affectation(resOdy, 'vadconxx', 'vadconxx', 'MEUR2010', poids=recupSerie(resOdy,'vadcon',2010)/recupSerie(resOdy,'vadconxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadimaxx', 'vadmanxx', 'MEUR2010')
+resOdy = affectation(resOdy, 'vadidcxx', 'vadidcxx', 'MEUR2010', poids=recupSerie(resOdy,'vadidc',2010)/recupSerie(resOdy,'vadidcxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadeqpxx', 'vadeqpxx', 'MEUR2010', poids=recupSerie(resOdy,'vadeqp',2010)/recupSerie(resOdy,'vadeqpxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+
+
+resOdy = affectation(resOdy, 'pibxxppp', 'pibxx', 'MEUR2010p', poids=recupSerie(resOdy,'pib',2010)/recupSerie(resOdy,'pibxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'cprxxppp', 'cprxx', 'MEUR2010p', poids=recupSerie(resOdy,'cpr',2010)/recupSerie(resOdy,'cprxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadagrxxppp', 'vadagrxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadagr',2010)/recupSerie(resOdy,'vadagrxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadindxxppp', 'vadindxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadind',2010)/recupSerie(resOdy,'vadindxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadterxxppp', 'vadterxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadter',2010)/recupSerie(resOdy,'vadterxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadminxxppp', 'vadminxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadmin',2010)/recupSerie(resOdy,'vadminxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadmanxxppp', 'vadmanxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadman',2010)/recupSerie(resOdy,'vadmanxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadiaaxxppp', 'vadiaaxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadiaa',2010)/recupSerie(resOdy,'vadiaaxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadtexxxppp', 'vadtexxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadtex',2010)/recupSerie(resOdy,'vadtexxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadboixxppp', 'vadboixx', 'MEUR2010p', poids=recupSerie(resOdy,'vadboi',2010)/recupSerie(resOdy,'vadboixx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadpppxxppp', 'vadpppxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadppp',2010)/recupSerie(resOdy,'vadpppxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadpapxxppp', 'vadpapxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadpap',2010)/recupSerie(resOdy,'vadpapxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadrefxxppp', 'vadrefxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadref',2010)/recupSerie(resOdy,'vadrefxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadchixxppp', 'vadchixx', 'MEUR2010p', poids=recupSerie(resOdy,'vadchi',2010)/recupSerie(resOdy,'vadchixx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadmnmxxppp', 'vadmnmxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadmnm',2010)/recupSerie(resOdy,'vadmnmxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadmprxxppp', 'vadmprxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadmpr',2010)/recupSerie(resOdy,'vadmprxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadmacxxppp', 'vadmacxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadmac',2010)/recupSerie(resOdy,'vadmacxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadfabxxppp', 'vadfabxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadfab',2010)/recupSerie(resOdy,'vadfabxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadvehxxppp', 'vadvehxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadveh',2010)/recupSerie(resOdy,'vadvehxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadidvxxppp', 'vadidvxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadidv',2010)/recupSerie(resOdy,'vadidvxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadcmpxxppp', 'vadcmpxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadcmp',2010)/recupSerie(resOdy,'vadcmpxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadegwxxppp', 'vadegwxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadegw',2010)/recupSerie(resOdy,'vadegwxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadconxxppp', 'vadconxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadcon',2010)/recupSerie(resOdy,'vadconxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadimaxxppp', 'vadmanxxppp', 'MEUR2010p')
+resOdy = affectation(resOdy, 'vadidcxxppp', 'vadidcxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadidc',2010)/recupSerie(resOdy,'vadidcxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'vadeqpxxppp', 'vadeqpxx', 'MEUR2010p', poids=recupSerie(resOdy,'vadeqp',2010)/recupSerie(resOdy,'vadeqpxx',2010)/recupSerie(resOdy,'txchgppp',2010))
+
+# PRODUCTION INDEX
+resOdy = affectation(resOdy, 'ipiindxx', 'ipiindxx', '2010=100', poids=100/recupSerie(resOdy,'ipiindxx',2010))
+resOdy = affectation(resOdy, 'ipiminxx', 'ipiminxx', '2010=100', poids=100/recupSerie(resOdy,'ipiminxx',2010))
+resOdy = affectation(resOdy, 'ipimanxx', 'ipimanxx', '2010=100', poids=100/recupSerie(resOdy,'ipimanxx',2010))
+resOdy = affectation(resOdy, 'ipiiaaxx', 'ipiiaaxx', '2010=100', poids=100/recupSerie(resOdy,'ipiiaaxx',2010))
+resOdy = affectation(resOdy, 'ipitexxx', 'ipitexxx', '2010=100', poids=100/recupSerie(resOdy,'ipitexxx',2010))
+resOdy = affectation(resOdy, 'ipiboixx', 'ipiboixx', '2010=100', poids=100/recupSerie(resOdy,'ipiboixx',2010))
+resOdy = affectation(resOdy, 'ipipppxx', 'ipipppxx', '2010=100', poids=100/recupSerie(resOdy,'ipipppxx',2010))
+resOdy = affectation(resOdy, 'ipipapxx', 'ipipapxx', '2010=100', poids=100/recupSerie(resOdy,'ipipapxx',2010))
+resOdy = affectation(resOdy, 'ipichixx', 'ipichixx', '2010=100', poids=100/recupSerie(resOdy,'ipichixx',2010))
+resOdy = affectation(resOdy, 'ipimnmxx', 'ipimnmxx', '2010=100', poids=100/recupSerie(resOdy,'ipimnmxx',2010))
+resOdy = affectation(resOdy, 'ipimprxx', 'ipimprxx', '2010=100', poids=100/recupSerie(resOdy,'ipimprxx',2010))
+resOdy = affectation(resOdy, 'ipimacxx', 'ipimacxx', '2010=100', poids=100/recupSerie(resOdy,'ipimacxx',2010))
+resOdy = affectation(resOdy, 'ipifabxx', 'ipifabxx', '2010=100', poids=100/recupSerie(resOdy,'ipifabxx',2010))
+resOdy = affectation(resOdy, 'ipivehxx', 'ipivehxx', '2010=100', poids=100/recupSerie(resOdy,'ipivehxx',2010))
+resOdy = affectation(resOdy, 'ipiidvxx', 'ipiidvxx', '2010=100', poids=100/recupSerie(resOdy,'ipiidvxx',2010))
+resOdy = affectation(resOdy, 'ipicmpxx', 'ipicmpxx', '2010=100', poids=100/recupSerie(resOdy,'ipicmpxx',2010))
+resOdy = affectation(resOdy, 'ipiconxx', 'ipiconxx', '2010=100', poids=100/recupSerie(resOdy,'ipiconxx',2010))
+
+# TOTAL ENERGY CONSUMPTION
+resOdy = affectation(resOdy, 'cmscp', 'cmscp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'petcp', 'petcp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcp', 'gazcp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccp', 'enccp', 'Mtoe', poids=c_tep, clean=True)
+
+
+if pays in ['aut', 'bel', 'dnk', 'fin', 'nld', 'rfa','swe']:
+	c_tep = 0.0001/const.VALEUR['cst_tclun']
+elif pays == 'fra':
+	c_tep = const.VALEUR['cst_elcun']
+else:
+	c_tep = 0.001
+
+resOdy = affectation(resOdy, 'othcp', 'othcp', 'Mtoe', poids=c_tep, clean=True)
+
+
+if pays in ['aut', 'bel', 'dnk', 'fin', 'nld', 'rfa','swe']:
+	c_tep = 0.0001/const.VALEUR['cst_tclun']
+else:
+	c_tep = 0.001
+
+resOdy = affectation(resOdy, 'enupd', 'enupd', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ehypd', 'ehypd', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'eeopd', 'eeopd', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'edvpd', 'edvpd', 'Mtoe', poids=c_tep, clean=True)
+if pays in ['fra','ita','aut','rfa','swe','nld','irl','grc','dnk','nor','fin','prt','esp','bel']:
+	resOdy = affectation(resOdy, 'eleimex', 'eleimex', 'Mtoe', poids=c_tep, clean=True)
+else:
+	resOdy = affectation(resOdy, 'eleimex', 'eleimex', 'Mtoe', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'solpd', 'solpd', 'Mtoe', poids=c_tep, clean=True)
+resOdy = multiAffectation(resOdy, 'toccp', ['cmscp','gazcp','petcp','enccp','othcp','enupd','ehypd','solpd','eeopd','edvpd','eleimex'], 'Mtoe')
+
+# FINAL ENERGY CONSUMPTION BY SECTOR
+resOdy = affectation(resOdy, 'petcfind', 'petcfind', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfind', 'gzlcfind', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfind', 'folcfind', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfind', 'pdvcfind', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfind', 'gazcfind', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cmscfind', 'cmscfind', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfind', 'chacfind', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfind', 'ligcfind', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfind', 'cokcfind', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfind', 'osfcfind', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfind', 'elecfind', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfind', 'vapcfind', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfind', 'enccfind', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'petcfret', 'petcfret', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gplcfret', 'gplcfret', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'holcfret', 'holcfret', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfret', 'folcfret', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfret', 'gazcfret', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cmscfret', 'cmscfret', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfret', 'chacfret', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfret', 'ligcfret', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'toucfret', 'toucfret', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfret', 'elecfret', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfret', 'vapcfret', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfret', 'enccfret', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'petcfres', 'petcfres', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gplcfres', 'gplcfres', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'holcfres', 'holcfres', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfres', 'folcfres', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfres', 'gazcfres', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cmscfres', 'cmscfres', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfres', 'chacfres', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfres', 'ligcfres', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'toucfres', 'toucfres', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfres', 'elecfres', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfres', 'vapcfres', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfres1', 'enccfres1', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfres2', 'enccfres2', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfres', 'enccfres', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfres', 'elecfres', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+
+resOdy = affectation(resOdy, 'petcfagr', 'petcfagr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gplcfagr', 'gplcfagr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'holcfagr', 'holcfagr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfagr', 'folcfagr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfagr', 'gazcfagr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cmscfagr', 'cmscfagr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfagr', 'chacfagr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfagr', 'ligcfagr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'toucfagr', 'toucfagr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfagr', 'elecfagr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfagr', 'vapcfagr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfagr', 'enccfagr', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'petcfdvr', 'petcfdvr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gplcfdvr', 'gplcfdvr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'holcfdvr', 'holcfdvr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfdvr', 'folcfdvr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfdvr', 'gazcfdvr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cmscfdvr', 'cmscfdvr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfdvr', 'chacfdvr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfdvr', 'ligcfdvr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'toucfdvr', 'toucfdvr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfdvr', 'elecfdvr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfdvr', 'vapcfdvr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfdvr', 'enccfdvr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfdvr', 'elecfdvr', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+
+resOdy = affectation(resOdy, 'petcftra', 'petcftra', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'esscftra', 'esscftra', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcftra', 'gzlcftra', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gplcftra', 'gplcftra', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcftra', 'folcftra', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcftra', 'gazcftra', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cmscftra', 'cmscftra', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecftra', 'elecftra', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccftra', 'enccftra', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = multiAffectation(resOdy, 'cmbcfind', ['cmscfind','gazcfind','petcfind','vapcfind','enccfind'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcftra', ['cmscftra','gazcftra','petcftra','vapcftra','enccftra'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfret', ['cmscfret','gazcfret','petcfret','vapcfret','enccfret'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfres', ['cmscfres','gazcfres','petcfres','vapcfres','enccfres'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfagr', ['cmscfagr','gazcfagr','petcfagr','vapcfagr','enccfagr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfdvr', ['cmscfdvr','gazcfdvr','petcfdvr','vapcfdvr','enccfdvr'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'toccfind', ['cmbcfind', 'elccfind'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccftra', ['cmbcftra', 'elccftra'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfret', ['cmbcfret', 'elccfret'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfres', ['cmbcfres', 'elccfres'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfagr', ['cmbcfagr', 'elccfagr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfdvr', ['cmbcfdvr', 'elccfdvr'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'elccf', ['elccftra', 'elccfind', 'elccfret'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gazcf', ['gazcftra', 'gazcfind', 'gazcfret'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscf', ['cmscftra', 'cmscfind', 'cmscfret'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcf', ['petcftra', 'petcfind', 'petcfret'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'vapcf', ['vapcftra', 'vapcfind', 'vapcfret'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'enccf', ['enccftra', 'enccfind', 'enccfret'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcf', ['cmscf','gazcf','petcf','vapcf','enccf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccf', ['cmbcf', 'elccf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccf', ['toccf','paccf'], 'Mtoe')
+
+# ENERGY CONSUMPTION BY BRANCH
+resOdy = affectation(resOdy, 'elecfiaa', 'elecfiaa', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfiaa', 'gnacfiaa', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfiaa', 'gadcfiaa', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfiaa', 'gzlcfiaa', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfiaa', 'folcfiaa', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfiaa', 'pdvcfiaa', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfiaa', 'chacfiaa', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfiaa', 'ligcfiaa', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfiaa', 'cokcfiaa', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfiaa', 'osfcfiaa', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfiaa', 'vapcfiaa', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfiaa', 'enccfiaa', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecftex', 'elecftex', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacftex', 'gnacftex', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcftex', 'gadcftex', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcftex', 'gzlcftex', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcftex', 'folcftex', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcftex', 'pdvcftex', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacftex', 'chacftex', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcftex', 'ligcftex', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcftex', 'cokcftex', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcftex', 'osfcftex', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcftex', 'vapcftex', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccftex', 'enccftex', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecfboi', 'elecfboi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfboi', 'gnacfboi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfboi', 'gadcfboi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfboi', 'gzlcfboi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfboi', 'folcfboi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfboi', 'pdvcfboi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfboi', 'chacfboi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfboi', 'ligcfboi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfboi', 'cokcfboi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfboi', 'osfcfboi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfboi', 'vapcfboi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfboi', 'enccfboi', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecfppp', 'elecfppp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfppp', 'gnacfppp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfppp', 'gadcfppp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfppp', 'gzlcfppp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfppp', 'folcfppp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfppp', 'pdvcfppp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfppp', 'chacfppp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfppp', 'ligcfppp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfppp', 'cokcfppp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfppp', 'osfcfppp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfppp', 'vapcfppp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfppp', 'enccfppp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfppp', 'elecfppp', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+
+resOdy = affectation(resOdy, 'elecfpap', 'elecfpap', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfpap', 'gnacfpap', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfpap', 'gadcfpap', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfpap', 'gzlcfpap', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfpap', 'folcfpap', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfpap', 'pdvcfpap', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfpap', 'chacfpap', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfpap', 'ligcfpap', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfpap', 'cokcfpap', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfpap', 'osfcfpap', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfpap', 'vapcfpap', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfpap', 'enccfpap', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfpap', 'elecfpap', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+
+resOdy = affectation(resOdy, 'elecfchi', 'elecfchi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfchi', 'gnacfchi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfchi', 'gadcfchi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfchi', 'gzlcfchi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfchi', 'folcfchi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfchi', 'pdvcfchi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfchi', 'chacfchi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfchi', 'ligcfchi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfchi', 'cokcfchi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfchi', 'osfcfchi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfchi', 'vapcfchi', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfchi', 'enccfchi', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecfmnm', 'elecfmnm', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfmnm', 'gnacfmnm', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfmnm', 'gadcfmnm', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfmnm', 'gzlcfmnm', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfmnm', 'folcfmnm', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfmnm', 'pdvcfmnm', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfmnm', 'chacfmnm', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfmnm', 'ligcfmnm', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfmnm', 'cokcfmnm', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfmnm', 'osfcfmnm', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfmnm', 'vapcfmnm', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfmnm', 'enccfmnm', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecfsid', 'elecfsid', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfsid', 'gnacfsid', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfsid', 'gadcfsid', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfsid', 'gzlcfsid', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfsid', 'folcfsid', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfsid', 'pdvcfsid', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfsid', 'chacfsid', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfsid', 'ligcfsid', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfsid', 'cokcfsid', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfsid', 'osfcfsid', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfsid', 'vapcfsid', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfsid', 'enccfsid', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfsid', 'elecfsid', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+
+resOdy = multiAffectation(resOdy, 'elccfsid1', ['elccfsid', 'elccfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gnacfsid1', ['gnacfsid', 'gnacfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gadcfsid1', ['gadcfsid', 'gadcfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gzlcfsid1', ['gzlcfsid', 'gzlcfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'folcfsid1', ['folcfsid', 'folcfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'pdvcfsid1', ['pdvcfsid', 'pdvcfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'chacfsid1', ['chacfsid', 'chacfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'ligcfsid1', ['ligcfsid', 'ligcfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cokcfsid1', ['cokcfsid', 'cokcfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'osfcfsid1', ['osfcfsid', 'osfcfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'vapcfsid1', ['vapcfsid', 'vapcfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'enccfsid1', ['enccfsid', 'enccfbla'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'elecfsid1', ['elecfsid', 'elecfbla'], 'Mtoe')
+
+resOdy = affectation(resOdy, 'elecfmnf', 'elecfmnf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfmnf', 'gnacfmnf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfmnf', 'gadcfmnf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfmnf', 'gzlcfmnf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfmnf', 'folcfmnf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfmnf', 'pdvcfmnf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfmnf', 'chacfmnf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfmnf', 'ligcfmnf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfmnf', 'cokcfmnf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfmnf', 'osfcfmnf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfmnf', 'vapcfmnf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfmnf', 'enccfmnf', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecfmac', 'elecfmac', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfmac', 'gnacfmac', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfmac', 'gadcfmac', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfmac', 'gzlcfmac', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfmac', 'folcfmac', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfmac', 'pdvcfmac', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfmac', 'chacfmac', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfmac', 'ligcfmac', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfmac', 'cokcfmac', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfmac', 'osfcfmac', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfmac', 'vapcfmac', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfmac', 'enccfmac', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecffab', 'elecffab', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacffab', 'gnacffab', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcffab', 'gadcffab', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcffab', 'gzlcffab', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcffab', 'folcffab', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcffab', 'pdvcffab', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacffab', 'chacffab', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcffab', 'ligcffab', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcffab', 'cokcffab', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcffab', 'osfcffab', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcffab', 'vapcffab', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccffab', 'enccffab', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecfveh', 'elecfveh', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfveh', 'gnacfveh', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfveh', 'gadcfveh', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfveh', 'gzlcfveh', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfveh', 'folcfveh', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfveh', 'pdvcfveh', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfveh', 'chacfveh', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfveh', 'ligcfveh', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfveh', 'cokcfveh', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfveh', 'osfcfveh', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfveh', 'vapcfveh', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfveh', 'enccfveh', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecfidv', 'elecfidv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfidv', 'gnacfidv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfidv', 'gadcfidv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfidv', 'gzlcfidv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfidv', 'folcfidv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfidv', 'pdvcfidv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfidv', 'chacfidv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfidv', 'ligcfidv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfidv', 'cokcfidv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfidv', 'osfcfidv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfidv', 'vapcfidv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfidv', 'enccfidv', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecfcmp', 'elecfcmp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfcmp', 'gnacfcmp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfcmp', 'gadcfcmp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfcmp', 'gzlcfcmp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfcmp', 'folcfcmp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfcmp', 'pdvcfcmp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfcmp', 'chacfcmp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfcmp', 'ligcfcmp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfcmp', 'cokcfcmp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfcmp', 'osfcfcmp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfcmp', 'vapcfcmp', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfcmp', 'enccfcmp', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecfmin', 'elecfmin', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfmin', 'gnacfmin', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfmin', 'gadcfmin', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfmin', 'gzlcfmin', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfmin', 'folcfmin', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfmin', 'pdvcfmin', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfmin', 'chacfmin', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfmin', 'ligcfmin', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfmin', 'cokcfmin', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfmin', 'osfcfmin', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfmin', 'vapcfmin', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfmin', 'enccfmin', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecfcon', 'elecfcon', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfcon', 'gnacfcon', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfcon', 'gadcfcon', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfcon', 'gzlcfcon', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfcon', 'folcfcon', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfcon', 'pdvcfcon', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfcon', 'chacfcon', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfcon', 'ligcfcon', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfcon', 'cokcfcon', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfcon', 'osfcfcon', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfcon', 'vapcfcon', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfcon', 'enccfcon', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecfcim', 'elecfcim', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfcim', 'gnacfcim', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfcim', 'gadcfcim', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfcim', 'gzlcfcim', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfcim', 'folcfcim', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfcim', 'pdvcfcim', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfcim', 'chacfcim', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfcim', 'ligcfcim', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfcim', 'cokcfcim', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfcim', 'osfcfcim', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfcim', 'vapcfcim', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfcim', 'enccfcim', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfcim', 'elecfcim', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+
+resOdy = affectation(resOdy, 'elecfver', 'elecfver', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfver', 'gnacfver', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfver', 'gadcfver', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfver', 'gzlcfver', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfver', 'folcfver', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfver', 'pdvcfver', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfver', 'chacfver', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfver', 'ligcfver', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfver', 'cokcfver', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfver', 'osfcfver', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfver', 'vapcfver', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfver', 'enccfver', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfver', 'elecfver', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+
+resOdy = affectation(resOdy, 'elecfalu', 'elecfalu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfalu', 'gnacfalu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gadcfalu', 'gadcfalu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfalu', 'gzlcfalu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfalu', 'folcfalu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'pdvcfalu', 'pdvcfalu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfalu', 'chacfalu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfalu', 'ligcfalu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cokcfalu', 'cokcfalu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'osfcfalu', 'osfcfalu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfalu', 'vapcfalu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfalu', 'enccfalu', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecfwat', 'elecfwat', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = multiAffectation(resOdy, 'gazcfiaa', ['gnacfiaa', 'gadcfiaa'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfiaa', ['chacfiaa','ligcfiaa','cokcfiaa','osfcfiaa','toucfiaa'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfiaa', ['esscfiaa','gzlcfiaa','folcfiaa','pdvcfiaa','gplcfiaa','holcfiaa','carcfiaa','esacfiaa'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfiaa', ['cmscfiaa','gazcfiaa','petcfiaa','vapcfiaa','enccfiaa'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfiaa', ['cmbcfiaa', 'elccfiaa'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcftex', ['gnacftex', 'gadcftex'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscftex', ['chacftex','ligcftex','cokcftex','osfcftex','toucftex'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcftex', ['esscftex','gzlcftex','folcftex','pdvcftex','gplcftex','holcftex','carcftex','esacftex'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcftex', ['cmscftex','gazcftex','petcftex','vapcftex','enccftex'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccftex', ['cmbcftex', 'elccftex'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfboi', ['gnacfboi', 'gadcfboi'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfboi', ['chacfboi','ligcfboi','cokcfboi','osfcfboi','toucfboi'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfboi', ['esscfboi','gzlcfboi','folcfboi','pdvcfboi','gplcfboi','holcfboi','carcfboi','esacfboi'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfboi', ['cmscfboi','gazcfboi','petcfboi','vapcfboi','enccfboi'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfboi', ['cmbcfboi', 'elccfboi'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfppp', ['gnacfppp', 'gadcfppp'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfppp', ['chacfppp','ligcfppp','cokcfppp','osfcfppp','toucfppp'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfppp', ['esscfppp','gzlcfppp','folcfppp','pdvcfppp','gplcfppp','holcfppp','carcfppp','esacfppp'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfppp', ['cmscfppp','gazcfppp','petcfppp','vapcfppp','enccfppp'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfppp', ['cmbcfppp', 'elccfppp'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfpap', ['gnacfpap', 'gadcfpap'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfpap', ['chacfpap','ligcfpap','cokcfpap','osfcfpap','toucfpap'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfpap', ['esscfpap','gzlcfpap','folcfpap','pdvcfpap','gplcfpap','holcfpap','carcfpap','esacfpap'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfpap', ['cmscfpap','gazcfpap','petcfpap','vapcfpap','enccfpap'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfpap', ['cmbcfpap', 'elccfpap'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfchi', ['gnacfchi', 'gadcfchi'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfchi', ['chacfchi','ligcfchi','cokcfchi','osfcfchi','toucfchi'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfchi', ['esscfchi','gzlcfchi','folcfchi','pdvcfchi','gplcfchi','holcfchi','carcfchi','esacfchi'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfchi', ['cmscfchi','gazcfchi','petcfchi','vapcfchi','enccfchi'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfchi', ['cmbcfchi', 'elccfchi'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfmnm', ['gnacfmnm', 'gadcfmnm'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfmnm', ['chacfmnm','ligcfmnm','cokcfmnm','osfcfmnm','toucfmnm'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfmnm', ['esscfmnm','gzlcfmnm','folcfmnm','pdvcfmnm','gplcfmnm','holcfmnm','carcfmnm','esacfmnm'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfmnm', ['cmscfmnm','gazcfmnm','petcfmnm','vapcfmnm','enccfmnm'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfmnm', ['cmbcfmnm', 'elccfmnm'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfsid', ['gnacfsid', 'gadcfsid'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfsid', ['chacfsid','ligcfsid','cokcfsid','osfcfsid','toucfsid'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfsid', ['esscfsid','gzlcfsid','folcfsid','pdvcfsid','gplcfsid','holcfsid','carcfsid','esacfsid'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfsid', ['cmscfsid','gazcfsid','petcfsid','vapcfsid','enccfsid'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfsid', ['cmbcfsid', 'elccfsid'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfsid1', ['gnacfsid1', 'gadcfsid1'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfsid1', ['chacfsid1','ligcfsid1','cokcfsid1','osfcfsid1','toucfsid1'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfsid1', ['esscfsid1','gzlcfsid1','folcfsid1','pdvcfsid1','gplcfsid1','holcfsid1','carcfsid1','esacfsid1'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfsid1', ['cmscfsid1','gazcfsid1','petcfsid1','vapcfsid1','enccfsid1'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfsid1', ['cmbcfsid1', 'elccfsid1'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfmnf', ['gnacfmnf', 'gadcfmnf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfmnf', ['chacfmnf','ligcfmnf','cokcfmnf','osfcfmnf','toucfmnf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfmnf', ['esscfmnf','gzlcfmnf','folcfmnf','pdvcfmnf','gplcfmnf','holcfmnf','carcfmnf','esacfmnf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfmnf', ['cmscfmnf','gazcfmnf','petcfmnf','vapcfmnf','enccfmnf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfmnf', ['cmbcfmnf', 'elccfmnf'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'elccfmpr', ['elccfsid1', 'elccfmnf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'vapcfmpr', ['vapcfsid1', 'vapcfmnf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gazcfmpr', ['gazcfsid1', 'gazcfmnf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfmpr', ['petcfsid1', 'petcfmnf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfmpr', ['cmscfsid1', 'cmscfmnf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'enccfmpr', ['enccfsid1', 'enccfmnf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfmpr', ['cmbcfsid1', 'cmbcfmnf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfmpr', ['cmbcfmpr', 'elccfmpr'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfmac', ['gnacfmac', 'gadcfmac'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfmac', ['chacfmac','ligcfmac','cokcfmac','osfcfmac','toucfmac'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfmac', ['esscfmac','gzlcfmac','folcfmac','pdvcfmac','gplcfmac','holcfmac','carcfmac','esacfmac'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfmac', ['cmscfmac','gazcfmac','petcfmac','vapcfmac','enccfmac'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfmac', ['cmbcfmac', 'elccfmac'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcffab', ['gnacffab', 'gadcffab'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscffab', ['chacffab','ligcffab','cokcffab','osfcffab','toucffab'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcffab', ['esscffab','gzlcffab','folcffab','pdvcffab','gplcffab','holcffab','carcffab','esacffab'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcffab', ['cmscffab','gazcffab','petcffab','vapcffab','enccffab'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccffab', ['cmbcffab', 'elccffab'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfveh', ['gnacfveh', 'gadcfveh'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfveh', ['chacfveh','ligcfveh','cokcfveh','osfcfveh','toucfveh'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfveh', ['esscfveh','gzlcfveh','folcfveh','pdvcfveh','gplcfveh','holcfveh','carcfveh','esacfveh'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfveh', ['cmscfveh','gazcfveh','petcfveh','vapcfveh','enccfveh'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfveh', ['cmbcfveh', 'elccfveh'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfidv', ['gnacfidv', 'gadcfidv'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfidv', ['chacfidv','ligcfidv','cokcfidv','osfcfidv','toucfidv'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfidv', ['esscfidv','gzlcfidv','folcfidv','pdvcfidv','gplcfidv','holcfidv','carcfidv','esacfidv'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfidv', ['cmscfidv','gazcfidv','petcfidv','vapcfidv','enccfidv'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfidv', ['cmbcfidv', 'elccfidv'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfcmp', ['gnacfcmp', 'gadcfcmp'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfcmp', ['chacfcmp','ligcfcmp','cokcfcmp','osfcfcmp','toucfcmp'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfcmp', ['esscfcmp','gzlcfcmp','folcfcmp','pdvcfcmp','gplcfcmp','holcfcmp','carcfcmp','esacfcmp'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfcmp', ['cmscfcmp','gazcfcmp','petcfcmp','vapcfcmp','enccfcmp'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfcmp', ['cmbcfcmp', 'elccfcmp'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfmin', ['gnacfmin', 'gadcfmin'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfmin', ['chacfmin','ligcfmin','cokcfmin','osfcfmin','toucfmin'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfmin', ['esscfmin','gzlcfmin','folcfmin','pdvcfmin','gplcfmin','holcfmin','carcfmin','esacfmin'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfmin', ['cmscfmin','gazcfmin','petcfmin','vapcfmin','enccfmin'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfmin', ['cmbcfmin', 'elccfmin'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfcon', ['gnacfcon', 'gadcfcon'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfcon', ['chacfcon','ligcfcon','cokcfcon','osfcfcon','toucfcon'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfcon', ['esscfcon','gzlcfcon','folcfcon','pdvcfcon','gplcfcon','holcfcon','carcfcon','esacfcon'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfcon', ['cmscfcon','gazcfcon','petcfcon','vapcfcon','enccfcon'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfcon', ['cmbcfcon', 'elccfcon'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfcim', ['gnacfcim', 'gadcfcim'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfcim', ['chacfcim','ligcfcim','cokcfcim','osfcfcim','toucfcim'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfcim', ['esscfcim','gzlcfcim','folcfcim','pdvcfcim','gplcfcim','holcfcim','carcfcim','esacfcim'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfcim', ['cmscfcim','gazcfcim','petcfcim','vapcfcim','enccfcim'], 'Mtoe')
+if pays in ['ueur','ueur28']:
+	resOdy = affectation(resOdy, 'toccfcim', 'toccfcim', 'Mtoe', poids=0.001, clean=True)
+else:
+	resOdy = multiAffectation(resOdy, 'toccfcim', ['cmbcfcim', 'elccfcim'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfver', ['gnacfver', 'gadcfver'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfver', ['chacfver','ligcfver','cokcfver','osfcfver','toucfver'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfver', ['esscfver','gzlcfver','folcfver','pdvcfver','gplcfver','holcfver','carcfver','esacfver'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfver', ['cmscfver','gazcfver','petcfver','vapcfver','enccfver'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfver', ['cmbcfver', 'elccfver'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfalu', ['gnacfalu', 'gadcfalu'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfalu', ['chacfalu','ligcfalu','cokcfalu','osfcfalu','toucfalu'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfalu', ['esscfalu','gzlcfalu','folcfalu','pdvcfalu','gplcfalu','holcfalu','carcfalu','esacfalu'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfalu', ['cmscfalu','gazcfalu','petcfalu','vapcfalu','enccfalu'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfalu', ['cmbcfalu', 'elccfalu'], 'Mtoe')
+
+# MANUFACTURING ENERGY CONSUMPTION
+if pays == 'mlt':
+	resOdy = affectation(resOdy, 'chacfima', 'chacfima', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'ligcfima', 'ligcfima', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'cokcfima', 'cokcfima', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'osfcfima', 'osfcfima', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'gnacfima', 'gnacfima', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'gadcfima', 'gadcfima', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'gzlcfima', 'gzlcfima', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'folcfima', 'folcfima', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'pdvcfima', 'pdvcfima', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'vapcfima', 'vapcfima', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'enccfima', 'enccfima', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'elecfima', 'elecfima', 'Mtoe', poids=c_tep, clean=True)
+else:
+	resOdy = multiAffectation(resOdy, 'chacfim', ['chacfsid1', 'chacfmnf', 'chacfmnm', 'chacfchi', 'chacfmac', 'chacfiaa', 'chacftex', 'chacfppp', 'chacfidv', 'chacfboi', 'chacfveh'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'ligcfim', ['ligcfsid1', 'ligcfmnf', 'ligcfmnm', 'ligcfchi', 'ligcfmac', 'ligcfiaa', 'ligcftex', 'ligcfppp', 'ligcfidv', 'ligcfboi', 'ligcfveh'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'cokcfim', ['cokcfsid1', 'cokcfmnf', 'cokcfmnm', 'cokcfchi', 'cokcfmac', 'cokcfiaa', 'cokcftex', 'cokcfppp', 'cokcfidv', 'cokcfboi', 'cokcfveh'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'osfcfim', ['osfcfsid1', 'osfcfmnf', 'osfcfmnm', 'osfcfchi', 'osfcfmac', 'osfcfiaa', 'osfcftex', 'osfcfppp', 'osfcfidv', 'osfcfboi', 'osfcfveh'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'gnacfim', ['gnacfsid1', 'gnacfmnf', 'gnacfmnm', 'gnacfchi', 'gnacfmac', 'gnacfiaa', 'gnacftex', 'gnacfppp', 'gnacfidv', 'gnacfboi', 'gnacfveh'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'gadcfim', ['gadcfsid1', 'gadcfmnf', 'gadcfmnm', 'gadcfchi', 'gadcfmac', 'gadcfiaa', 'gadcftex', 'gadcfppp', 'gadcfidv', 'gadcfboi', 'gadcfveh'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'gzlcfim', ['gzlcfsid1', 'gzlcfmnf', 'gzlcfmnm', 'gzlcfchi', 'gzlcfmac', 'gzlcfiaa', 'gzlcftex', 'gzlcfppp', 'gzlcfidv', 'gzlcfboi', 'gzlcfveh'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'folcfim', ['folcfsid1', 'folcfmnf', 'folcfmnm', 'folcfchi', 'folcfmac', 'folcfiaa', 'folcftex', 'folcfppp', 'folcfidv', 'folcfboi', 'folcfveh'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'pdvcfim', ['pdvcfsid1', 'pdvcfmnf', 'pdvcfmnm', 'pdvcfchi', 'pdvcfmac', 'pdvcfiaa', 'pdvcftex', 'pdvcfppp', 'pdvcfidv', 'pdvcfboi', 'pdvcfveh'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'vapcfim', ['vapcfsid1', 'vapcfmnf', 'vapcfmnm', 'vapcfchi', 'vapcfmac', 'vapcfiaa', 'vapcftex', 'vapcfppp', 'vapcfidv', 'vapcfboi', 'vapcfveh'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'enccfim', ['enccfsid1', 'enccfmnf', 'enccfmnm', 'enccfchi', 'enccfmac', 'enccfiaa', 'enccftex', 'enccfppp', 'enccfidv', 'enccfboi', 'enccfveh'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'elccfim', ['elccfsid1', 'elccfmnf', 'elccfmnm', 'elccfchi', 'elccfmac', 'elccfiaa', 'elccftex', 'elccfppp', 'elccfidv', 'elccfboi', 'elccfveh'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gazcfima', ['gnacfima', 'gadcfima'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmscfima', ['chacfima','ligcfima','cokcfima','osfcfima','toucfima'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfima', ['esscfima','gzlcfima','folcfima','pdvcfima','gplcfima','holcfima','carcfima','esacfima'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfima', ['cmscfima','gazcfima','petcfima','vapcfima','enccfima'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfima', ['cmbcfima', 'elccfima'], 'Mtoe')
+
+# SPECIFIC CONSUMPTION BY INDUSTRIAL PROCESS
+if pays in ['aut','rfa','bel','nor','sui','lat']:
+	resOdy = affectation(resOdy, 'cmbcsacboxy', 'cmbcsacboxy', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'cmbcsacbele', 'cmbcsacbele', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'elecsacboxy', 'elecsacboxy', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'elecsacbele', 'elecsacbele', 'Mtoe', poids=c_tep, clean=True)
+	
+	resOdy = affectation(resOdy, 'toccscim', 'toccscim', 'Mtoe', poids=c_tep, clean=True)
+		
+	resOdy = affectation(resOdy, 'toccsclk', 'toccsclk', 'Mtoe', poids=c_tep, clean=True)
+		
+	resOdy = affectation(resOdy, 'cmbcspap', 'cmbcspap', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'elecspap', 'elecspap', 'Mtoe', poids=c_tep, clean=True)
+	
+	resOdy = affectation(resOdy, 'cmbcsverfla', 'cmbcsverfla', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'elecsverfla', 'elecsverfla', 'Mtoe', poids=c_tep, clean=True)
+		
+	resOdy = affectation(resOdy, 'cmbcsverbot', 'cmbcsverbot', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'elecsverbot', 'elecsverbot', 'Mtoe', poids=c_tep, clean=True)
+		
+	resOdy = affectation(resOdy, 'cmbcssug', 'cmbcssug', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = affectation(resOdy, 'elecssug', 'elecssug', 'Mtoe', poids=c_tep, clean=True)
+
+# TRANSPORT
+# STOCK OF TRANSPORT VEHICLES
+resOdy = affectation(resOdy, 'nbrvpc', 'nbrvpc', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvpcess', 'nbrvpcess', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvpcgzl', 'nbrvpcgzl', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvpcgpl', 'nbrvpcgpl', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvpcele', 'nbrvpcele', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvpchyb', 'nbrvpchyb', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvpcgna', 'nbrvpcgna', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvpcflex', 'nbrvpcflex', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvpc1', 'nbrvpc1', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvpc2', 'nbrvpc2', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvpc3', 'nbrvpc3', 'M', poids=0.001, clean=True)
+
+resOdy = affectation(resOdy, 'newvpc', 'newvpc', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvpcess', 'newvpcess', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvpcgzl', 'newvpcgzl', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvpcgpl', 'newvpcgpl', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvpcele', 'newvpcele', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvpchyb', 'newvpchyb', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvpcgna', 'newvpcgna', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvpcflex', 'newvpcflex', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvpc1', 'newvpc1', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvpc2', 'newvpc2', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvpc3', 'newvpc3', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvpc130', 'newvpc130', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvpc115', 'newvpc115', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvpc95', 'newvpc95', 'M', poids=0.001, clean=True)
+
+resOdy = affectation(resOdy, 'nbrmot', 'nbrmot', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newmot', 'newmot', 'M', poids=0.001, clean=True)
+
+resOdy = affectation(resOdy, 'nbrvlr', 'nbrvlr', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvlress', 'nbrvlress', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvlrgzl', 'nbrvlrgzl', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvlrele', 'nbrvlrele', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvlrgna', 'nbrvlrgna', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvlrhyb', 'nbrvlrhyb', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrvlrxxx', 'nbrvlrxxx', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvlr', 'newvlr', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvlress', 'newvlress', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvlrgzl', 'newvlrgzl', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvlrele', 'newvlrele', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvlrgna', 'newvlrgna', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvlrhyb', 'newvlrhyb', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newvlrxxx', 'newvlrxxx', 'M', poids=0.001, clean=True)
+
+resOdy = affectation(resOdy, 'nbrcam', 'nbrcam', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrcam1', 'nbrcam1', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrcam2', 'nbrcam2', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrcam3', 'nbrcam3', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrcamess', 'nbrcamess', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrcamgzl', 'nbrcamgzl', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrcamxxx', 'nbrcamxxx', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newcam', 'newcam', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newcam1', 'newcam1', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newcam2', 'newcam2', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newcam3', 'newcam3', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newcamess', 'newcamess', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newcamgzl', 'newcamgzl', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newcamxxx', 'newcamxxx', 'M', poids=0.001, clean=True)
+
+resOdy = affectation(resOdy, 'nbrbus', 'nbrbus', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrbusess', 'nbrbusess', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrbusgzl', 'nbrbusgzl', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrbusele', 'nbrbusele', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrbusgna', 'nbrbusgna', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrbushyb', 'nbrbushyb', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'nbrbusxxx', 'nbrbusxxx', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newbus', 'newbus', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newbusess', 'newbusess', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newbusgzl', 'newbusgzl', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newbusele', 'newbusele', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newbusgna', 'newbusgna', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newbushyb', 'newbushyb', 'M', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'newbusxxx', 'newbusxxx', 'M', poids=0.001, clean=True)
+
+if recupSerie(resOdy,'nbrcamvlr'):
+	resOdy = affectation(resOdy, 'nbrcamvlr', 'nbrcamvlr', 'M', poids=0.001, clean=True)
+else:
+	resOdy = multiAffectation(resOdy, 'nbrcamvlr', ['nbrcam', 'nbrvlr'], 'M')
+
+if recupSerie(resOdy,'nbrcamvlress'):
+	resOdy = affectation(resOdy, 'nbrcamvlress', 'nbrcamvlress', 'M', poids=0.001, clean=True)
+else:
+	resOdy = multiAffectation(resOdy, 'nbrcamvlress', ['nbrcamess', 'nbrvlress'], 'M')
+
+if recupSerie(resOdy,'nbrcamvlrgzl'):
+	resOdy = affectation(resOdy, 'nbrcamvlrgzl', 'nbrcamvlrgzl', 'M', poids=0.001, clean=True)
+else:
+	if pays == 'rsl':
+		resOdy = affectation(resOdy, 'nbrcamgzl', 'nbrcam', 'M')
+	resOdy = multiAffectation(resOdy, 'nbrcamvlrgzl', ['nbrcamgzl', 'nbrvlrgzl'], 'M')
+
+#TRAFFIC IN VEH-KM
+if pays == 'prt':
+	resOdy = affectation(resOdy, 'vkmvpc', 'vkmvpc', 'Mvkm', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'vkmvpcess', 'vkmvpcess', 'Mvkm', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'vkmvpcgzl', 'vkmvpcgzl', 'Mvkm', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'vkmmot', 'vkmmot', 'Mvkm', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'vkmvlr', 'vkmvlr', 'Mvkm', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'vkmcam', 'vkmcam', 'Mvkm', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'vkmcamvlr', 'vkmcamvlr', 'Mvkm', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'vkmbus', 'vkmbus', 'Mvkm', poids=0.001, clean=True)
+else:
+	resOdy = affectation(resOdy, 'vkmvpc', 'vkmvpc')
+	resOdy = affectation(resOdy, 'vkmvpcess', 'vkmvpcess')
+	resOdy = affectation(resOdy, 'vkmvpcgzl', 'vkmvpcgzl')
+	resOdy = affectation(resOdy, 'vkmmot', 'vkmmot')
+	resOdy = affectation(resOdy, 'vkmvlr', 'vkmvlr')
+	resOdy = affectation(resOdy, 'vkmcam', 'vkmcam')
+	resOdy = affectation(resOdy, 'vkmcamvlr', 'vkmcamvlr')
+	resOdy = affectation(resOdy, 'vkmbus', 'vkmbus')
+
+# PASSENGER TRAFFIC IN PASSENGER-KM
+resOdy = affectation(resOdy, 'pkmvpc', 'pkmvpc', 'Gpkm', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'pkmmot', 'pkmmot', 'Gpkm', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'pkmfer', 'pkmfer', 'Gpkm', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'pkmfermet', 'pkmfermet', 'Gpkm', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'pkmbus', 'pkmbus', 'Gpkm', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'pkmavd', 'pkmavd', 'Gpkm', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'pkmflv', 'pkmflv', 'Gpkm', poids=0.001, clean=True)
+
+if recupSerie(resOdy,'pkmfermet'):
+	resOdy = multiAffectation(resOdy, 'pkmfertot', ['pkmfer', 'pkmfermet'], 'Gpkm')
+else:
+	if recupSerie(resOdy,'pkmfer'):
+		resOdy = affectation(resOdy, 'pkmfertot', 'pkmfer', 'Gpkm')
+	else:
+		resOdy = affectation(resOdy, 'pkmfertot', 'pkmfertot', 'Gpkm', poids=0.001, clean=True)
+if pays in ['pol','eso','esp']:
+	resOdy = affectation(resOdy, 'pasair', 'pasair', 'k', poids=1000, clean=True)
+else:
+	resOdy = affectation(resOdy, 'pasair', 'pasair')
+if recupSerie(resOdy,'pkmvpc'):
+	resOdy = multiAffectation(resOdy, 'pkmrou', ['pkmvpc', 'pkmbus'], 'Gpkm')
+if recupSerie(resOdy,'pkmrou') & recupSerie(resOdy,'pkmfertot'):
+	resOdy = multiAffectation(resOdy, 'pkm', ['pkmrou', 'pkmfertot', 'pkmavd'], 'Gpkm')
+if recupSerie(resOdy,'pkmrou') & recupSerie(resOdy,'pkmfertot'):
+	resOdy = multiAffectation(resOdy, 'pkmter', ['pkmrou', 'pkmfertot'], 'Gpkm')
+
+# TRAFFIC OF GOODS IN TON-KM
+resOdy = affectation(resOdy, 'tkmfer', 'tkmfer', 'Gtkm', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'tkmrou', 'tkmrou', 'Gtkm', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'tkmflv', 'tkmflv', 'Gtkm', poids=0.001, clean=True)
+
+resOdy = affectation(resOdy, 'tkbferpas', 'pkmfertot', 'Gtkb', poids=const.VALEUR['cst_tkbrpkm'])
+resOdy = affectation(resOdy, 'tkbfermch', 'tkmfer', 'Gtkb', poids=const.VALEUR['cst_tkbrtkm'])
+resOdy = multiAffectation(resOdy, 'tkbfer', ['tkbferpas', 'tkbfermch'], 'Gtkb')
+
+if pays in ['cyp','mlt']:
+	if recupSerie(resOdy,'tkmrou'):
+		resOdy = multiAffectation(resOdy, 'tkm', ['tkmrou', 'tkmflv'], 'Gtkm')
+else:
+	if recupSerie(resOdy,'tkmrou') & recupSerie(resOdy,'tkmfer'):
+		resOdy = multiAffectation(resOdy, 'tkm', ['tkmrou', 'tkmfer', 'tkmflv'], 'Gtkm')
+
+# ROAD TRANSPORT ENERGY CONSUMPTION
+resOdy = affectation(resOdy, 'esscfrou', 'esscfrou', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfrou', 'gzlcfrou', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gplcfrou', 'gplcfrou', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfrou', 'elecfrou', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfrou', 'gnacfrou', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfrou', 'enccfrou', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'glecfrou', 'glecfrou', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'glgcfrou', 'glgcfrou', 'Mtoe', poids=c_tep, clean=True)
+# RAIL TRANSPORT
+resOdy = affectation(resOdy, 'gzlcffer', 'gzlcffer', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcffer', 'folcffer', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecffer', 'elecffer', 'Mtoe', poids=c_tep, clean=True)
+# DOMESTIC WATER TRANSPORT; (FLV=FLV+MAR
+resOdy = affectation(resOdy, 'esscfflv', 'esscfflv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = multiAffectation(resOdy, 'gzlcfflv', ['gzlcfflv', 'gzlcfmar'], 'Mtoe', poids=0.001)
+resOdy = multiAffectation(resOdy, 'folcfflv', ['folcfflv', 'folcfmar'], 'Mtoe', poids=0.001)
+# CARS
+resOdy = affectation(resOdy, 'esscfvpctot', 'esscfvpctot', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfvpctot', 'gzlcfvpctot', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'esscfvpc', 'esscfvpc', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfvpc', 'gzlcfvpc', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gplcfvpc', 'gplcfvpc', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfvpc', 'gnacfvpc', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfvpc', 'enccfvpc', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'glecfvpc', 'glecfvpc', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'glgcfvpc', 'glgcfvpc', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfvpc', 'elecfvpc', 'Mtoe', poids=c_tep, clean=True)
+# MOTORCYCLES
+resOdy = affectation(resOdy, 'esscfmot', 'esscfmot', 'Mtoe', poids=c_tep, clean=True)
+# BUSES
+resOdy = affectation(resOdy, 'gnacfbus', 'gnacfbus', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'esscfbus', 'esscfbus', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfbus', 'gzlcfbus', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gplcfbus', 'gplcfbus', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfbus', 'enccfbus', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfbus', 'elecfbus', 'Mtoe', poids=c_tep, clean=True)
+# TRUCKS
+resOdy = affectation(resOdy, 'gnacfcam', 'gnacfcam', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'esscfcam', 'esscfcam', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfcam', 'gzlcfcam', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gplcfcam', 'gplcfcam', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfcam', 'enccfcam', 'Mtoe', poids=c_tep, clean=True)
+# LIGHT DUTY VEHICLES
+resOdy = affectation(resOdy, 'esscfvlr', 'esscfvlr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfvlr', 'gzlcfvlr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gplcfvlr', 'gplcfvlr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfvlr', 'gnacfvlr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfvlr', 'enccfvlr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfvlr', 'elecfvlr', 'Mtoe', poids=c_tep, clean=True)
+# TRUCKS AND LIGHT VEHICLES
+resOdy = affectation(resOdy, 'gzlcfcamvlrtot', 'gzlcfcamvlrtot', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'esscfcamvlrtot', 'esscfcamvlrtot', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfcamvlr', 'gzlcfcamvlr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'esscfcamvlr', 'esscfcamvlr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gplcfcamvlr', 'gplcfcamvlr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfcamvlr', 'gnacfcamvlr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfcamvlr', 'enccfcamvlr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'glecfcamvlr', 'glecfcamvlr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'glgcfcamvlr', 'glgcfcamvlr', 'Mtoe', poids=c_tep, clean=True)
+#FUEL CONSUMPTION OF FOREIGN VEHICLES AND BORDER TRADE
+resOdy = affectation(resOdy, 'esscfvpcfor', 'esscfvpcfor', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfvpcfor', 'gzlcfvpcfor', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfcamfor', 'gzlcfcamfor', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfroufor', 'gzlcfroufor', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'esscfroudom', 'esscfroudom', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gzlcfroudom', 'gzlcfroudom', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gplcfroudom', 'gplcfroudom', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gnacfroudom', 'gnacfroudom', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfroudom', 'enccfroudom', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfroudom', 'elecfroudom', 'Mtoe', poids=c_tep, clean=True)
+
+
+# RAIL TRANSPORT
+resOdy = multiAffectation(resOdy, 'petcffer', ['esscffer','gzlcffer','folcffer','pdvcffer','gplcffer','holcffer','carcffer','esacffer'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcffer', ['cmscffer','gazcffer','petcffer','vapcffer','enccffer'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccffer', ['cmbcffer', 'elccffer'], 'Mtoe')
+
+# INTERNATIONAL AIR TRANSPORT
+resOdy = affectation(resOdy, 'toccfain', 'toccfain', 'Mtoe', poids=c_tep, clean=True)
+
+# DOMESTIC AIR TRANSPORT
+resOdy = affectation(resOdy, 'esacfair', 'esacfair', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'esacfado', 'esacfair', 'Mtoe')
+if not recupSerie(resOdy,'carcfado'):
+	resOdy = affectationParMultiplication(resOdy, 'toccfado', [('toccfain','ktoe')], [('pcairint','1')], 'Mtoe', poids=1-arr(resOdy[resOdy.serie=='pcairint'].value))
+	resOdy = multiAffectation(resOdy, 'carcfado', ['toccfado','-esacfado'], 'Mtoe')
+else:
+	resOdy = affectation(resOdy, 'carcfado', 'carcfado', 'Mtoe', poids=c_tep, clean=True)
+	resOdy = multiAffectation(resOdy, 'petcfado', ['esscfado','gzlcfado','folcfado','pdvcfado','gplcfado','holcfado','carcfado','esacfado'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'cmbcfado', ['cmscfado','gazcfado','petcfado','vapcfado','enccfado'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'toccfado', ['cmbcfado', 'elccfado'], 'Mtoe')
+
+# TOTAL AIR TRANSPORT
+resOdy = multiAffectation(resOdy, 'carcfair', ['carcfado','toccfain'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfair', ['esscfair','gzlcfair','folcfair','pdvcfair','gplcfair','holcfair','carcfair','esacfair'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfair', ['cmscfair','gazcfair','petcfair','vapcfair','enccfair'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfair', ['cmbcfair', 'elccfair'], 'Mtoe')
+
+# DOMESTIC WATER TRANSPORT
+resOdy = multiAffectation(resOdy, 'petcfflv', ['esscfflv','gzlcfflv','folcfflv','pdvcfflv','gplcfflv','holcfflv','carcfflv','esacfflv'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfflv', ['cmscfflv','gazcfflv','petcfflv','vapcfflv','enccfflv'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfflv', ['cmbcfflv', 'elccfflv'], 'Mtoe')
+if not recupSerie(resOdy,'toccfflv'):
+	resOdy = affectation(resOdy, 'toccfflv', 'toccfflv', 'Mtoe', poids=c_tep, clean=True)
+# CARS
+resOdy = multiAffectation(resOdy, 'gazcfvpc', ['gnacfvpc', 'gadcfvpc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfvpc', ['esscfvpc','gzlcfvpc','folcfvpc','pdvcfvpc','gplcfvpc','holcfvpc','carcfvpc','esacfvpc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfvpc', ['cmscfvpc','gazcfvpc','petcfvpc','vapcfvpc','enccfvpc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfvpc', ['cmbcfvpc', 'elccfvpc'], 'Mtoe')
+# MOTORCYCLES
+resOdy = multiAffectation(resOdy, 'petcfmot', ['esscfmot','gzlcfmot','folcfmot','pdvcfmot','gplcfmot','holcfmot','carcfmot','esacfmot'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfmot', ['cmscfmot','gazcfmot','petcfmot','vapcfmot','enccfmot'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfmot', ['cmbcfmot', 'elccfmot'], 'Mtoe')
+# BUSES
+resOdy = multiAffectation(resOdy, 'gazcfbus', ['gnacfbus', 'gadcfbus'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfbus', ['esscfbus','gzlcfbus','folcfbus','pdvcfbus','gplcfbus','holcfbus','carcfbus','esacfbus'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfbus', ['cmscfbus','gazcfbus','petcfbus','vapcfbus','enccfbus'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfbus', ['cmbcfbus', 'elccfbus'], 'Mtoe')
+# TRUCKS
+resOdy = multiAffectation(resOdy, 'gazcfcam', ['gnacfcam', 'gadcfcam'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfcam', ['esscfcam','gzlcfcam','folcfcam','pdvcfcam','gplcfcam','holcfcam','carcfcam','esacfcam'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfcam', ['cmscfcam','gazcfcam','petcfcam','vapcfcam','enccfcam'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfcam', ['cmbcfcam', 'elccfcam'], 'Mtoe')
+# LIGHT DUTY VEHICLES
+resOdy = multiAffectation(resOdy, 'gazcfvlr', ['gnacfvlr', 'gadcfvlr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfvlr', ['esscfvlr','gzlcfvlr','folcfvlr','pdvcfvlr','gplcfvlr','holcfvlr','carcfvlr','esacfvlr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfvlr', ['cmscfvlr','gazcfvlr','petcfvlr','vapcfvlr','enccfvlr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfvlr', ['cmbcfvlr', 'elccfvlr'], 'Mtoe')
+# TRUCKS AND LIGHT VEHICLES
+resOdy = multiAffectation(resOdy, 'gazcfcamvlr', ['gnacfcamvlr', 'gadcfcamvlr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfcamvlr', ['esscfcamvlr','gzlcfcamvlr','folcfcamvlr','pdvcfcamvlr','gplcfcamvlr','holcfcamvlr','carcfcamvlr','esacfcamvlr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfcamvlr', ['cmscfcamvlr','gazcfcamvlr','petcfcamvlr','vapcfcamvlr','enccfcamvlr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfcamvlr', ['cmbcfcamvlr', 'elccfcamvlr'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfrou', ['gnacfrou', 'gadcfrou'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfrou', ['esscfrou','gzlcfrou','folcfrou','pdvcfrou','gplcfrou','holcfrou','carcfrou','esacfrou'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfrou', ['cmscfrou','gazcfrou','petcfrou','vapcfrou','enccfrou'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfrou', ['cmbcfrou', 'elccfrou'], 'Mtoe')
+
+if not recupSerie(resOdy,'esscfroudom'):
+	if recupSerie(resOdy,'esscfvpc'):
+		resOdy = multiAffectation(resOdy, 'esscfpas', ['esscfvpc', 'esscfbus', 'esscfmot', 'esscfcamvlr'], 'Mtoe')
+	else:
+		resOdy = affectation(resOdy, 'esscfroudom', 'esscfrou', 'Mtoe')
+
+if recupSerie(resOdy,'esscfvpctot'):
+	resOdy = multiAffectation(resOdy, 'esscfpas', ['esscfvpctot', 'esscfbus', 'esscfmot', 'esscfcamvlrtot'], 'Mtoe')
+else:
+	resOdy = affectation(resOdy, 'esscfroudomtot', 'esscfrou', 'Mtoe')
+
+if not recupSerie(resOdy,'gzlcfroudom'):
+	if recupSerie(resOdy,'gzlcfvpc'):
+		resOdy = multiAffectation(resOdy, 'gzlcfpas', ['gzlcfvpc', 'gzlcfbus', 'gzlcfmot', 'gzlcfcamvlr'], 'Mtoe')
+	else:
+		resOdy = affectation(resOdy, 'gzlcfroudom', 'gzlcfrou', 'Mtoe')
+
+if recupSerie(resOdy,'gzlcfvpctot'):
+	resOdy = multiAffectation(resOdy, 'gzlcfpas', ['gzlcfvpctot', 'gzlcfbus', 'gzlcfmot', 'gzlcfcamvlrtot'], 'Mtoe')
+else:
+	resOdy = affectation(resOdy, 'gzlcfroudomtot', 'gzlcfrou', 'Mtoe')
+
+if not recupSerie(resOdy,'gplcfroudom'):
+	if recupSerie(resOdy,'gplcfvpc'):
+		resOdy = multiAffectation(resOdy, 'gplcfpas', ['gplcfvpc', 'gplcfbus', 'gplcfmot', 'gplcfcamvlr'], 'Mtoe')
+	else:
+		resOdy = affectation(resOdy, 'gplcfroudom', 'gplcfrou', 'Mtoe')
+
+if not recupSerie(resOdy,'enccfroudom'):
+	if recupSerie(resOdy,'enccfvpc'):
+		resOdy = multiAffectation(resOdy, 'enccfpas', ['enccfvpc', 'enccfbus', 'enccfmot', 'enccfcamvlr'], 'Mtoe')
+	else:
+		resOdy = affectation(resOdy, 'enccfroudom', 'enccfrou', 'Mtoe')
+
+if not recupSerie(resOdy,'gnacfroudom'):
+	if recupSerie(resOdy,'gnacfvpc'):
+		resOdy = multiAffectation(resOdy, 'gnacfpas', ['gnacfvpc', 'gnacfbus', 'gnacfmot', 'gnacfcamvlr'], 'Mtoe')
+	else:
+		resOdy = affectation(resOdy, 'gnacfroudom', 'gnacfrou', 'Mtoe')
+
+if not recupSerie(resOdy,'elccfroudom'):
+	if recupSerie(resOdy,'elccfvpc'):
+		resOdy = multiAffectation(resOdy, 'elccfpas', ['elccfvpc', 'elccfbus', 'elccfmot', 'elccfcamvlr'], 'Mtoe')
+	else:
+		resOdy = affectation(resOdy, 'elccfroudom', 'elccfrou', 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'gazcfroudom', ['gnacfroudom', 'gadcfroudom'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfroudom', ['esscfroudom','gzlcfroudom','folcfroudom','pdvcfroudom','gplcfroudom','holcfroudom','carcfroudom','esacfroudom'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfroudom', ['cmscfroudom','gazcfroudom','petcfroudom','vapcfroudom','enccfroudom'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfroudom', ['cmbcfroudom', 'elccfroudom'], 'Mtoe')
+
+if not recupSerie(resOdy,'toccfroudom'):
+	if recupSerie(resOdy,'toccfvpc') & recupSerie(resOdy,'toccfcamvlr'):
+		resOdy = multiAffectation(resOdy, 'toccfpas', ['toccfvpc', 'toccfbus', 'toccfmot', 'toccfcamvlr'], 'Mtoe')
+	else:
+		resOdy = affectation(resOdy, 'toccfroudom', 'toccfrou', 'Mtoe')
+
+resOdy = affectationParMultiplication(resOdy, 'gzlcffermch', [('gzlcffer','Mtoe'), ('tkbfermch','Gtkb')], [('tkbfer','Gtkb')], 'Mtoe')
+resOdy = affectationParMultiplication(resOdy, 'folcffermch', [('folcffer','Mtoe'), ('tkbfermch','Gtkb')], [('tkbfer','Gtkb')], 'Mtoe')
+resOdy = affectationParMultiplication(resOdy, 'elccffermch', [('elccffer','Mtoe'), ('tkbfermch','Gtkb')], [('tkbfer','Gtkb')], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'esscfmch', ['esscffermch', 'esscfflv', 'esscfcamvlrtot'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'folcfmch', ['folcffermch', 'folcfflv', 'folcfcamvlrtot'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gnacfmch', ['gnacffermch', 'gnacfflv', 'gnacfcamvlrtot'], 'Mtoe')
+if recupSerie(resOdy,'toccfcamvlr'):
+	resOdy = multiAffectation(resOdy, 'gzlcfmch', ['gzlcffermch', 'gzlcfflv', 'gzlcfcamvlrtot'], 'Mtoe')
+	resOdy = affectation(resOdy, 'elccfmch', 'elccffermch', 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'gazcfmch', ['gnacfmch', 'gadcfmch'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'petcfmch', ['esscfmch','gzlcfmch','folcfmch','pdvcfmch','gplcfmch','holcfmch','carcfmch','esacfmch'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'cmbcfmch', ['cmscfmch','gazcfmch','petcfmch','vapcfmch','enccfmch'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'toccfmch', ['cmbcfmch', 'elccfmch'], 'Mtoe')
+resOdy = affectationParMultiplication(resOdy, 'gzlcfferpas', [('gzlcffer','Mtoe'), ('tkbferpas','Gtkb')], [('tkbfer','Gtkb')], 'Mtoe')
+resOdy = affectationParMultiplication(resOdy, 'folcfferpas', [('folcffer','Mtoe'), ('tkbferpas','Gtkb')], [('tkbfer','Gtkb')], 'Mtoe')
+resOdy = affectationParMultiplication(resOdy, 'elccfferpas', [('elccffer','Mtoe'), ('tkbferpas','Gtkb')], [('tkbfer','Gtkb')], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfferpas', ['esscfferpas','gzlcfferpas','folcfferpas','pdvcfferpas','gplcfferpas','holcfferpas','carcfferpas','esacfferpas'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfferpas', ['cmscfferpas','gazcfferpas','petcfferpas','vapcfferpas','enccfferpas'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfferpas', ['cmbcfferpas', 'elccfferpas'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccffermch', ['toccffer', '-toccfferpas'], 'Mtoe')
+
+if recupSerie(resOdy,'esscfvpc'):
+	resOdy = multiAffectation(resOdy, 'esscfpas', ['esscfvpc', 'esscfbus', 'esscfmot', 'esscfferpas'], 'Mtoe')
+if recupSerie(resOdy,'esscfvpctot'):
+	resOdy = multiAffectation(resOdy, 'esscfpas', ['esscfvpctot', 'esscfbus', 'esscfmot', 'esscfferpas'], 'Mtoe')
+if recupSerie(resOdy,'gzlcfvpctot'):
+	resOdy = multiAffectation(resOdy, 'gzlcfpas', ['gzlcfvpctot', 'gzlcfbus', 'gzlcfmot', 'gzlcfferpas'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'enccfpas', ['enccfvpc', 'enccfbus', 'enccfmot', 'enccfferpas'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gnacfpas', ['gnacfvpc', 'gnacfbus', 'gnacfmot', 'gnacfferpas'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gzlcfpas', ['gzlcfvpc', 'gzlcfbus', 'gzlcfmot', 'gzlcfferpas'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gplcfpas', ['gplcfvpc', 'gplcfbus', 'gplcfmot', 'gplcfferpas'], 'Mtoe')
+resOdy = affectation(resOdy, 'carcfpas', 'carcfado', 'Mtoe')
+resOdy = multiAffectation(resOdy, 'elccfpas', ['elccfvpc', 'elccfbus', 'elccfmot', 'elccfferpas'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gazcfpas', ['gnacfpas', 'gadcfpas'], 'Mtoe')
+if recupSerie(resOdy,'esscfpas') & recupSerie(resOdy,'gzlcfpas'):
+	resOdy = multiAffectation(resOdy, 'petcfpas', ['esscfpas','gzlcfpas','folcfpas','pdvcfpas','gplcfpas','holcfpas','carcfpas','esacfpas'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'cmbcfpas', ['cmscfpas','gazcfpas','petcfpas','vapcfpas','enccfpas'], 'Mtoe')
+if recupSerie(resOdy,'toccfvpc'):
+	resOdy = multiAffectation(resOdy, 'toccfpas', ['cmbcfpas', 'elccfpas'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccftradom', ['toccftra', '-esscfvpcfor', '-gzlcfvpcfor', '-gzlcfcamfor'], 'Mtoe')
+
+resOdy = multiAffectationMultiConv(resOdy, 'vpcun', ['esscfvpctot','gzlcfvpctot'], ['Mtoe','Mtoe'], [const.VALEUR['cst_essun']*const.VALEUR['cst_essdn'],const.VALEUR['cst_gzlun']*const.VALEUR['cst_gzldn']], 'koe/l', poids=1/(arr(resOdy[resOdy.serie=='gzlcfvpctot'].value)+arr(resOdy[resOdy.serie=='esscfvpctot'].value)))
+
+if recupSerie(resOdy,'kmvvpc'):
+	resOdy = multiAffectation(resOdy, 'csvpcvkm', ['esscfvpctot','gzlcfvpctot'], 'l/100km', poids=100000/(arr(resOdy[resOdy.serie=='nbrvpc'].value)*arr(resOdy[resOdy.serie=='vpcun'].value)*arr(ed[ed.serie=='kmvvpc'].value)))
+	
+if not recupSerie(resOdy,'csvpc'):
+	resOdy = MoyennePond(resOdy, 'csvpc', ['csvpcess','csvpcgzl'], [1.0,1.0], ['nbrvpcess','nbrvpcgzl'], 'l/100km')
+if not recupSerie(resOdy,'csvpc'):
+	resOdy = affectation(resOdy, 'csvpc', 'csvpcvkm', 'l/100km')
+
+# UNIT CONSUMPTION OF GASOLINE CARS
+resOdy = affectationParMultiplication(resOdy, 'cuessvpc', [('esscfvpctot','Mtoe')], [('nbrvpcess','M')], 'toe/veh')
+if not recupSerie(resOdy,'csvpcess'):
+	resOdy = affectationParMultiplication(resOdy, 'csvpcess', [('cuessvpc','toe/veh')], [('kmvvpcess','km')], 'l/100km', poids=10000/(const.VALEUR['cst_essun']*const.VALEUR['cst_essdn']))
+
+# UNIT CONSUMPTION OF DIESEL CARS
+if pays not in ['usa','grc']:
+	resOdy = affectationParMultiplication(resOdy, 'cugzlvpc', [('gzlcfvpctot','Mtoe')], [('nbrvpcgzl','M')], 'toe/veh')
+if not recupSerie(resOdy,'csvpcgzl'):
+	resOdy = affectationParMultiplication(resOdy, 'csvpcgzl', [('cugzlvpc','toe/veh')], [('kmvvpcgzl','km')], 'l/100km', poids=10000/(const.VALEUR['cst_gzlun']*const.VALEUR['cst_gzldn']))
+	
+# UNIT CONSUMPTION OF LPG CARS
+resOdy = affectationParMultiplication(resOdy, 'cugplvpc', [('gplcfvpc','Mtoe')], [('nbrvpcgpl','M')], 'toe/veh')
+
+# HOUSEHOLDS SECTOR
+# HOUSEHOLDS CONSUMPTION WITH CLIMATIC CORRECTIONS
+resOdy = correctionClimatique(resOdy, 'cmscfres', 'pcchfrescc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'petcfres', 'pcchfrescc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'gazcfres', 'pcchfrescc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'vapcfres', 'pcchfrescc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'enccfres', 'pcchfrescc', 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfrescc', ['cmscfrescc','gazcfrescc','petcfrescc','vapcfrescc','enccfrescc'], 'Mtoe')
+
+# OTHER ELECTRICAL CONSUMPTION OF HOUSEHOLDS
+resOdy = affectation(resOdy, 'elecfreslgt', 'elecfreslgt', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfrescli', 'elecfrescli', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfresels', 'elecfresels', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfreschf', 'elecfreschf', 'Mtoe', poids=c_tep, clean=True)
+
+if pays != 'prt':
+	c_tep = const.VALEUR['cst_elcun']
+resOdy = affectation(resOdy, 'elecfreslar', 'elecfreslar', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfreslgt', 'elecfreslgt', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+resOdy = affectation(resOdy, 'elecfrescli', 'elecfrescli', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+resOdy = affectation(resOdy, 'elecfresels', 'elecfresels', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+resOdy = affectation(resOdy, 'elecfreschf', 'elecfreschf', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+resOdy = multiAffectation(resOdy, 'toccfrescli', ['cmbcfrescli', 'elccfrescli'], 'Mtoe')
+
+if recupSerie(resOdy,'elccfreslgt'):
+	resOdy = multiAffectation(resOdy, 'elccfresels1', ['elccfresels', '-elccfreslgt'], 'Mtoe')
+
+resOdy = affectationParMultiplication(resOdy, 'pcclieleres', [('elccfrescli','Mtoe')], [('elccfres','Mtoe')], '1', poids=1)
+if recupSerie(resOdy,'pcchfelerescc'):
+	resOdy = correctionClimatique(resOdy, 'elecfres', 'pcchfelerescc', 'Mtoe')
+else:
+	resOdy = correctionClimatique(resOdy, 'elecfres', 'pcchfrescc', 'Mtoe')
+resOdy = affectation(resOdy, 'elecfrescc', 'elecfrescc', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+if pays != 'gbr':
+	resOdy = multiAffectation(resOdy, 'toccfrescc', ['cmbcfrescc', 'elccfrescc'], 'Mtoe')
+else:
+	resOdy = affectation(resOdy, 'toccfrescc', 'toccfrescc', 'Mtoe', poids=0.001, clean=True)
+
+
+# SERVICES CONSUMPTION WITH CLIMATIC CORRECTIONS
+if recupSerie(resOdy,'pcchfelecc'):
+	resOdy = correctionClimatique(resOdy, 'elecfdvr', 'pcchfelecc', 'Mtoe')
+else:
+	resOdy = correctionClimatique(resOdy, 'elecfdvr', 'pcchftercc', 'Mtoe')
+
+resOdy = correctionClimatique(resOdy, 'cmscfdvr', 'pcchftercc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'petcfdvr', 'pcchftercc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'gazcfdvr', 'pcchftercc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'vapcfdvr', 'pcchftercc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'enccfdvr', 'pcchftercc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'solcfdvr', 'pcchftercc', 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfdvrcc', ['cmscfdvrcc','gazcfdvrcc','petcfdvrcc','vapcfdvrcc','enccfdvrcc'], 'Mtoe')
+if pays != 'gbr':
+	resOdy = multiAffectation(resOdy, 'toccfdvrcc', ['cmbcfdvrcc', 'elccfdvrcc'], 'Mtoe')
+else:
+	resOdy = affectation(resOdy, 'toccfdvrcc', 'toccfdvrcc', 'Mtoe', poids=0.001, clean=True)
+resOdy = affectation(resOdy, 'elecfdvrcc', 'elecfdvrcc', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+
+resOdy = multiAffectation(resOdy, 'cmscfretcc', ['cmscfrescc', 'cmscfdvrcc', 'cmscfagr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfretcc', ['petcfrescc', 'petcfdvrcc', 'petcfagr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gazcfretcc', ['gazcfrescc', 'gazcfdvrcc', 'gazcfagr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'vapcfretcc', ['vapcfrescc', 'vapcfdvrcc', 'vapcfagr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'enccfretcc', ['enccfrescc', 'enccfdvrcc', 'enccfagr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'elccfretcc', ['elccfrescc', 'elccfdvrcc', 'elccfagr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfretcc', ['cmscfretcc','gazcfretcc','petcfretcc','vapcfretcc','enccfretcc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfretcc', ['cmbcfretcc', 'elccfretcc'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'cmscfcc', ['cmscftra', 'cmscfind', 'cmscfretcc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfcc', ['petcftra', 'petcfind', 'petcfretcc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gazcfcc', ['gazcftra', 'gazcfind', 'gazcfretcc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'vapcfcc', ['vapcftra', 'vapcfind', 'vapcfretcc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'enccfcc', ['enccftra', 'enccfind', 'enccfretcc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'elccfcc', ['elccftra', 'elccfind', 'elccfretcc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfcc', ['cmscfcc','gazcfcc','petcfcc','vapcfcc','enccfcc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfcc', ['cmbcfcc', 'elccfcc'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'toccpcc', ['toccp', '-toccf', 'toccfcc'], 'Mtoe')
+
+# STOCK OF DWELLINGS/CONSTRUCTION
+if not recupSerie(resOdy,'men'):
+	resOdy = affectation(resOdy, 'men', 'nbrlpr')
+
+resOdy = affectation(resOdy, 'nbrlpn', 'nbrlpn')
+resOdy = affectation(resOdy, 'nbrmpn', 'nbrmpn')
+resOdy = affectation(resOdy, 'nbripn', 'nbripn')
+
+
+# DWELLING SIZE
+resOdy = affectation(resOdy, 'surlpn', 'surlpn')
+resOdy = affectation(resOdy, 'suripn', 'suripn')
+resOdy = affectation(resOdy, 'surmpn', 'surmpn')
+
+# EQUIPMENT OWNERSHIP RATIOS
+
+resOdy = affectationParMultiplication(resOdy, 'teqrfgmult', [('nbrrfg','k')], [('men','k')], 'k', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'teqcglmult', [('nbrcgl','k')], [('men','k')], 'k', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'teqlvlmult', [('nbrlvl','k')], [('men','k')], 'k', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'teqlvvmult', [('nbrlvv','k')], [('men','k')], 'k', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'teqsclmult', [('nbrscl','k')], [('men','k')], 'k', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'teqfrmmult', [('nbrfrm','k')], [('men','k')], 'k', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'teqclimult', [('nbrcli','k')], [('men','k')], 'k', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'teqtvsmult', [('nbrtvs','k')], [('men','k')], 'k', poids=100)
+
+# ANNUAL SALES OF ELECTRICAL APPLIANCES 
+resOdy = affectation(resOdy, 'newrfg', 'newrfg')
+resOdy = affectation(resOdy, 'newrfg1', 'newrfg1')
+resOdy = affectation(resOdy, 'newrfg2', 'newrfg2')
+resOdy = affectation(resOdy, 'newcgl', 'newcgl')
+resOdy = affectation(resOdy, 'newcold', 'newcold')
+resOdy = affectation(resOdy, 'newlvl', 'newlvl')
+resOdy = affectation(resOdy, 'newlvv', 'newlvv')
+resOdy = affectation(resOdy, 'newtvs', 'newtvs')
+resOdy = affectation(resOdy, 'newscl', 'newscl')
+resOdy = affectation(resOdy, 'newfrm', 'newfrm')
+resOdy = affectation(resOdy, 'newcli', 'newcli')
+resOdy = affectation(resOdy, 'newset', 'newset')
+resOdy = affectation(resOdy, 'newpc', 'newpc')
+resOdy = affectation(resOdy, 'newdesk', 'newdesk')
+resOdy = affectation(resOdy, 'newlap', 'newlap')
+
+# SALES OF ELECTRICAL APPLIANCES BY LABEL CLASS
+resOdy = affectation(resOdy, 'pcgla', 'pcgla')
+
+# SPECIF CONSUMPTION OF ELECTRICAL APPLIANCES
+resOdy = affectationParMultiplication(resOdy, 'elecfcgl', [('cselecgl','kWh/year'), ('nbrcgl','k')], None, 'GWh', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'elecfrfg', [('cselerfg','kWh/year'), ('nbrrfg','k')], None, 'GWh', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'elecflvl', [('cselelvl','kWh/year'), ('nbrlvl','k')], None, 'GWh', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'elecflvv', [('cselelvv','kWh/year'), ('nbrlvv','k')], None, 'GWh', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'elecftvs', [('cseletvs','kWh/year'), ('nbrtvs','k')], None, 'GWh', poids=0.001)
+
+# HOUSEHOLD SPACE HEATING CONSUMPTION
+
+if pays in ['aut', 'bel', 'dnk', 'fin', 'nld', 'rfa','swe']:
+	c_tep = 0.0001/const.VALEUR['cst_tclun']
+else:
+	c_tep = 0.001
+
+resOdy = affectation(resOdy, 'gplcfreschf', 'gplcfreschf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'holcfreschf', 'holcfreschf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfreschf', 'folcfreschf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfreschf', 'gazcfreschf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfreschf', 'chacfreschf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfreschf', 'ligcfreschf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'toucfreschf', 'toucfreschf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfreschf', 'vapcfreschf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfreschf', 'enccfreschf', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = multiAffectation(resOdy, 'cmscfreschf', ['chacfreschf','ligcfreschf','cokcfreschf','osfcfreschf','toucfreschf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfreschf', ['esscfreschf','gzlcfreschf','folcfreschf','pdvcfreschf','gplcfreschf','holcfreschf','carcfreschf','esacfreschf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfreschf', ['cmscfreschf','gazcfreschf','petcfreschf','vapcfreschf','enccfreschf'], 'Mtoe')
+if pays in ['ueur','ueur28','nor']:
+	resOdy = affectation(resOdy, 'toccfreschf', 'toccfreschf', 'Mtoe', poids=0.001, clean=True)
+else:
+	resOdy = multiAffectation(resOdy, 'toccfreschf', ['cmbcfreschf', 'elccfreschf'], 'Mtoe')
+
+# SPACE HEATING CONSUMPTION WITH CLIMATIC CORRECTIONS
+corr_clim_chf = 1/(1-0.9*(1-arr(ed[ed.serie=='dj'].value)/arr(ed[ed.serie=='djref'].value)))
+resOdy = affectation(resOdy, 'cmscfreschc', 'cmscfreschf', 'Mtoe', poids=corr_clim_chf)
+resOdy = affectation(resOdy, 'petcfreschc', 'petcfreschf', 'Mtoe', poids=corr_clim_chf)
+resOdy = affectation(resOdy, 'gazcfreschc', 'gazcfreschf', 'Mtoe', poids=corr_clim_chf)
+resOdy = affectation(resOdy, 'vapcfreschc', 'vapcfreschf', 'Mtoe', poids=corr_clim_chf)
+resOdy = affectation(resOdy, 'enccfreschc', 'enccfreschf', 'Mtoe', poids=corr_clim_chf)
+resOdy = affectation(resOdy, 'elccfreschc', 'elccfreschf', 'Mtoe', poids=corr_clim_chf)
+resOdy = multiAffectation(resOdy, 'cmbcfreschc', ['cmscfreschc','gazcfreschc','petcfreschc','vapcfreschc','enccfreschc'], 'Mtoe')
+if pays == 'gbr':
+	resOdy = affectation(resOdy, 'toccfreschc', 'toccfreschc', 'Mtoe', poids=0.001, clean=True)
+else:
+	resOdy = multiAffectation(resOdy, 'toccfreschc', ['cmbcfreschc', 'elccfreschc'], 'Mtoe')
+
+# HOUSEHOLD WATER HEATING
+resOdy = affectation(resOdy, 'gplcfresecs', 'gplcfresecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'holcfresecs', 'holcfresecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfresecs', 'folcfresecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfresecs', 'gazcfresecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfresecs', 'chacfresecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfresecs', 'ligcfresecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'toucfresecs', 'toucfresecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfresecs', 'elecfresecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfresecs', 'vapcfresecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfresecs', 'enccfresecs', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = multiAffectation(resOdy, 'cmscfresecs', ['chacfresecs','ligcfresecs','cokcfresecs','osfcfresecs','toucfresecs'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfresecs', ['esscfresecs','gzlcfresecs','folcfresecs','pdvcfresecs','gplcfresecs','holcfresecs','carcfresecs','esacfresecs'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfresecs', ['cmscfresecs','gazcfresecs','petcfresecs','vapcfresecs','enccfresecs'], 'Mtoe')
+if pays in ['ueur','ueur28','nor']:
+	resOdy = affectation(resOdy, 'toccfresecs', 'toccfresecs', 'Mtoe', poids=0.001, clean=True)
+else:
+	resOdy = multiAffectation(resOdy, 'toccfresecs', ['cmbcfresecs', 'elccfresecs'], 'Mtoe')
+
+# HOUSEHOLD COOKING
+resOdy = affectation(resOdy, 'gplcfrescui', 'gplcfrescui', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'holcfrescui', 'holcfrescui', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfrescui', 'folcfrescui', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfrescui', 'gazcfrescui', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfrescui', 'chacfrescui', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfrescui', 'ligcfrescui', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'toucfrescui', 'toucfrescui', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfrescui', 'elecfrescui', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfrescui', 'enccfrescui', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = multiAffectation(resOdy, 'cmscfrescui', ['chacfrescui','ligcfrescui','cokcfrescui','osfcfrescui','toucfrescui'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfrescui', ['esscfrescui','gzlcfrescui','folcfrescui','pdvcfrescui','gplcfrescui','holcfrescui','carcfrescui','esacfrescui'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfrescui', ['cmscfrescui','gazcfrescui','petcfrescui','vapcfrescui','enccfrescui'], 'Mtoe')
+if pays in ['ueur','ueur28']:
+	resOdy = affectation(resOdy, 'toccfrescui', 'toccfrescui', 'Mtoe', poids=0.001, clean=True)
+else:
+	resOdy = multiAffectation(resOdy, 'toccfrescui', ['cmbcfrescui', 'elccfrescui'], 'Mtoe')
+
+# SPECIFIC CONSUMPTION OF NEW DWELLINGS
+if pays in ['nld','nor']:
+	resOdy = affectationParMultiplication(resOdy, 'csmpncht', [('csmpncht','kWh/m2'), (NULL,'m2')], None, 'toe/dw', poids=0.001/const.VALEUR['cst_elcun'])
+	resOdy = affectationParMultiplication(resOdy, 'csipncht', [('csipncht','kWh/m2'), (NULL,'m2')], None, 'toe/dw', poids=0.001/const.VALEUR['cst_elcun'])
+	resOdy = affectationParMultiplication(resOdy, 'cscmbmpncht', [('cscmbmpncht','GJ/m2'), (NULL,'m2')], None, 'toe/dw', poids=0.1/const.VALEUR['cst_tclun'])
+	resOdy = affectationParMultiplication(resOdy, 'cselempncht', [('cselempncht','kWh/m2'), (NULL,'m2')], None, 'toe/dw', poids=0.001/const.VALEUR['cst_elcun'])
+	resOdy = affectationParMultiplication(resOdy, 'cscmbipncht', [('cscmbipncht','GJ/m2'), (NULL,'m2')], None, 'toe/dw', poids=0.1/const.VALEUR['cst_tclun'])
+	resOdy = affectationParMultiplication(resOdy, 'cseleipncht', [('cseleipncht','kWh/m2'), (NULL,'m2')], None, 'toe/dw', poids=0.001/const.VALEUR['cst_elcun'])
+else:
+	if pays == 'swe':
+		resOdy = affectation(resOdy, 'csmpncht', 'csmpncht')
+		resOdy = affectation(resOdy, 'csipncht', 'csipncht')
+		resOdy = affectationParMultiplication(resOdy, 'cscmbmpncht', [('cscmbmpncht','GJ/m2'), ('surmpn','m2')], None, 'toe/dw', poids=0.1/const.VALEUR['cst_tclun'])
+		resOdy = affectationParMultiplication(resOdy, 'cselempncht', [('cselempncht','kWh/m2'), ('surmpn','m2')], None, 'toe/dw', poids=0.001/const.VALEUR['cst_elcun'])
+		resOdy = affectationParMultiplication(resOdy, 'cscmbipncht', [('cscmbipncht','GJ/m2'), ('suripn','m2')], None, 'toe/dw', poids=0.1/const.VALEUR['cst_tclun'])
+		resOdy = affectationParMultiplication(resOdy, 'cseleipncht', [('cseleipncht','kWh/m2'), ('suripn','m2')], None, 'toe/dw', poids=0.001/const.VALEUR['cst_elcun'])
+	else:
+		if pays in ['rfa','fin','aut','dnk','lat','prt']:
+			resOdy = affectationParMultiplication(resOdy, 'csmpncht', [('csmpncht','kWh/m2'), ('surmpn','m2')], None, 'toe/dw', poids=0.001/const.VALEUR['cst_elcun'])
+			resOdy = affectationParMultiplication(resOdy, 'csipncht', [('csipncht','kWh/m2'), ('suripn','m2')], None, 'toe/dw', poids=0.001/const.VALEUR['cst_elcun'])
+			resOdy = affectationParMultiplication(resOdy, 'cscmbmpncht', [('cscmbmpncht','GJ/m2'), ('surmpn','m2')], None, 'toe/dw', poids=0.1/const.VALEUR['cst_tclun'])
+			resOdy = affectationParMultiplication(resOdy, 'cselempncht', [('cselempncht','kWh/m2'), ('surmpn','m2')], None, 'toe/dw', poids=0.001/const.VALEUR['cst_elcun'])
+			resOdy = affectationParMultiplication(resOdy, 'cscmbipncht', [('cscmbipncht','GJ/m2'), ('suripn','m2')], None, 'toe/dw', poids=0.1/const.VALEUR['cst_tclun'])
+			resOdy = affectationParMultiplication(resOdy, 'cseleipncht', [('cseleipncht','kWh/m2'), ('suripn','m2')], None, 'toe/dw', poids=0.001/const.VALEUR['cst_elcun'])
+		else:
+			resOdy = affectation(resOdy, 'csmpncht', 'csmpncht')
+			resOdy = affectation(resOdy, 'csipncht', 'csipncht')
+			resOdy = affectation(resOdy, 'cscmbmpncht', 'cscmbmpncht')
+			resOdy = affectation(resOdy, 'cselempncht', 'cselempncht')
+			resOdy = affectation(resOdy, 'cscmbipncht', 'cscmbipncht')
+			resOdy = affectation(resOdy, 'cseleipncht', 'cseleipncht')
+
+# ENERGY EFFICIENCY IN EXISTING DWELLINGS
+
+resOdy = affectation(resOdy, 'elecfmprchf', 'elecfmprchf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfiprchf', 'elecfiprchf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cmbcfiprchf', 'cmbcfiprchf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'cmbcfmprchf', 'cmbcfmprchf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = multiAffectation(resOdy, 'toccfiprchf', ['cmbcfiprchf', 'elccfiprchf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfmprchf', ['cmbcfmprchf', 'elccfmprchf'], 'Mtoe')
+
+if not recupSerie(resOdy,'toccfiprchf'):
+	resOdy = affectation(resOdy, 'toccfiprchf', 'toccfiprchf', 'Mtoe', poids=c_tep, clean=True)
+if not recupSerie(resOdy,'toccfmprchf'):
+	resOdy = affectation(resOdy, 'toccfmprchf', 'toccfmprchf', 'Mtoe', poids=c_tep, clean=True)
+
+# SPECIFIC CONSUMPTION BY TYPE OF DWELLING
+if pays == 'prt':
+	resOdy = affectation(resOdy, 'cslogccc', 'cslogccc', 'toe/dw', poids=0.1/(const.VALEUR['cst_tclun']))
+	resOdy = affectation(resOdy, 'cslogcci', 'cslogcci', 'toe/dw', poids=0.1/(const.VALEUR['cst_tclun']))
+	resOdy = affectation(resOdy, 'cslogcdi', 'cslogcdi', 'toe/dw', poids=0.1/(const.VALEUR['cst_tclun']))
+else:
+	if pays in ['aut','rfa','nld']:
+		resOdy = affectation(resOdy, 'cscmbmprchf', 'cscmbmprchf', 'toe/dw', poids=0.001/(const.VALEUR['cst_elcun']))
+		resOdy = affectation(resOdy, 'cselemprchf', 'cselemprchf', 'toe/dw', poids=0.001/(const.VALEUR['cst_elcun']))
+		resOdy = affectation(resOdy, 'cscmbiprchf', 'cscmbiprchf', 'toe/dw', poids=0.001/(const.VALEUR['cst_elcun']))
+		resOdy = affectation(resOdy, 'cseleiprchf', 'cseleiprchf', 'toe/dw', poids=0.001/(const.VALEUR['cst_elcun']))
+		resOdy = affectation(resOdy, 'csmprchf', 'csmprchf', 'toe/dw', poids=0.001/(const.VALEUR['cst_elcun']))
+		resOdy = affectation(resOdy, 'csiprchf', 'csiprchf', 'toe/dw', poids=0.001/(const.VALEUR['cst_elcun']))
+		resOdy = affectation(resOdy, 'cslogccc', 'cslogccc', 'toe/dw', poids=0.1/(const.VALEUR['cst_tclun']))
+		resOdy = affectation(resOdy, 'cslogcci', 'cslogcci', 'toe/dw', poids=0.1/(const.VALEUR['cst_tclun']))
+		resOdy = affectation(resOdy, 'cslogcdi', 'cslogcdi', 'toe/dw', poids=0.1/(const.VALEUR['cst_tclun']))
+	else:
+		if pays == 'cyp':
+			resOdy = affectation(resOdy, 'cscmbmprchf', 'cscmbmprchf', 'toe/dw', poids=0.001/(const.VALEUR['cst_elcun']))
+			resOdy = affectation(resOdy, 'cselemprchf', 'cselemprchf', 'toe/dw', poids=0.001/(const.VALEUR['cst_elcun']))
+			resOdy = affectation(resOdy, 'cscmbiprchf', 'cscmbiprchf', 'toe/dw', poids=0.001/(const.VALEUR['cst_elcun']))
+			resOdy = affectation(resOdy, 'cseleiprchf', 'cseleiprchf', 'toe/dw', poids=0.001/(const.VALEUR['cst_elcun']))
+		else:
+			if pays == 'ita':
+				resOdy = affectation(resOdy, 'cselemprchf', 'cselemprchf', 'toe/dw', poids=0.001/(const.VALEUR['cst_elcun']))
+				resOdy = affectation(resOdy, 'cseleiprchf', 'cseleiprchf', 'toe/dw', poids=0.001/(const.VALEUR['cst_elcun']))
+			else:
+				resOdy = affectation(resOdy, 'cscmbmprchf', 'cscmbmprchf')
+				resOdy = affectation(resOdy, 'cselemprchf', 'cselemprchf')
+				resOdy = affectation(resOdy, 'cscmbiprchf', 'cscmbiprchf')
+				resOdy = affectation(resOdy, 'cseleiprchf', 'cseleiprchf')
+		resOdy = affectation(resOdy, 'csmprchf', 'csmprchf')
+		resOdy = affectation(resOdy, 'csiprchf', 'csiprchf')
+		resOdy = affectation(resOdy, 'cslogccc', 'cslogccc')
+		resOdy = affectation(resOdy, 'cslogcci', 'cslogcci')
+		resOdy = affectation(resOdy, 'cslogcdi', 'cslogcdi')
+
+resOdy = affectation(resOdy, 'gplcfter', 'gplcfter', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'holcfter', 'holcfter', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'folcfter', 'folcfter', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfter', 'gazcfter', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'chacfter', 'chacfter', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'ligcfter', 'ligcfter', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'toucfter', 'toucfter', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfter', 'elecfter', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfter', 'vapcfter', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfter', 'enccfter', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfter', 'elecfter', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+
+resOdy = multiAffectation(resOdy, 'cmscfter', ['chacfter','ligcfter','cokcfter','osfcfter','toucfter'], 'Mtoe')
+if not recupSerie(resOdy,'cmscfter'):
+	resOdy = affectation(resOdy, 'cmscfter', 'cmscfter', 'Mtoe', poids=c_tep, clean=True)
+resOdy = multiAffectation(resOdy, 'petcfter', ['esscfter','gzlcfter','folcfter','pdvcfter','gplcfter','holcfter','carcfter','esacfter'], 'Mtoe')
+if not recupSerie(resOdy,'petcfter'):
+	resOdy = affectation(resOdy, 'petcfter', 'petcfter', 'Mtoe', poids=c_tep, clean=True)
+resOdy = multiAffectation(resOdy, 'cmbcfter', ['cmscfter','gazcfter','petcfter','vapcfter','enccfter'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfter', ['cmbcfter', 'elccfter'], 'Mtoe')
+
+resOdy = correctionClimatique(resOdy, 'cmscfter', 'pcchftercc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'petcfter', 'pcchftercc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'gazcfter', 'pcchftercc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'vapcfter', 'pcchftercc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'enccfter', 'pcchftercc', 'Mtoe')
+resOdy = correctionClimatique(resOdy, 'solcfter', 'pcchftercc', 'Mtoe')
+
+resOdy = affectation(resOdy, 'elecfterchf', 'elecfterchf', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+
+if recupSerie(resOdy,'pcchfelecc'):
+	resOdy = correctionClimatique(resOdy, 'elecfter', 'pcchfelecc', 'Mtoe')
+else:
+	resOdy = correctionClimatique(resOdy, 'elecfter', 'pcchftercc', 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcftercc', ['cmscftercc','gazcftercc','petcftercc','vapcftercc','enccftercc'], 'Mtoe')
+resOdy = affectation(resOdy, 'elecftercc', 'elecftercc', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+resOdy = affectation(resOdy, 'elecftercli', 'elecftercli', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectationParMultiplication(resOdy, 'pcclieleter', [('elccftercli','Mtoe')], [('elccfter','Mtoe')], '1', poids=1)
+resOdy = multiAffectation(resOdy, 'toccftercli', ['cmbcftercli', 'elccftercli'], 'Mtoe')
+
+if pays != 'gbr':
+	resOdy = multiAffectation(resOdy, 'toccftercc', ['cmbcftercc', 'elccftercc'], 'Mtoe')
+else:
+	resOdy = affectation(resOdy, 'toccftercc', 'toccftercc', 'Mtoe', poids=0.001, clean=True)
+
+# SERVICE SECTOR CONSUMPTION BY END-USES
+resOdy = affectation(resOdy, 'cmscfterchf', 'cmscfterchf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfterchf', 'gazcfterchf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'petcfterchf', 'petcfterchf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfterchf', 'elecfterchf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfterchf', 'vapcfterchf', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfterchf', 'enccfterchf', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'cmscfterecs', 'cmscfterecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfterecs', 'gazcfterecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'petcfterecs', 'petcfterecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfterecs', 'elecfterecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfterecs', 'vapcfterecs', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfterecs', 'enccfterecs', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'gazcftercui', 'gazcftercui', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'petcftercui', 'petcftercui', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecftercui', 'elecftercui', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = affectation(resOdy, 'elecfoffsels', 'elecfoffsels', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfterlgt', 'elecfterlgt', 'Mtoe', poids=c_tep, clean=True)
+
+resOdy = multiAffectation(resOdy, 'cmbcfterchf', ['cmscfterchf','gazcfterchf','petcfterchf','vapcfterchf','enccfterchf'], 'Mtoe')
+
+if recupSerie(resOdy,'cmbcfterchf'):
+	resOdy = multiAffectation(resOdy, 'toccfterchf', ['cmbcfterchf', 'elccfterchf'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'cmbcfterecs', ['cmscfterecs','gazcfterecs','petcfterecs','vapcfterecs','enccfterecs'], 'Mtoe')
+if recupSerie(resOdy,'cmbcfterecs'):
+	resOdy = multiAffectation(resOdy, 'toccfterecs', ['cmbcfterecs', 'elccfterecs'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'cmbcftercui', ['cmscftercui','gazcftercui','petcftercui','vapcftercui','enccftercui'], 'Mtoe')
+if recupSerie(resOdy,'cmbcftercui'):
+	resOdy = multiAffectation(resOdy, 'toccftercui', ['cmbcftercui', 'elccftercui'], 'Mtoe')
+
+# SPACE HEATING CONSUMPTION WITH CLIMATIC CORRECTIONS
+resOdy = affectation(resOdy, 'cmscfterchc', 'cmscfterchf', 'Mtoe', poids=corr_clim_chf)
+resOdy = affectation(resOdy, 'petcfterchc', 'petcfterchf', 'Mtoe', poids=corr_clim_chf)
+resOdy = affectation(resOdy, 'gazcfterchc', 'gazcfterchf', 'Mtoe', poids=corr_clim_chf)
+resOdy = affectation(resOdy, 'vapcfterchc', 'vapcfterchf', 'Mtoe', poids=corr_clim_chf)
+resOdy = affectation(resOdy, 'enccfterchc', 'enccfterchf', 'Mtoe', poids=corr_clim_chf)
+resOdy = affectation(resOdy, 'elccfterchc', 'elccfterchf', 'Mtoe', poids=corr_clim_chf)
+resOdy = affectation(resOdy, 'solcfterchc', 'solcfterchf', 'Mtoe', poids=corr_clim_chf)
+resOdy = multiAffectation(resOdy, 'cmbcfterchc', ['cmscfterchc','gazcfterchc','petcfterchc','vapcfterchc','enccfterchc'], 'Mtoe')
+if pays == 'gbr':
+	resOdy = affectation(resOdy, 'toccfterchc', 'toccfterchc', 'Mtoe', poids=0.001, clean=True)
+else:
+	resOdy = multiAffectation(resOdy, 'toccfterchc', ['cmbcfterchc', 'elccfterchc'], 'Mtoe')
+
+# FLOOR AREA IN SERVICE SECTOR BUILDINGS ADAPTER LES RS PAYS
+if pays not in ['prt','cro','grc']:
+	resOdy = affectation(resOdy, 'surter', 'surter')
+	resOdy = affectation(resOdy, 'surcom', 'surcom')
+	resOdy = affectation(resOdy, 'surhcr', 'surhcr')
+	if pays == 'swe':
+		resOdy = affectation(resOdy, 'surbur', 'surbur')
+	else:
+		resOdy = affectation(resOdy, 'surbur', 'surbur')
+	resOdy = affectation(resOdy, 'surgov', 'surgov')
+	resOdy = affectation(resOdy, 'suredu', 'suredu')
+	resOdy = affectation(resOdy, 'surhos', 'surhos')
+	resOdy = affectation(resOdy, 'surdiv', 'surdiv')
+else:
+	if pays == 'grc':
+		resOdy = affectation(resOdy, 'surter', 'surter', 'Mm2', poids=0.001, clean=True)
+		resOdy = affectation(resOdy, 'surcom', 'surcom', 'Mm2', poids=0.001, clean=True)
+		resOdy = affectation(resOdy, 'surhcr', 'surhcr', 'Mm2', poids=0.001, clean=True)
+		resOdy = affectation(resOdy, 'surbur', 'surbur', 'Mm2', poids=0.001, clean=True)
+		resOdy = affectation(resOdy, 'surgov', 'surgov', 'Mm2', poids=0.001, clean=True)
+		resOdy = affectation(resOdy, 'suredu', 'suredu', 'Mm2', poids=0.001, clean=True)
+		resOdy = affectation(resOdy, 'surhos', 'surhos', 'Mm2', poids=0.001, clean=True)
+		resOdy = affectation(resOdy, 'surdiv', 'surdiv', 'Mm2', poids=0.001, clean=True)
+	else:
+		if pays in ['prt','cro']:
+			resOdy = affectation(resOdy, 'surter', 'surter', 'Mm2', poids=1e-06, clean=True)
+			resOdy = affectation(resOdy, 'surcom', 'surcom', 'Mm2', poids=1e-06, clean=True)
+			resOdy = affectation(resOdy, 'surhcr', 'surhcr', 'Mm2', poids=1e-06, clean=True)
+			resOdy = affectation(resOdy, 'surbur', 'surbur', 'Mm2', poids=1e-06, clean=True)
+			resOdy = affectation(resOdy, 'surgov', 'surgov', 'Mm2', poids=1e-06, clean=True)
+			resOdy = affectation(resOdy, 'suredu', 'suredu', 'Mm2', poids=1e-06, clean=True)
+			resOdy = affectation(resOdy, 'surhos', 'surhos', 'Mm2', poids=1e-06, clean=True)
+if pays == 'swe':
+	resOdy = affectation(resOdy, 'surbup', 'surgov', 'Mm2')
+	resOdy = multiAffectation(resOdy, 'surbup', ['surgov', 'surbur'], 'Mm2')
+else:
+	resOdy = multiAffectation(resOdy, 'surbup', ['surgov', 'surbur'], 'Mm2')
+
+if pays in ['cyp','rfy','ita']:
+	resOdy = affectation(resOdy, 'nsuter', 'nsuter', 'Mm2', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'nsucom', 'nsucom', 'Mm2', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'nsuhcr', 'nsuhcr', 'Mm2', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'nsubur', 'nsubur', 'Mm2', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'nsugov', 'nsugov', 'Mm2', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'nsuedu', 'nsuedu', 'Mm2', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'nsuhos', 'nsuhos', 'Mm2', poids=0.001, clean=True)
+	resOdy = affectation(resOdy, 'nsudiv', 'nsudiv', 'Mm2', poids=0.001, clean=True)
+else:
+	if pays in ['prt','grc']:
+		resOdy = affectation(resOdy, 'nsuter', 'nsuter', 'Mm2', poids=1e-06, clean=True)
+		resOdy = affectation(resOdy, 'nsucom', 'nsucom', 'Mm2', poids=1e-06, clean=True)
+		resOdy = affectation(resOdy, 'nsuhcr', 'nsuhcr', 'Mm2', poids=1e-06, clean=True)
+		resOdy = affectation(resOdy, 'nsubur', 'nsubur', 'Mm2', poids=1e-06, clean=True)
+		resOdy = affectation(resOdy, 'nsugov', 'nsugov', 'Mm2', poids=1e-06, clean=True)
+		resOdy = affectation(resOdy, 'nsuedu', 'nsuedu', 'Mm2', poids=1e-06, clean=True)
+		resOdy = affectation(resOdy, 'nsuhos', 'nsuhos', 'Mm2', poids=1e-06, clean=True)
+		resOdy = affectation(resOdy, 'nsudiv', 'nsudiv', 'Mm2', poids=1e-06, clean=True)
+	else:
+		resOdy = affectation(resOdy, 'nsuter', 'nsuter')
+		resOdy = affectation(resOdy, 'nsucom', 'nsucom')
+		resOdy = affectation(resOdy, 'nsuhcr', 'nsuhcr')
+		resOdy = affectation(resOdy, 'nsubur', 'nsubur')
+		resOdy = affectation(resOdy, 'nsugov', 'nsugov')
+		resOdy = affectation(resOdy, 'nsuedu', 'nsuedu')
+		resOdy = affectation(resOdy, 'nsuhos', 'nsuhos')
+		resOdy = affectation(resOdy, 'nsudiv', 'nsudiv')
+
+# VALUE ADDED IN SERVICE SECTOR
+
+if not recupSerie(resOdy,'vadburxx'):
+	resOdy = multiAffectation(resOdy, 'vadburxx', ['vadter','-vadcom','-vadhcr','-vadgov','-vadedu','-vadhos'], 'MEUR2010')
+if not recupSerie(resOdy,'vadbupxx'):
+	resOdy = multiAffectation(resOdy, 'vadbupxx', ['vadburxx', 'vadgovxx'], 'MEUR2010')
+
+# ENERGY CONSUMPTION BY BRANCH
+# PUBLIC OFFICES
+resOdy = affectation(resOdy, 'cmscfgov', 'cmscfgov', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'petcfgov', 'petcfgov', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfgov', 'gazcfgov', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfgov', 'elecfgov', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfgov', 'vapcfgov', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfgov', 'enccfgov', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfgov', 'elecfgov', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+# PRIVATE OFFICES
+resOdy = affectation(resOdy, 'cmscfbur', 'cmscfbur', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'petcfbur', 'petcfbur', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfbur', 'gazcfbur', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfbur', 'elecfbur', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfbur', 'vapcfbur', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfbur', 'enccfbur', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfbur', 'elecfbur', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+# WHOLESALE AND RETAIL TRADE
+resOdy = affectation(resOdy, 'cmscfcom', 'cmscfcom', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'petcfcom', 'petcfcom', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfcom', 'gazcfcom', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfcom', 'elecfcom', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfcom', 'vapcfcom', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfcom', 'enccfcom', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfcom', 'elecfcom', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+# HOTELS AND RESTAURANTS
+resOdy = affectation(resOdy, 'cmscfhcr', 'cmscfhcr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'petcfhcr', 'petcfhcr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfhcr', 'gazcfhcr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfhcr', 'elecfhcr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfhcr', 'vapcfhcr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfhcr', 'enccfhcr', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfhcr', 'elecfhcr', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+# EDUCATION
+resOdy = affectation(resOdy, 'cmscfedu', 'cmscfedu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'petcfedu', 'petcfedu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfedu', 'gazcfedu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfedu', 'elecfedu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfedu', 'vapcfedu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfedu', 'enccfedu', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfedu', 'elecfedu', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+# HEALTH
+resOdy = affectation(resOdy, 'cmscfhos', 'cmscfhos', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'petcfhos', 'petcfhos', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfhos', 'gazcfhos', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfhos', 'elecfhos', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfhos', 'vapcfhos', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfhos', 'enccfhos', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfhos', 'elecfhos', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+# OTHER
+resOdy = affectation(resOdy, 'cmscfdiv', 'cmscfdiv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'petcfdiv', 'petcfdiv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'gazcfdiv', 'gazcfdiv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'elecfdiv', 'elecfdiv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'vapcfdiv', 'vapcfdiv', 'Mtoe', poids=c_tep, clean=True)
+resOdy = affectation(resOdy, 'enccfdiv', 'enccfdiv', 'Mtoe', poids=c_tep, clean=True)
+
+if not recupSerie(resOdy,'empbur'):
+	if recupSerie(resOdy,'empgov') & recupSerie(resOdy,'emphos') & recupSerie(resOdy,'empcom') & recupSerie(resOdy,'emphcr') & recupSerie(resOdy,'empedu'):
+		resOdy = multiAffectation(resOdy, 'empbur', ['empter','-empcom','-emphcr','-empgov','-empedu','-emphos'], 'k')
+if not recupSerie(resOdy,'empbup'):
+	resOdy = multiAffectation(resOdy, 'empbup', ['empgov', 'empbur'], 'k')
+
+if pays == 'esp':
+	resOdy = affectation(resOdy, 'cmscfbup', 'cmscfbur', 'Mtoe')
+	resOdy = affectation(resOdy, 'petcfbup', 'petcfbur', 'Mtoe')
+	resOdy = affectation(resOdy, 'gazcfbup', 'gazcfbur', 'Mtoe')
+	resOdy = affectation(resOdy, 'elccfbup', 'elccfbur', 'Mtoe')
+	resOdy = affectation(resOdy, 'vapcfbup', 'vapcfbur', 'Mtoe')
+	resOdy = affectation(resOdy, 'enccfbup', 'enccfbur', 'Mtoe')
+	resOdy = affectation(resOdy, 'elecfbup', 'elecfbur', 'TWh')
+else:
+	resOdy = multiAffectation(resOdy, 'cmscfbup', ['cmscfgov', 'cmscfbur'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'petcfbup', ['petcfgov', 'petcfbur'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'gazcfbup', ['gazcfgov', 'gazcfbur'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'elccfbup', ['elccfgov', 'elccfbur'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'vapcfbup', ['vapcfgov', 'vapcfbur'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'enccfbup', ['enccfgov', 'enccfbur'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'elecfbup', ['elecfgov', 'elecfbur'], 'TWh')
+
+if pays not in ['prt','ueur','ueur28']:
+	resOdy = multiAffectation(resOdy, 'cmbcfbup', ['cmscfbup','gazcfbup','petcfbup','vapcfbup','enccfbup'], 'Mtoe')
+	if recupSerie(resOdy,'cmbcfbup') & recupSerie(resOdy,'elccfbup'):
+		resOdy = multiAffectation(resOdy, 'toccfbup', ['cmbcfbup', 'elccfbup'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'cmbcfgov', ['cmscfgov','gazcfgov','petcfgov','vapcfgov','enccfgov'], 'Mtoe')
+	if recupSerie(resOdy,'cmbcfgov') & recupSerie(resOdy,'elccfgov'):
+		resOdy = multiAffectation(resOdy, 'toccfgov', ['cmbcfgov', 'elccfgov'], 'Mtoe')
+	resOdy = multiAffectation(resOdy, 'cmbcfbur', ['cmscfbur','gazcfbur','petcfbur','vapcfbur','enccfbur'], 'Mtoe')
+	if recupSerie(resOdy,'cmbcfbur') & recupSerie(resOdy,'elccfbur'):
+		resOdy = multiAffectation(resOdy, 'toccfbur', ['cmbcfbur', 'elccfbur'], 'Mtoe')
+	
+
+resOdy = multiAffectation(resOdy, 'cmbcfhos', ['cmscfhos','gazcfhos','petcfhos','vapcfhos','enccfhos'], 'Mtoe')
+if recupSerie(resOdy,'cmbcfhos') & recupSerie(resOdy,'elccfhos'):
+	resOdy = multiAffectation(resOdy, 'toccfhos', ['cmbcfhos', 'elccfhos'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfcom', ['cmscfcom','gazcfcom','petcfcom','vapcfcom','enccfcom'], 'Mtoe')
+if recupSerie(resOdy,'cmbcfcom') & recupSerie(resOdy,'elccfcom'):
+	resOdy = multiAffectation(resOdy, 'toccfcom', ['cmbcfcom', 'elccfcom'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfhcr', ['cmscfhcr','gazcfhcr','petcfhcr','vapcfhcr','enccfhcr'], 'Mtoe')
+if recupSerie(resOdy,'cmbcfhcr') & recupSerie(resOdy,'elccfhcr'):
+	resOdy = multiAffectation(resOdy, 'toccfhcr', ['cmbcfhcr', 'elccfhcr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfedu', ['cmscfedu','gazcfedu','petcfedu','vapcfedu','enccfedu'], 'Mtoe')
+if recupSerie(resOdy,'cmbcfedu') & recupSerie(resOdy,'elccfedu'):
+	resOdy = multiAffectation(resOdy, 'toccfedu', ['cmbcfedu', 'elccfedu'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfdiv', ['cmscfdiv','gazcfdiv','petcfdiv','vapcfdiv','enccfdiv'], 'Mtoe')
+if recupSerie(resOdy,'cmbcfdiv') & recupSerie(resOdy,'elccfdiv'):
+	resOdy = multiAffectation(resOdy, 'toccfdiv', ['cmbcfdiv', 'elccfdiv'], 'Mtoe')
+else:
+	if pays in ['ueur','ueur28']:
+		resOdy = affectation(resOdy, 'toccfbup', 'toccfbup', 'Mtoe', poids=c_tep, clean=True)
+		resOdy = affectation(resOdy, 'toccfgov', 'toccfgov', 'Mtoe', poids=c_tep, clean=True)
+		resOdy = affectation(resOdy, 'toccfbur', 'toccfbur', 'Mtoe', poids=c_tep, clean=True)
+		resOdy = affectation(resOdy, 'toccfhos', 'toccfhos', 'Mtoe', poids=c_tep, clean=True)
+		resOdy = affectation(resOdy, 'toccfcom', 'toccfcom', 'Mtoe', poids=c_tep, clean=True)
+		resOdy = affectation(resOdy, 'toccfhcr', 'toccfhcr', 'Mtoe', poids=c_tep, clean=True)
+		resOdy = affectation(resOdy, 'toccfedu', 'toccfedu', 'Mtoe', poids=c_tep, clean=True)
+		resOdy = affectation(resOdy, 'toccfdiv', 'toccfdiv', 'Mtoe', poids=c_tep, clean=True)
+
+# ADJUSTED CONSUMPTION
+# ADJUSTED TO EU CLIMATE
+if pays in ['mlt','cyp']:
+	resOdy = affectation(resOdy, 'toccfresce', 'toccfrescc', 'Mtoe')
+	resOdy = affectation(resOdy, 'toccfterce', 'toccftercc', 'Mtoe')
+else:
+	resOdy = affectation(resOdy, 'toccfresce', 'toccfrescc', 'Mtoe', poids=(1-arr(ed[ed.serie=='pcchfrescc'].value)*(arr(eurdata[eurdata.serie=='djrefcomp'].value)/arr(ed[ed.serie=='djrefcomp'].value)-1)))
+	resOdy = affectation(resOdy, 'toccfterce', 'toccftercc', 'Mtoe', poids=(1-arr(ed[ed.serie=='pcchftercc'].value)*(arr(eurdata[eurdata.serie=='djrefcomp'].value)/arr(ed[ed.serie=='djrefcomp'].value)-1)))
+
+resOdy = multiAffectation(resOdy, 'toccfret', ['toccfresce', 'toccfterce', 'toccfdvr', 'toccfagr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccf', ['toccftra', 'toccfind', 'toccfretce'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'cmscfresdiv', ['cmscfres', 'cmscfreschf', 'cmscfresecs', 'cmscfrescui', 'cmscfrescli', 'cmscfresels'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'petcfresdiv', ['petcfres', 'petcfreschf', 'petcfresecs', 'petcfrescui', 'petcfrescli', 'petcfresels'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gazcfresdiv', ['gazcfres', 'gazcfreschf', 'gazcfresecs', 'gazcfrescui', 'gazcfrescli', 'gazcfresels'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'vapcfresdiv', ['vapcfres', 'vapcfreschf', 'vapcfresecs', 'vapcfrescui', 'vapcfrescli', 'vapcfresels'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'enccfresdiv', ['enccfres', 'enccfreschf', 'enccfresecs', 'enccfrescui', 'enccfrescli', 'enccfresels'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'elccfresdiv', ['elccfres', 'elccfreschf', 'elccfresecs', 'elccfrescui', 'elccfrescli', 'elccfresels'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfresdiv', ['cmscfresdiv','gazcfresdiv','petcfresdiv','vapcfresdiv','enccfresdiv'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfresdiv', ['cmbcfresdiv', 'elccfresdiv'], 'Mtoe')

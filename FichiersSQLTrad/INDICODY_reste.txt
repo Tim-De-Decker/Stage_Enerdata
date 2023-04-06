@@ -1,0 +1,623 @@
+Job:='INDICODY';
+
+
+DBMS_OUTPUT.PUT_LINE('Début INDIC');
+
+CALC_DATA.Affectation_Serie('suriprpc','suriprpc',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('pcclia','pcclia',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('pcrfga','pcrfga',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('pcrfga1','pcrfga1',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('pclvla','pclvla',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('pclvva','pclvva',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_DATA.Affectation_Serie('surlogpc','surlogpc',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+CALC_DATA.Affectation_Serie('nbrcbgaz','nbrcbgas',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_DATA.Affectation_Serie('prxgplres','prxgplres',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('prxvapres','prxvapres',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('prxgpl','prxgpl',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('prxgzlind','prxgzlind',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('prxcmsres','prxcmsres',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('prxcmsind','prxcmsind',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+/*CALC_INDICATEURS.Difference_2Series_ODY('toccpe','toccp','toccfnen','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Difference_2Series_ODY('toccpecc','toccpcc','toccfnen','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Serie_Part('ietoctepc','toccpe','pibxx',1000,'koe/EUR2010',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Serie_Part('ietoctepccc','toccpecc','pibxx',1000,'koe/EUR2010',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Serie_Part('ietoctepcpp','toccpe','pibxxppp',1000,'koe/EUR2010p',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Serie_Part('ietoctepcppcc','toccpecc','pibxxppp',1000,'koe/EUR2010p',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);*/
+
+
+
+
+	-- CALC_INDICATEURS.Produit_2Series_coeff('surres','nbrlpr','surlogpc',0.001,'Mm2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);--inclus les parties communes
+	-- CALC_INDICATEURS.Produit_2Series_coeff('surreshpc','nbrlpr','surlog',0.001,'Mm2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);--hors parties communes
+
+
+
+
+	CALC_INDICATEURS.Calcul_Serie_Part('cutocsid','toccfsid1','prdacb',1000,'toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+	CALC_INDICATEURS.Calcul_Serie_Indice100('icutocsid',v_an_base,pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+	SELECT valeur INTO somser FROM Valeurs_tab WHERE ticker=(SELECT numero FROM Series WHERE code_serie='prdppp' AND code_pays=pays_cour) AND tyear=2010;
+	IF ABS(somser)>100 THEN
+	END IF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	IF pays_cour='fin' THEN
+	ELSE
+	END IF;
+
+
+
+
+
+
+
+
+
+
+
+	--calcul_series('cutocedwchc=((cutocmprchc*nbrmpr)+(cutociprchc*nbripr))/((nbrmpr*icumpr)+nbripr)'); --n'existe pas dans l'interface
+
+
+	-- --inclus les parties communes
+	-- CALC_INDICATEURS.Calcul_Serie_Part('cutocsuriprchf','toccfiprchf','suriprpc',1000,'koe/m2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+	-- CALC_INDICATEURS.Calcul_Serie_Part('cutocsuriprchc','toccfiprchc','suriprpc',1000,'koe/m2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+	--hors parties communes (sauf fin, décommenter la condition quand validé par EED)
+
+
+
+CALC_INDICATEURS.Calcul_Serie_Part('pcdwelehpeff','pcdwhpeff','pcdwnbrele',100,'%',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);--pcdwhpeff remplace nbrpcheatp, pcdwelehpeff remplace pcdwnbrelehp
+
+
+ 	SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='nbrlprgaz' AND code_pays=pays_cour;
+	IF serie_existe>0 THEN
+	ELSE
+	END IF;
+
+CALC_INDICATEURS.Calcul_Serie_Part('pcdwcbgaz','nbrcbgaz','nbrlpr',100,'%',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);--nbrcbgaz remplace nbrcb et stcbgaz, pcdwcbgaz remplace pcdwnbrgashp
+CALC_INDICATEURS.Calcul_Serie_Part('pcdwgazcb','pcdwcbgaz','pcdwgaz',100,'%',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);--pcdwcbgaz remplace pcdwnbrgashp, pcdwgazcb remplace pcdwnbrgasgb
+
+
+
+
+	-- DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='csvpnth');
+	-- DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='csvpnth');
+	-- DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='csvpnth');
+	-- DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='csvpnth');
+	-- DELETE Series WHERE code_serie='csvpnth' AND code_pays=pays_cour;
+
+	SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('csvpnessth','csvpngzlth') AND code_pays=pays_cour;
+	IF (serie_existe=2) THEN
+	END IF;
+
+
+
+
+
+
+
+
+
+cst_travail = 100/(const.VALEUR['cst_essun']*const.VALEUR['cst_essdn'])
+
+	SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('toccfvpc','nbrvpc') AND code_pays=pays_cour;
+	IF (serie_existe=2) THEN
+	ELSE
+	END IF;
+
+
+
+
+cst_travail = 100/(const.VALEUR['cst_gzlun']*const.VALEUR['cst_gzldn'])
+
+
+
+
+
+
+	SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('esscfvlr','kmvvlress','nbrvlress') AND code_pays=pays_cour;
+	IF (serie_existe=3) THEN
+	ELSE
+		SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('esscfvlr','kmvvlr','nbrvlress') AND code_pays=pays_cour;
+		IF (serie_existe=3) THEN
+		ELSE
+			SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('esscfvlr','nbrvlress') AND code_pays=pays_cour;
+			IF (serie_existe=2) THEN
+			ELSE
+			END IF;
+		END IF;
+	END IF;
+
+cst_travail = 100/(const.VALEUR['cst_essun']*const.VALEUR['cst_essdn'])
+
+v_date:=annee_initiale;
+while v_date<=annee_finale
+LOOP
+	SELECT COUNT(DISTINCT(valeur)) INTO serie_existe FROM Valeurs_tab WHERE
+		ticker IN (SELECT numero FROM Series WHERE code_serie IN ('ratvpcessgzl') AND code_pays=pays_cour) AND tyear=v_date;
+	IF (serie_existe=0) THEN
+		UPDATE valeurs_tab SET valeur=2.5 WHERE ticker=(SELECT numero FROM Series WHERE code_serie='ratvpcessgzl' AND code_pays=pays_cour) AND tyear=v_date;
+	END IF;
+v_date:=v_date+1;
+
+ END IF;
+
+
+
+
+
+
+	IF pays_cour IN ('dnk') THEN
+	ELSE
+	END IF;
+
+cst_travail = 100/(const.VALEUR['cst_gzlun']*const.VALEUR['cst_gzldn'])
+
+
+
+	SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='kmvcam' AND code_pays=pays_cour;
+	IF (serie_existe>0) THEN
+	END IF;
+	SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('gzlcfvpctot','nbrcam') AND code_pays=pays_cour;
+	IF (serie_existe=2) THEN
+		calcul_series('cugzlhvv=((gzlcfrou-gzlcfvpctot-(nbrvlrgzl*cuesseqc*cst_coefvpcvlr))/(nbrcam+nbrbus-nbrbusess))*1000');
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='vkmcam' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+			calcul_series('cugzlhvvvkm=(gzlcfrou-gzlcfvpctot-(nbrvlrgzl*cuesseqc*cst_coefvpcvlr))');
+			calcul_series('cugzlhvvvkm=(cugzlhvvvkm/((vkmcam*(nbrcam)/nbrcam)+(vkmbus*(nbrbus-nbrbusess)/nbrbus)))*1000');
+		END IF;
+	ELSE
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='nbrvlrgzl' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+			calcul_series('cugzlhvv=(gzlcfrou-(nbrvpcgzl*cuesseqc)-(nbrvlrgzl*cuesseqc*cst_coefvpcvlr))/(nbrcam+nbrbus)*1000');
+			SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='vkmcam' AND code_pays=pays_cour;
+			IF (serie_existe>0) THEN
+				calcul_series('cugzlhvvvkm=gzlcfrou-(nbrvpcgzl*cuesseqc)-(nbrvlrgzl*cuesseqc*cst_coefvpcvlr)');
+				calcul_series('cugzlhvvvkm=(cugzlhvvvkm/((vkmcam*(nbrcam-nbrcamess-nbrcamgpl)/nbrcam)+(vkmbus*(nbrbus-nbrbusess-nbrbusgpl)/nbrbus)))*1000');
+			END IF;
+		END IF;
+	END IF;
+DBMS_OUTPUT.PUT_LINE('Début INDIC 5');
+
+
+
+
+
+
+
+
+
+
+	IF pays_cour='eso' THEN
+	ELSE
+	END IF;
+
+
+	SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmavd' AND code_pays=pays_cour;
+	IF (serie_existe>0) THEN
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmflv' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+		ELSE
+		END IF;
+	ELSE
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmflv' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+		END IF;
+	END IF;
+
+
+	SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmavd' AND code_pays=pays_cour;
+	IF (serie_existe>0) THEN
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmflv' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+		ELSE
+		END IF;
+	ELSE
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmflv' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+		END IF;
+	END IF;
+
+
+
+	SELECT valeur INTO somser FROM Valeurs_tab WHERE ticker=(SELECT numero FROM Series WHERE code_serie='prdacb' AND code_pays=pays_cour) AND tyear=2010;
+	IF ABS(somser)>1000 THEN
+	END IF;
+
+CALC_INDICATEURS.Calcul_Serie_Part('cuelcacb','elccfacb','prdacb',1000,'toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Serie_Part('cueleacb','elecfsid1','prdacb',1000000,'kWh/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+
+CALC_AGREGAT_ENERGIE.Affectation_Serie_ODY('cseleacboxy','elecsacboxy','kWh/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+	cst_travail = const.VALEUR['cst_elcun]/1000
+	CALC_INDICATEURS.Produit_Serie_Facteur('cselcacboxy','cseleacboxy',cst_travail,'toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);--calcul_series ((elecsacboxy*cst_elcun)/1000);
+	CALC_INDICATEURS.Somme_2Series_ODY('cstocacboxy','cscmbacboxy','cselcacboxy','toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Affectation_Serie_ODY('cseleacbele','elecsacbele','kWh/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+	cst_travail = const.VALEUR['cst_elcun]/1000
+	CALC_INDICATEURS.Produit_Serie_Facteur('cselcacboxy','cseleacboxy',cst_travail,'toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);--calcul_series ((elecsacbele*cst_elcun)/1000);
+	CALC_INDICATEURS.Somme_2Series_ODY('cstocacbele','cscmbacbele','cselcacbele','toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Affectation_Serie_ODY('cscmbcim','cmbcscim','toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Affectation_Serie_ODY('cselecim','elecscim','kWh/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+	CALC_AGREGAT_ENERGIE.Affectation_Serie_ODY('cstoccim','toccscim','toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+	SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('cscmbcim','cselecim') AND code_pays=pays_cour;
+	IF (serie_existe=2) THEN
+		cst_travail = const.VALEUR['cst_elcun]/1000
+		CALC_INDICATEURS.Produit_Serie_Facteur('cselccim','cselecim',cst_travail,'toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);--calcul_series (elecscim*cst_elcun/1000);
+		CALC_INDICATEURS.Somme_2Series_ODY('cstoccim','cscmbcim','cselccim','toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+	END IF;
+CALC_AGREGAT_ENERGIE.Affectation_Serie_ODY('cscmbclk','cmbcsclk','toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Affectation_Serie_ODY('cseleclk','elecsclk','kWh/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+	CALC_AGREGAT_ENERGIE.Affectation_Serie_ODY('cstocclk','toccsclk','toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+	SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('cscmbclk','cseleclk');
+	IF (serie_existe=2) THEN
+		cst_travail = const.VALEUR['cst_elcun]/1000
+		CALC_INDICATEURS.Produit_Serie_Facteur('cselcclk','cseleclk',cst_travail,'toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);--calcul_series (elecsclk*cst_elcun/1000);
+		CALC_INDICATEURS.Somme_2Series_ODY('cstocclk','cscmbclk','cselcclk','toe/t',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+	END IF;
+
+CALC_INDICATEURS.Calcul_Moy_pond_Struc_Cst('cstocacbst1','cstocacboxy','cstocacbele','prdacboxy','prdacbele','toe/t',v_an_base,pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+	cst_travail = recupSerie(resOdy, 'cstocacbst1', 2000)
+	CALC_INDICATEURS.Calcul_Serie_Produit_AnneeBase('cutocacbst','cstocacbst1','cutocacb',cst_travail,'toe/t',v_an_base,pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+CALC_INDICATEURS.Calcul_Serie_Part('cueleterels','elecfterels','empter',1000000,'kWh/emp',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+
+
+CALC_INDICATEURS.Calcul_Serie_Part('cueleterelsm2','elecfterels','surter',1000,'kWh/m2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+
+
+
+
+
+
+
+CALC_INDICATEURS.Calcul_Serie_Part('ietoceqppp','toccfeqp','vadeqpxxppp',1000,'koe/EUR2010p',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Serie_Part('ietocenepp','toccfene','vadenexxppp',1000,'koe/EUR2010p',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+CALC_INDICATEURS.Calcul_Conv_Courant_ppp('ietoctfccepp','ietocimaaj','koe/EUR2010p',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+
+
+
+CALC_INDICATEURS.Calcul_Serie_AJ('ietocimawataj','ietocwat','vadwatxx','vadimaxx','koe/EUR2010',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+
+
+
+
+	
+	
+
+
+cst_travail = recupSerie(resOdy,'txchgeuro',2010)/recupSerie(resOdy,'txchgppp',2010)
+
+
+
+
+
+
+
+	DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurcc');
+	DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurcc');
+	DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurcc');
+	DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurcc');
+	DELETE Series WHERE code_serie='cutocsurcc' AND code_pays=pays_cour;
+
+	DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurchc');
+	DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurchc');
+	DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurchc');
+	DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurchc');
+	DELETE Series WHERE code_serie='cutocsurchc' AND code_pays=pays_cour;
+	
+	DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cueursurchc');
+	DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cueursurchc');
+	DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cueursurchc');
+	DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cueursurchc');
+	DELETE Series WHERE code_serie='cueursurchc' AND code_pays=pays_cour;
+
+	SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmavd' AND code_pays=pays_cour;
+	IF (serie_existe>0) THEN
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmflv' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+		ELSE
+		END IF;
+	ELSE
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmflv' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+		END IF;
+	END IF;
+
+
+	DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmch');
+	DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmch');
+	DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmch');
+	DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmch');
+	DELETE Series WHERE code_serie='cutocmch' AND code_pays=pays_cour;
+	
+	DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchst');
+	DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchst');
+	DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchst');
+	DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchst');
+	DELETE Series WHERE code_serie='cutocmchst' AND code_pays=pays_cour;
+	
+	DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchaj');
+	DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchaj');
+	DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchaj');
+	DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchaj');
+	DELETE Series WHERE code_serie='cutocmchaj' AND code_pays=pays_cour;
+
+
+
+
+
+
+CALC_INDICATEURS.Calcul_Serie_Part('cicmbeqp','cmbeceqp','vadeqpxx',1000,'kCO2/EUR2010',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Serie_Part('citceeqp','tceeceqp','vadeqpxx',1000,'kCO2/EUR2010',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+
+
+	cst_travail = const.VALEUR['cst_essco2ccbl']*const.VALEUR['cst_essun']*const.VALEUR['cst_essdn']*const.VALEUR['cst_pcpetoxy']/100*1000
+
+	CALC_INDICATEURS.Produit_Serie_Facteur('cicmbvpcesskm','esscsvpc',cst_travail,'gCO2/km',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);--esscsvpc*nbrvpcess*cst_essco2ccbl*cst_essun*cst_essdn*cst_pcpetoxy)/100*1000
+    
+	cst_travail = const.VALEUR['cst_gzlco2ccbl']*const.VALEUR['cst_gzlun']*const.VALEUR['cst_gzldn']*const.VALEUR['cst_pcpetoxy']/100*1000
+
+	CALC_INDICATEURS.Produit_Serie_Facteur('cicmbvpcgzlkm','gzlcsvpc',cst_travail,'gCO2/km',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);--((gzlcsvpc*nbrvpcgzl*cst_gzlun*cst_gzlco2ccbl*cst_gzldn*cst_pcpetoxy)/100)*1000
+
+
+
+	--IF pays_cour='dnk' THEN
+	--ELSE
+	--END IF;
+	CALC_INDICATEURS.Produit_2Series_coeff('gzlechvv','cigzlhvvvkm','vkmcam',0.001,'MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+	CALC_INDICATEURS.Calcul_Serie_Part('cigzltgr','gzlechvv','tkmrou',1,'kCO2/tkm',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+
+
+
+	SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmavd' AND code_pays=pays_cour;
+	IF (serie_existe>0) THEN
+	ELSE
+	END IF;
+
+
+
+
+
+
+
+
+
+DBMS_OUTPUT.PUT_LINE('Calcul 1 : Intensité à structure constante industrie');
+
+
+
+
+
+
+
+
+DBMS_OUTPUT.PUT_LINE('Début INDIC 9');
+
+
+
+
+DBMS_OUTPUT.PUT_LINE('Calcul 2 : Intensité finale à structure constante');
+
+
+
+
+
+
+
+
+DBMS_OUTPUT.PUT_LINE('Début INDIC 10');
+
+DBMS_OUTPUT.PUT_LINE('Calcul 3 : Structure effect from HOUSEHOLDS');
+
+
+
+DBMS_OUTPUT.PUT_LINE('Calcul 4 : Structure effect in industrial branches');
+
+
+
+DBMS_OUTPUT.PUT_LINE('Début INDIC 11');
+DBMS_OUTPUT.PUT_LINE('Calcul 5 : Structure effect from other sectors such services, whole industry and agriculture');
+
+
+
+CALC_INDICATEURS.Calcul_Serie_gdpstruct('gdpstruct','toccfcc','ivtoccfccsd1','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+
+
+
+
+
+
+
+
+
+
+CALC_INDICATEURS.Difference_2Series_ODY('ietocimastr','ietocima','ietocimaed','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Difference_2Series_ODY('ietocimastrp','ietocimapp','ietocimaedpp','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Difference_2Series_ODY('ietoctfcstr','ietoctfcstcc','ietoctfccc','koe/EUR2010p',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+
+
+cst_travail = 1000000/const.VALEUR['cst_elcun']
+
+cst_travail = 1000/const.VALEUR['cst_elcun']
+
+
+	SELECT COUNT(DISTINCT(source)) INTO serie_existe FROM Series WHERE code_serie IN ('ietocoth2') AND code_pays=pays_cour;
+	IF (serie_existe>1) THEN
+		DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='ietocoth2' AND source NOT IN ('ODYSSEE'));
+		DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='ietocoth2' AND source NOT IN ('ODYSSEE'));
+		DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='ietocoth2' AND source NOT IN ('ODYSSEE'));
+		DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='ietocoth2' AND source NOT IN ('ODYSSEE'));
+		DELETE Series WHERE code_serie='ietocoth2' AND code_pays=pays_cour AND source NOT IN ('ODYSSEE');
+	END IF;
+
+	-- CALC_INDICATEURS.Calcul_Serie_Part('surlogpop','surreshpc','pop',1000,'m2/hab',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);--hors parties communes
+
+
+
+
+
+
+
+
+
+CALC_INDICATEURS.Calcul_Serie_Part('pcindmac','ietocmac','ietocmac',1,'1',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+
+
+
+
+
+CALC_DATA.Affectation_Serie('odexreslgt','odexreslgt',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('odexrescli','odexrescli',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('odexreschfobs','odexreschfobs',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('odexresecsobs','odexresecsobs',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('odexrescuiobs','odexrescuiobs',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('odexreselsobs','odexreselsobs',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('odexreslgtobs','odexreslgtobs',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('odexrescliobs','odexrescliobs',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+
+
+
+CALC_INDICATEURS.CALCUL_TCAM_PERIODE('tcietoctfcp1','ietoctfc','koe/EUR2010',pays_cour,v_an_base,2007);
+CALC_INDICATEURS.CALCUL_TCAM_PERIODE('tcietoctfcccp1','ietoctfccc','koe/EUR2010',pays_cour,v_an_base,2007);
+CALC_INDICATEURS.CALCUL_TCAM_PERIODE('tcietoctfcstp1','ietoctfcst','koe/EUR2010',pays_cour,v_an_base,2007);
+CALC_INDICATEURS.CALCUL_TCAM_PERIODE('tcietoctfcstccp1','ietoctfcstcc','koe/EUR2010',pays_cour,v_an_base,2007);
+
+CALC_INDICATEURS.CALCUL_TCAM_PERIODE('tcietoctfcp2','ietoctfc','koe/EUR2010',pays_cour,2007,2014);
+CALC_INDICATEURS.CALCUL_TCAM_PERIODE('tcietoctfcccp2','ietoctfccc','koe/EUR2010',pays_cour,2007,2014);
+CALC_INDICATEURS.CALCUL_TCAM_PERIODE('tcietoctfcstp2','ietoctfcst','koe/EUR2010',pays_cour,2007,2014);
+CALC_INDICATEURS.CALCUL_TCAM_PERIODE('tcietoctfcstccp2','ietoctfcstcc','koe/EUR2010',pays_cour,2007,2014);
+
+CALC_INDICATEURS.CALCUL_TCAM_PERIODE('tcietoctfcp3','ietoctfc','koe/EUR2010',pays_cour,v_an_base,2014);
+CALC_INDICATEURS.CALCUL_TCAM_PERIODE('tcietoctfcccp3','ietoctfccc','koe/EUR2010',pays_cour,v_an_base,2014);
+CALC_INDICATEURS.CALCUL_TCAM_PERIODE('tcietoctfcstp3','ietoctfcst','koe/EUR2010',pays_cour,v_an_base,2014);
+CALC_INDICATEURS.CALCUL_TCAM_PERIODE('tcietoctfcstccp3','ietoctfcstcc','koe/EUR2010',pays_cour,v_an_base,2014);
+
+selection_series_source('tcietoctfcp1',pays_cour,'%');
+selection_series_source('tcietoctfcccp1',pays_cour,'%');
+selection_series_source('tcietoctfcstp1',pays_cour,'%');
+selection_series_source('tcietoctfcstccp1',pays_cour,'%');
+
+selection_series_source('tcietoctfcp2',pays_cour,'%');
+selection_series_source('tcietoctfcccp2',pays_cour,'%');
+selection_series_source('tcietoctfcstp2',pays_cour,'%');
+selection_series_source('tcietoctfcstccp2',pays_cour,'%');
+
+selection_series_source('tcietoctfcp3',pays_cour,'%');
+selection_series_source('tcietoctfcccp3',pays_cour,'%');
+selection_series_source('tcietoctfcstp3',pays_cour,'%');
+selection_series_source('tcietoctfcstccp3',pays_cour,'%');
+
+calcul_series('tcietoctfcrp1=tcietoctfcp1-tcietoctfcstp1');
+calcul_series('tcietoctfcccrp1=tcietoctfcccp1-tcietoctfcccstp1');
+
+calcul_series('tcietoctfcrp2=tcietoctfcp2-tcietoctfcstp2');
+calcul_series('tcietoctfcccrp2=tcietoctfcccp2-tcietoctfcccstp2');
+
+calcul_series('tcietoctfcrp3=tcietoctfcp3-tcietoctfcstp3');
+calcul_series('tcietoctfcccrp3=tcietoctfcccp3-tcietoctfcccstp3');
+
+generation_series('tcietoctfcrp1',pays_cour,'%');
+generation_series('tcietoctfcccrp1',pays_cour,'%');
+generation_series('tcietoctfcrp2',pays_cour,'%');
+generation_series('tcietoctfcccrp2',pays_cour,'%');
+generation_series('tcietoctfcrp3',pays_cour,'%');
+generation_series('tcietoctfcccrp3',pays_cour,'%');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CALC_ECO.Calcul_Serie_Base('vaddivxx','txchgeuro','MEUR2010',pays_cour,2010,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+
+
+
+CALC_ECO.Calcul_Series_LC_EURO('vadidc','txchgeuro','MEUR',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_ECO.Calcul_Series_LC_EURO('vadeqp','txchgeuro','MEUR',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);

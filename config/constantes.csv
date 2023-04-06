@@ -1,0 +1,292 @@
+"CODE_SERIE";"CODE_PAYS";"UNITE";"SOURCE";"VALEUR";"QUALITE";"STATUT";"COMMENTAIRE";"DATE_MAJ";"AUTEUR";"C_TITRE_FRA";"C_TITRE_ENG"
+cst_elcun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_elpun;fix;tep/MWh;NRD;0.222;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_essdn;fix;t/m3;NRD;0.755;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gzldn;fix;t/m3;NRD;0.845;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_tclun;fix;J/cal;NRD;4.1868;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gnaun;fix;"10^-9tep/cal";NRD;0.09;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gnaunm3;fix;Mj/m3;NRD;38;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_chaun;fix;tep/t;NRD;0.66;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_ligun;fix;tep/t;NRD;0.23;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du lignite;Lignite standard conversion factor
+cst_cbiun;fix;tep/t;NRD;0.62;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du charbon bitumineux;Bituminous coal standard conversion factor
+cst_csbun;fix;tep/t;NRD;0.44;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du charbon sous-bitumineux;Sub bituminous coal standard conversion factor
+cst_cckun;fix;tep/t;NRD;0.69;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du charbon à coke;Coking coal standard conversion factor
+cst_cokun;fix;tep/t;NRD;0.68;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du coke;Coke standard conversion factor
+cst_hylun;fix;tep/t;NRD;1.02;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gnauntep;fix;kep/m3;NRD;0.81685;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gleun;fix;tep/t;NRD;0.65;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_ancun;fix;"10^-9tep/cal";NRD;0.1;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_chbun;fix;tep/t;NRD;0.735;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du charbon de bois;Wood coal standard conversion factor
+cst_pbrun;fix;tep/t;NRD;1.02;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du pétrole brut;Crude oil standard conversion factor
+cst_pbrdn;fix;t/m3;NRD;0.88;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gzlun;fix;tep/t;NRD;1.017;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du gazole;Diesel standard conversion factor
+cst_folun;fix;tep/t;NRD;0.96;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du fioul lourd;Heavy fuel oil standard conversion factor
+cst_foldn;fix;t/m3;NRD;0.97;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_essun;fix;tep/t;NRD;1.051;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard de l'essence automobile;Motor gasoline standard conversion factor
+cst_gplun;fix;tep/t;NRD;1.1;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gpldn;fix;t/m3;NRD;0.55;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_antun;fix;tep/t;NRD;0.66;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gocun;fix;tep/t;NRD;0.92;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du goudron de houille;Coaltar final standard conversion factor
+cst_bchun;fix;tep/t;NRD;0.7;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard des briquettes de charbon;Coal briquettes standard conversion factor
+cst_bliun;fix;tep/t;NRD;0.48;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard des briquettes de lignite;Brown coal briquettes standard conversion factor
+cst_touun;fix;tep/t;NRD;0.23;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard de la tourbe;Peat standard conversion factor
+cst_addun;fix;tep/t;NRD;0.6;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard des additifs;Additives standard conversion factor
+cst_pncun;fix;tep/t;NRD;1.02;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pchun;fix;tep/t;NRD;1.02;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pgnun;fix;tep/t;NRD;1.02;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_parun;fix;tep/t;NRD;1.015;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_lgnun;fix;tep/t;NRD;1.08;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du liquide de gaz naturel (LGN);NGL (Natural gas liquids) standard conversion factor
+cst_graun;fix;tep/t;NRD;1.18;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du gaz de raffinerie;Refineries gas standard conversion factor
+cst_esaun;fix;tep/t;NRD;1.05;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard d'essence avion;Aviation gasoline standard conversion factor
+cst_carun;fix;tep/t;NRD;1.027;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du carburéacteur;Jet fuel standard conversion factor
+cst_kerun;fix;tep/t;NRD;1.027;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du pétrole lampant;Kerosene standard conversion factor
+cst_whiun;fix;tep/t;NRD;1.04;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du white spirit;White spirit standard conversion factor
+cst_napun;fix;tep/t;NRD;1.051;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du naphta;Naphta standard conversion factor
+cst_lubun;fix;tep/t;NRD;1;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard des lubrifiants;Lubricants standard conversion factor
+cst_bitun;fix;tep/t;NRD;0.93;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du bitume;Bitumen standard conversion factor
+cst_prfun;fix;tep/t;NRD;0.96;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard de la paraffine;Paraffin standard conversion factor
+cst_ckpun;fix;tep/t;NRD;0.76;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du cokde de pétrole;Petroleum coke standard conversion factor
+cst_pdvun;fix;tep/t;NRD;0.96;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_etnun;fix;tep/t;NRD;1.18;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_echun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_eliun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_esbun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_eanun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_egnun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_egmun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_epeun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_ehyun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_enuun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_nucun;fix;tep/MWh;NRD;0.260606;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_egeun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_geoun;fix;tep/MWh;NRD;0.8598;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_edvun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_eeoun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_ethun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_vapun;fix;"10^-9tep/cal";NRD;0.1;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_zero;fix;"1";NRD;0;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcpetoxy;fix;"1";GIEC;1;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_hylco2ccbl;fix;tco2/tep;GIEC;3.0712;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pbrco2ccbl;fix;tco2/tep;GIEC;3.0712;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_lgnco2ccbl;fix;tco2/tep;GIEC;2.6873;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_parco2ccbl;fix;tco2/tep;GIEC;3.0712;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_ckpco2ccbl;fix;tco2/tep;GIEC;4.084696;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_folco2ccbl;fix;tco2/tep;GIEC;3.240116;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_essco2ccbl;fix;tco2/tep;GIEC;2.902284;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gzlco2ccbl;fix;tco2/tep;GIEC;3.101912;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_kerco2ccbl;fix;tco2/tep;GIEC;3.009776;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gplco2ccbl;fix;tco2/tep;GIEC;2.641232;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_graco2ccbl;fix;tco2/tep;GIEC;2.410892;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_carco2ccbl;fix;tco2/tep;GIEC;2.99442;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pdvco2ccbl;fix;tco2/tep;GIEC;3.0712;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_bitco2ccbl;fix;tco2/tep;GIEC;3.37832;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_lubco2ccbl;fix;tco2/tep;GIEC;3.0712;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_napco2ccbl;fix;tco2/tep;GIEC;3.0712;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_etnco2ccbl;fix;tco2/tep;GIEC;2.579808;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcco2ckpsto;fix;"1";GIEC;0.75;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcco2gplsto;fix;"1";GIEC;0.8;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcco2grasto;fix;"1";GIEC;0.75;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcco2pdvsto;fix;"1";GIEC;0.75;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcco2bitsto;fix;"1";GIEC;1;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcco2lubsto;fix;"1";GIEC;0.5;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcco2napsto;fix;"1";GIEC;0.8;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcco2etnsto;fix;"1";GIEC;0.8;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcco2prfsto;fix;"1";GIEC;1;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcco2whisto;fix;"1";GIEC;1;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcco2appsto;fix;"1";GIEC;0.75;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gnaco2ccbl;fix;tco2/tep;GIEC;2.349468;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gckco2ccbl;fix;tco2/tep;GIEC;1.858076;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_ghfco2ccbl;fix;tco2/tep;GIEC;10.872048;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gvico2ccbl;fix;tco2/tep;GIEC;1.858076;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcgnaoxy;fix;"1";GIEC;1;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_chaco2ccbl;fix;tco2/tep;GIEC;3.961848;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_cbico2ccbl;fix;tco2/tep;GIEC;3.961848;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_cckco2ccbl;fix;tco2/tep;GIEC;3.961848;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_csbco2ccbl;fix;tco2/tep;GIEC;4.023272;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_ehlun;fix;tep/MWh;NRD;0.086;1;o;;2018-11-13 17:07:29;LEOG;;
+cst_solun;fix;tep/MWh;NRD;0.258;1;o;;2020-12-15 15:18:55;LEOG;;
+cst_clico2ccbl;fix;tco2/tep;GIEC;4.238256;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_ligco2ccbl;fix;tco2/tep;GIEC;4.238256;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_touco2ccbl;fix;tco2/tep;GIEC;4.437884;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_bchco2ccbl;fix;tco2/tep;GIEC;4.084696;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_blico2ccbl;fix;tco2/tep;GIEC;4.084696;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_cokco2ccbl;fix;tco2/tep;GIEC;4.483952;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pcchaoxy;fix;"1";GIEC;1;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_cckco2ccblsid;fix;tco2/tep;GIEC;3.1;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_boico2ccbl;fix;tco2/tep;GIEC;4.5901;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_dinco2ccbl;fix;tco2/tep;GIEC;5.98884;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_dmuco2ccbl;fix;tco2/tep;GIEC;4.5901;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_chbco2ccbl;fix;tco2/tep;GIEC;4.5901;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gnlm3tun;fix;m3/t;NRD;1361;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_btuun;fix;tep/Mbtu;NRD;0.0252;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_clkpdco2ccbl;fix;tco2/tep;GIEC;0.5071;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_cimpdco2ccbl;fix;tco2/tep;GIEC;0.4985;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_chxcipdco2ccbl;fix;tco2/tep;GIEC;0.79;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_amopdco2ccbl;fix;tco2/tep;GIEC;1.5;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_anipdco2ccbl;fix;tco2/tep;GIEC;0.0055;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_prdadico2ccbl;fix;tco2/tep;GIEC;0.3;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_ckcsidco2ciccbl;fix;tco2/tep;GIEC;3.1;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_sidco2ccbl;fix;tco2/tep;GIEC;0.04;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_aluco2ccbl;fix;tco2/tep;GIEC;1.5;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_fchpdco2ccbl;fix;tco2/tep;GIEC;1.3;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_fonco2ccbl;fix;tco2/tep;GIEC;-0.15;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_coefvpcbus;fix;"1";NRD;11;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_coefvpcmot;fix;"1";NRD;0.15;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_coefvpccamvlr;fix;"1";NRD;3.9;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pbrbltun;fix;bl/t;NRD;7.3;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du pétrole brut (Barils/Tonne);Crude oil standard conversion factor (Barrels/Ton)
+cst_gplbltun;fix;bl/t;NRD;11.6;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_essbltun;fix;bl/t;NRD;8.53;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard de l'essence automobile (Barils/Tonne);Motor gasoline standard conversion factors (Barrels/Ton)
+cst_kerbltun;fix;bl/t;NRD;7.74;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gzlbltun;fix;bl/t;NRD;7.46;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_folbltun;fix;bl/t;NRD;6.66;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du fioul lourd (Barils/Tonne);Heavy fuel oil standard conversion factors (Barrels/Ton)
+cst_gzlun;amnord;tep/t;NRD;1.0175;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_folun;amnord;tep/t;NRD;0.96;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_essun;amnord;tep/t;NRD;1.07;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gplun;amnord;tep/t;NRD;1.13;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_graun;amnord;tep/t;NRD;1.149;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_esaun;amnord;tep/t;NRD;1.07;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard d'essence avion;Aviation gasoline standard conversion factor
+cst_carun;amnord;tep/t;NRD;1.065;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du carburéacteur;Jet fuel standard conversion factor
+cst_kerun;amnord;tep/t;NRD;1.046;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du pétrole lampant;Kerosene standard conversion factor
+cst_whiun;amnord;tep/t;NRD;1.027;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du white spirit;White spirit standard conversion factor
+cst_bitun;amnord;tep/t;NRD;0.955;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du bitume;Bitumen standard conversion factor
+cst_prfun;amnord;tep/t;NRD;0.96;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard de la paraffine;Paraffin standard conversion factor
+cst_ckpun;amnord;tep/t;NRD;0.764;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pdvun;amnord;tep/t;NRD;0.96;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_etnun;amnord;tep/t;NRD;1.18;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gzlun;pacif;tep/t;NRD;1.0175;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_folun;pacif;tep/t;NRD;1.0175;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_essun;pacif;tep/t;NRD;1.0653;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gplun;pacif;tep/t;NRD;1.14;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_graun;pacif;tep/t;NRD;1.149;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_esaun;pacif;tep/t;NRD;1.065;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard d'essence avion;Aviation gasoline standard conversion factor
+cst_carun;pacif;tep/t;NRD;1.0653;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du carburéacteur;Jet fuel standard conversion factor
+cst_kerun;pacif;tep/t;NRD;1.025;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du pétrole lampant;Kerosene standard conversion factor
+cst_whiun;pacif;tep/t;NRD;1.027;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du white spirit;White spirit standard conversion factor
+cst_napun;pacif;tep/t;NRD;1.032;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du naphta;Naphta standard conversion factor
+cst_ckpun;pacif;tep/t;NRD;0.807;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pdvun;pacif;tep/t;NRD;0.96;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_etnun;pacif;tep/t;NRD;1.18;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_etnbltun;fix;bl/t;NRD;16.85;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_grabltun;fix;bl/t;NRD;8;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_napbltun;fix;bl/t;NRD;8.5;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_esabltun;fix;bl/t;NRD;8.9;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_carbltun;fix;bl/t;NRD;7.93;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_whibltun;fix;bl/t;NRD;7;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_prfbltun;fix;bl/t;NRD;7;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_lubbltun;fix;bl/t;NRD;7.09;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_bitbltun;fix;bl/t;NRD;6.08;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_ckpbltun;fix;bl/t;NRD;5.5;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_pdvbltun;fix;bl/t;NRD;7;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_lgnbltun;fix;bl/t;NRD;11.6;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_parbltun;fix;bl/t;NRD;7.5;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_addbltun;fix;bl/t;NRD;6.5;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard des additifs (Barils/Tonne);Additives standard conversion factors (Barrels/Ton)
+cst_glebltun;fix;bl/t;NRD;7.92;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_glgbltun;fix;bl/t;NRD;7.07;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_glabltun;fix;bl/t;NRD;7.8;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_glgun;fix;tep/t;NRD;0.879;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_gnapcspci;fix;tep/t;NRD;0.9;1;o;;2016-03-09 11:56:06;LEOG;;
+cst_supdn;fix;t/m3;NRD;0.755;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_supun;fix;tep/t;NRD;1.051;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_foddn;fix;t/m3;NRD;0.845;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_fodun;fix;tep/t;NRD;1.017;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_glaun;fix;tep/t;NRD;0.879;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_cliun;fix;tep/t;NRD;0.23;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_gviun;fix;kep/m3;NRD;0.81685;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_gckun;fix;kep/m3;NRD;0.81685;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_gacun;fix;kep/m3;NRD;0.81685;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ghfun;fix;kep/m3;NRD;0.81685;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_tepGjun;fix;Gj/tep;NRD;0.023885;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_egvun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_egkun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_eghun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_egaun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_eatun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ecbun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_eckun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_eclun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_etoun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ecoun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_egoun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ebcun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_eblun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_epnun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_epaun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_epbun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_elgun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_egrun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_egpun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ecaun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ekeun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_egsun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_efoun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_enaun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ebtun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ecpun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_epdun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_evaun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ealun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_edaun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_egbun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ebaun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ediun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_emnun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_emrun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ernun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ensun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_emaun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_gnlunm3;fix;Mj/m3;NRD;40;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_gnluntep;fix;kep/m3;NRD;0.85984;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_cmsun;fix;tep/t;NRD;0.62;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ppeun;fix;tep/t;NRD;1.02;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ecmun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_egzun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ebiun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_gnlun;fix;kep/m3;NRD;0.85984;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_esaco2ccbl;fix;tco2/tep;GIEC;2.932996;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_gazuntep;fix;kep/m3;NRD;0.81685;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_gazun;fix;"10^-9tep/cal";NRD;0.09;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_pcco2gnasto;fix;"1";GIEC;0.33;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ebdun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_btoun;fix;tep/t;NRD;0.48;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_schun;fix;tep/t;NRD;0.23;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_eshun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_ebpun;fix;tep/MWh;NRD;0.086;1;o;;2016-03-09 11:56:07;LEOG;;
+cst_schco2ccbl;fix;tco2/tep;GIEC;4.468596;1;o;;2016-04-22 10:33:55;LEOG;;
+cst_napun;amnord;tep/t;NRD;1.075;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du naphta;Naphta standard conversion factor
+cst_lubun;amnord;tep/t;NRD;1;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard des lubrifiants;Lubricants standard conversion factor
+cst_lubun;pacif;tep/t;NRD;1.025;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard des lubrifiants;Lubricants standard conversion factor
+cst_bitun;pacif;tep/t;NRD;0.927;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard du bitume;Bitumen standard conversion factor
+cst_prfun;pacif;tep/t;NRD;0.96;1;o;;2016-03-09 11:56:06;LEOG;Coefficient de conversion standard de la paraffine;Paraffin standard conversion factor
+cst_antco2ccbl;fix;tco2/tep;GIEC;4.115408;1;o;;2018-06-08 09:27:01;LEOG;;
+cst_gocco2ccbl;fix;tco2/tep;GIEC;3.37832;1;o;;2018-06-08 09:27:01;LEOG;;
+cst_whico2ccbl;fix;tco2/tep;GIEC;3.0712;1;o;;2018-06-08 09:27:01;LEOG;;
+cst_prfco2ccbl;fix;tco2/tep;GIEC;3.0712;1;o;;2018-06-08 09:27:01;LEOG;;
+cst_gacco2ccbl;fix;tco2/tep;GIEC;7.616576;1;o;;2018-06-08 09:27:01;LEOG;;
+cst_caeun;fix;tep/t;NRD;1.027;1;o;;2018-08-10 09:46:25;LEOG;Coefficient de conversion standard du carburéacteur type essence;Gasoline type jet fuel standard conversion factor
+cst_cakun;fix;tep/t;NRD;1.0653;1;o;;2018-08-10 09:46:25;LEOG;Coefficient de conversion standard du carburéacteur type kérosène;Kerosene type jet fuel standard conversion factor
+cst_ockun;fix;tep/t;NRD;0.68;1;o;;2018-08-10 09:50:29;LEOG;;
+cst_gcoun;fix;tep/t;NRD;0.68;1;o;;2018-08-10 09:50:29;LEOG;;
+cst_sopun;fix;tep/MWh;NRD;0.086;1;o;;2018-08-10 16:28:49;LEOG;;
+cst_sotun;fix;tep/MWh;NRD;0.086;1;o;;2018-08-10 16:28:49;LEOG;;
+cst_caebltun;fix;bl/t;NRD;7.93;1;o;;2018-08-10 16:32:12;LEOG;;
+cst_cakbltun;fix;bl/t;NRD;7.93;1;o;;2018-08-10 16:32:12;LEOG;;
+cst_caeun;amnord;tep/t;NRD;1.065;1;o;;2018-08-10 16:34:39;LEOG;;
+cst_cakun;amnord;tep/t;NRD;1.0653;1;o;;2018-08-10 16:34:39;LEOG;;
+cst_caeun;pacif;tep/t;NRD;1.0653;1;o;;2018-08-10 16:35:39;LEOG;;
+cst_cakun;pacif;tep/t;NRD;1.0629;1;o;;2018-08-10 16:35:39;LEOG;;
+cst_glcun;fix;tep/t;NRD;1.027;1;o;;2019-07-23 08:10:50;LEOG;;
+cst_glcbltun;fix;bl/t;NRD;7.93;1;o;;2019-07-23 16:35:01;LEOG;;
+cst_tkbrtkm;fix;"1";NRD;2.5;1;o;;2019-08-05 11:20:15;LEOG;;
+cst_tkbrpkm;fix;"1";NRD;1.7;1;o;;2019-08-05 11:20:15;LEOG;;
+cst_petrend;fix;%;NRD;76;1;o;;2019-09-30 16:50:11;LEOG;;
+cst_vaprend;fix;%;NRD;95;1;o;;2019-09-30 16:50:11;LEOG;;
+cst_elerend;fix;%;NRD;97;1;o;;2019-09-30 16:50:11;LEOG;;
+cst_gazrend;fix;%;NRD;80;1;o;;2019-09-30 16:50:11;LEOG;;
+cst_cmsrend;fix;%;NRD;65;1;o;;2019-09-30 16:50:11;LEOG;;
+cst_encrend;fix;%;NRD;55;1;o;;2019-09-30 16:50:11;LEOG;;
+cst_coefvpcvlr;fix;"1";NRD;1.8;1;o;;2019-11-05 15:09:40;LEOG;;
+cst_coefvpcvlre;fix;"1";NRD;1.4;1;o;;2019-11-05 15:09:40;LEOG;;
+cst_coefvpccam;fix;"1";NRD;16;1;o;;2019-11-05 15:09:40;LEOG;;
+cst_coefvpccamvlre;fix;"1";NRD;2;1;o;;2019-11-05 15:09:40;LEOG;;
+cst_eauun;fix;tep/MWh;NRD;0.086;1;o;;2020-02-27 13:40:14;LEOG;;
+cst_dmnco2ccbl;fix;tco2/tep;GIEC;3.839;1;o;;2016-06-24 12:20:52;LEOG;;

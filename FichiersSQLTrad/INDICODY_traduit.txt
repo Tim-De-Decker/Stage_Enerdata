@@ -1,0 +1,2173 @@
+-- CALCUL DES INDICATEURS ODYSSEE
+-- Traduction de la V1 en septembre 2019
+-- Auteur : Fabien GAILLARD-BLANCARD / Gilles LEO
+Job:='INDICODY';
+
+--calcul_series
+
+-- SET echo OFF
+-- Set serveroutput off
+DBMS_OUTPUT.PUT_LINE('Début INDIC');
+
+resOdy = affectation(resOdy, 'surmpr', 'surmpr')
+resOdy = affectation(resOdy, 'suripr', 'suripr')
+resOdy = affectation(resOdy, 'newvpc130', 'newvpc130')
+resOdy = affectation(resOdy, 'othreschf', 'othreschf')
+resOdy = affectation(resOdy, 'savpasstototh', 'savpasstototh')
+resOdy = affectation(resOdy, 'csvpcgpl', 'csvpcgpl')
+resOdy = affectation(resOdy, 'teqrfg', 'teqrfg')
+resOdy = affectation(resOdy, 'teqcli', 'teqcli')
+resOdy = affectation(resOdy, 'teqscl', 'teqscl')
+resOdy = affectation(resOdy, 'teqtvs', 'teqtvs')
+resOdy = affectation(resOdy, 'ncfl', 'ncfl')
+resOdy = affectation(resOdy, 'cselecli', 'cselecli')
+resOdy = affectation(resOdy, 'demofin', 'demofin')
+resOdy = affectation(resOdy, 'structgoods', 'structgoods')
+resOdy = affectation(resOdy, 'othtratot', 'othtratot')
+resOdy = affectation(resOdy, 'savpasstot', 'savpasstot')
+resOdy = affectation(resOdy, 'othtrfnen', 'othtrfnen')
+resOdy = affectation(resOdy, 'csmotess', 'csmotess')
+resOdy = affectation(resOdy, 'structfin', 'structfin')
+resOdy = affectation(resOdy, 'savpassoth', 'savpassoth')
+resOdy = affectation(resOdy, 'structpass', 'structpass')
+resOdy = affectation(resOdy, 'savgoods', 'savgoods')
+resOdy = affectation(resOdy, 'divter', 'divter')
+resOdy = affectation(resOdy, 'electrification1', 'electrification1')
+resOdy = affectation(resOdy, 'othfin', 'othfin')
+resOdy = affectation(resOdy, 'savtratot', 'savtratot')
+resOdy = affectation(resOdy, 'othdiv', 'othdiv')
+resOdy = affectation(resOdy, 'othtrfnen1', 'othtrfnen1')
+resOdy = affectation(resOdy, 'pccfl', 'pccfl')
+resOdy = affectation(resOdy, 'savindoth', 'savindoth')
+resOdy = affectation(resOdy, 'pkmnmt', 'pkmnmt')
+resOdy = affectation(resOdy, 'savreschf', 'savreschf')
+resOdy = affectation(resOdy, 'othtra', 'othtra')
+resOdy = affectation(resOdy, 'divagr', 'divagr')
+resOdy = affectation(resOdy, 'nenprim', 'nenprim')
+resOdy = affectation(resOdy, 'csvlrgpl', 'csvlrgpl')
+resOdy = affectation(resOdy, 'teqlvl', 'teqlvl')
+resOdy = affectation(resOdy, 'teqlvv', 'teqlvv')
+resOdy = affectation(resOdy, 'cselescl', 'cselescl')
+resOdy = affectation(resOdy, 'gazcftercli', 'gazcftercli')
+resOdy = affectation(resOdy, 'othres', 'othres')
+resOdy = affectation(resOdy, 'savresels', 'savresels')
+resOdy = affectation(resOdy, 'structpasstot', 'structpasstot')
+resOdy = affectation(resOdy, 'othtrfnenn', 'othtrfnenn')
+resOdy = affectation(resOdy, 'structind', 'structind')
+resOdy = affectation(resOdy, 'elecfcon', 'elecfcon')
+resOdy = affectation(resOdy, 'savpass', 'savpass')
+resOdy = affectation(resOdy, 'savgoodsoth', 'savgoodsoth')
+resOdy = affectation(resOdy, 'savcartech', 'savcartech')
+resOdy = affectation(resOdy, 'othsavcar', 'othsavcar')
+resOdy = affectation(resOdy, 'othtrf', 'othtrf')
+resOdy = affectation(resOdy, 'electrification', 'electrification')
+resOdy = affectation(resOdy, 'salhp', 'salhp')
+resOdy = affectation(resOdy, 'structtra', 'structtra')
+resOdy = affectation(resOdy, 'structtratot', 'structtratot')
+resOdy = affectation(resOdy, 'othter', 'othter')
+resOdy = affectation(resOdy, 'efftherm', 'efftherm')
+resOdy = affectation(resOdy, 'teqcgl', 'teqcgl')
+
+resOdy = affectation(resOdy, 'surlog', 'surlog')
+resOdy = affectation(resOdy, 'csvpnth', 'csvpnth')
+resOdy = affectation(resOdy, 'csvpnessth', 'csvpnessth')
+resOdy = affectation(resOdy, 'csvpngzlth', 'csvpngzlth')
+resOdy = affectation(resOdy, 'savfin', 'savfin')
+resOdy = affectation(resOdy, 'savind', 'savind')
+resOdy = affectation(resOdy, 'savtra', 'savtra')
+resOdy = affectation(resOdy, 'savres', 'savres')
+resOdy = affectation(resOdy, 'savter', 'savter')
+resOdy = affectation(resOdy, 'pcdwchc', 'pcdwchc')
+resOdy = affectation(resOdy, 'csvlress', 'csvlress')
+resOdy = affectation(resOdy, 'csvlrgzl', 'csvlrgzl')
+resOdy = affectation(resOdy, 'elecfressma', 'elecfressma')
+
+--transverse ?
+
+resOdy = affectation(resOdy, 'salcb', 'salcb')
+resOdy = affectation(resOdy, 'salcbgas', 'salcbgas')
+resOdy = affectation(resOdy, 'nbrcb', 'nbrcb')
+
+--prix
+resOdy = affectation(resOdy, 'prxholres', 'prxholres')
+resOdy = affectation(resOdy, 'prxgnares', 'prxgnares')
+resOdy = affectation(resOdy, 'prxeleres', 'prxeleres')
+resOdy = affectation(resOdy, 'prxess', 'prxess')
+resOdy = affectation(resOdy, 'prxgzl', 'prxgzl')
+resOdy = affectation(resOdy, 'prxfolind', 'prxfolind')
+resOdy = affectation(resOdy, 'prxgnaind', 'prxgnaind')
+resOdy = affectation(resOdy, 'prxeleind', 'prxeleind')
+
+resOdy = multiAffectation(resOdy, 'othcfind', ['toccfind', '-toccfsid1', '-toccfchi', '-toccfmnm', '-toccfppp','-toccfmnf'], ['Mtoe'])
+
+
+if pays in ['aut', 'bel', 'dnk', 'fin', 'nld', 'rfa','swe']:
+	c_tep = 0.0001/const.VALEUR['cst_tclun']
+else:
+	c_tep = 0.001
+
+resOdy = affectation(resOdy, 'toccfnen', 'toccfnen', 'Mtoe', poids=c_tep, clean=True)
+
+
+--coment : 1 ECONOMIC INDICATORS
+--coment : 1.1 Primary and final energy intensity
+resOdy = affectation(resOdy, 'itoccfcc', 'toccfcc', '2000=100', poids=100/recupSerie(resOdy,'toccfcc',2000))
+resOdy = affectation(resOdy, 'ipibxxppp', 'pibxxppp', '2000=100', poids=100/recupSerie(resOdy,'pibxxppp',2000))
+
+resOdy = affectationParMultiplication(resOdy, 'ietoctpc', [('toccp','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietoctfc', [('toccf','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelctfc', [('elccf','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbtfc', [('cmbcf','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutfc', [('ietoctpc','koe/EUR2010')], [('ietoctfc','koe/EUR2010')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'rdtfc', None, [('cutfc','1')], '%', poids=100)
+
+resOdy = affectationParMultiplication(resOdy, 'pibxxpop', [('pibxx','MEUR2010')], [('pop','k')], 'kEUR2010/cap', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'pibxxppppop', [('pibxxppp','MEUR2010p')], [('pop','k')], 'kEUR10p/cap', poids=1)
+--coment : Primary and final intensities with climatic variations;
+resOdy = affectationParMultiplication(resOdy, 'ietoctpccc', [('toccpcc','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietoctfccc', [('toccfcc','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelctfccc', [('elccfcc','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbtfccc', [('cmbcfcc','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+--coment : 1.2 Residential intensities;
+-- IF pays_cour='fin' THEN
+-- ELSE
+resOdy = affectationParMultiplication(resOdy, 'surres', [('nbrlpr','k'),('surlog','m2')], None, 'Mm2', poids=0.001)
+-- END IF;
+resOdy = affectationParMultiplication(resOdy, 'cuelereslar', [('elecfreslar','TWh')], [('nbrlpr','k')], 'kWh/dw', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cuelerescli', [('elecfrescli','TWh')], [('nbrlpr','k')], 'kWh/dw', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cutocsurchc', [('toccfreschc','Mtoe')], [('surres','Mm2')], 'koe/m2', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutoclogchc', [('toccfreschc','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelelogels', [('elecfresels','TWh')], [('nbrlpr','k')], 'kWh/dw', poids=1000000)
+resOdy = affectation(resOdy, 'icuelereslar', 'cuelereslar', '2000=100', poids=100/recupSerie(resOdy,'cuelereslar',2000))
+resOdy = affectation(resOdy, 'icutocsurchc', 'cutocsurchc', '2000=100', poids=100/recupSerie(resOdy,'cutocsurchc',2000))
+resOdy = affectation(resOdy, 'icutoclogchc', 'cutoclogchc', '2000=100', poids=100/recupSerie(resOdy,'cutoclogchc',2000))
+resOdy = affectation(resOdy, 'icuelelogels', 'cuelelogels', '2000=100', poids=100/recupSerie(resOdy,'cuelelogels',2000))
+
+resOdy = affectationParMultiplication(resOdy, 'cprmen', [('cprxx','MEUR2010')], [('men','k')], 'kEUR2010/hh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cutocrespop', [('toccfres','Mtoe')], [('pop','k')], 'koe/cap', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'ietocres', [('toccfres','Mtoe')], [('cprxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcres', [('elccfres','Mtoe')], [('cprxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbres', [('cmbcfres','Mtoe')], [('cprxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocrescc', [('toccfrescc','Mtoe')], [('cprxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcrescc', [('elccfrescc','Mtoe')], [('cprxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbrescc', [('cmbcfrescc','Mtoe')], [('cprxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocresce', [('toccfresce','Mtoe')], [('cprxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+--coment : 1.3 Transport intensities
+resOdy = affectation(resOdy, 'icsvpc', 'csvpc', '2000=100', poids=100/recupSerie(resOdy,'csvpc',2000))
+--IF pays_cour='dnk' THEN--voir utilité du cas particulier avec EED
+--	CALC_INDICATEURS.Calcul_Serie_Part('cutoctgr','toccfcam','tkmrou',1,'koe/tkm',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+--ELSE
+resOdy = affectationParMultiplication(resOdy, 'cutoctgr', [('toccfcamvlr','Mtoe')], [('tkmrou','Gtkm')], 'koe/tkm', poids=1)
+--END IF;
+resOdy = affectationParMultiplication(resOdy, 'cutoccamtkm', [('toccfcam','Mtoe')], [('tkmrou','Gtkm')], 'koe/tkm', poids=1)
+resOdy = affectation(resOdy, 'icutoctgr', 'cutoctgr', '2000=100', poids=100/recupSerie(resOdy,'cutoctgr',2000))
+resOdy = affectationParMultiplication(resOdy, 'cutoccam', [('toccfcam','Mtoe')], [('nbrcam','M')], 'toe/veh', poids=1)
+resOdy = affectation(resOdy, 'icutoccam', 'cutoccam', '2000=100', poids=100/recupSerie(resOdy,'cutoccam',2000))
+
+resOdy = affectationParMultiplication(resOdy, 'ietoctra', [('toccftra','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelctra', [('elccftra','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbtra', [('cmbcftra','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+--coment : 1.4 Industry intensities;
+/*IF pays_cour NOT IN ('nor') THEN
+END IF;*/
+
+resOdy = multiAffectation(resOdy, 'prdppp', ['prdpap','prdpat'], 'kt')
+
+--cutocppp calculé uniquement si la production de papier est supérieure à 100 kt en 2010.
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='prdppp' AND code_pays=pays_cour;
+IF serie_existe>0 AND pays_cour NOT IN ('cro','dnk','grc','lth') THEN
+	SELECT valeur INTO somser FROM Valeurs_tab WHERE ticker=(SELECT numero FROM Series WHERE code_serie='prdppp' AND code_pays=pays_cour) AND tyear=2010;
+	IF ABS(somser)>100 THEN
+resOdy = affectationParMultiplication(resOdy, 'cutocppp', [('toccfppp','Mtoe')], [('prdppp','kt')], 'toe/t', poids=1000)
+resOdy = affectation(resOdy, 'icutocppp', 'cutocppp', '2000=100', poids=100/recupSerie(resOdy,'cutocppp',2000))
+	END IF;
+END IF;
+
+resOdy = affectationParMultiplication(resOdy, 'cueleppp', [('elecfppp','TWh')], [('prdppp','kt')], 'kWh/t', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cuelcppp', [('elccfppp','Mtoe')], [('prdppp','kt')], 'toe/t', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbppp', [('cmbcfppp','Mtoe')], [('prdppp','kt')], 'toe/t', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'cuelepap', [('elecfpap','TWh')], [('prdpap','kt')], 'kWh/t', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cutocpap', [('toccfpap','Mtoe')], [('prdpap','kt')], 'toe/t', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelcpap', [('elccfpap','Mtoe')], [('prdpap','kt')], 'toe/t', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbpap', [('cmbcfpap','Mtoe')], [('prdpap','kt')], 'toe/t', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'tocchip', [('toccfchi','Mtoe')], [('ipichixx','2010=100')], 'Mtoe', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'toctexp', [('toccftex','Mtoe')], [('ipitexxx','2010=100')], 'Mtoe', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'tociaap', [('toccfiaa','Mtoe')], [('ipiiaaxx','2010=100')], 'Mtoe', poids=100)
+
+resOdy = affectation(resOdy, 'itocchip', 'tocchip', '2000=100', poids=100/recupSerie(resOdy,'tocchip',2000))
+resOdy = affectation(resOdy, 'itoctexp', 'toctexp', '2000=100', poids=100/recupSerie(resOdy,'toctexp',2000))
+resOdy = affectation(resOdy, 'itociaap', 'tociaap', '2000=100', poids=100/recupSerie(resOdy,'tociaap',2000))
+
+resOdy = affectationParMultiplication(resOdy, 'ietocind', [('toccfind','Mtoe')], [('vadindxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcind', [('elccfind','Mtoe')], [('vadindxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbind', [('cmbcfind','Mtoe')], [('vadindxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocima', [('toccfima','Mtoe')], [('vadimaxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcima', [('elccfima','Mtoe')], [('vadimaxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbima', [('cmbcfima','Mtoe')], [('vadimaxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocmpr', [('toccfmpr','Mtoe')], [('vadmprxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcmpr', [('elccfmpr','Mtoe')], [('vadmprxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbmpr', [('cmbcfmpr','Mtoe')], [('vadmprxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = multiAffectation(resOdy, 'vadeqpxx', ['vadvehxx','vadmacxx'], 'MEUR2010')
+resOdy = multiAffectation(resOdy, 'toccfeqp', ['toccfveh','toccfmac'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'elccfeqp', ['elccfveh','elccfmac'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'cmbcfeqp', ['cmbcfveh','cmbcfmac'], 'Mtoe')
+
+--IF pays_cour NOT IN ('nzl') THEN--voir utilité du cas particulier avec EED
+resOdy = affectationParMultiplication(resOdy, 'ietocchi', [('toccfchi','Mtoe')], [('vadchixx','MEUR2010')], 'koe/EUR2010', poids=1000)
+--END IF;
+resOdy = affectationParMultiplication(resOdy, 'ieelcchi', [('elccfchi','Mtoe')], [('vadchixx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbchi', [('cmbcfchi','Mtoe')], [('vadchixx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietoccmp', [('toccfcmp','Mtoe')], [('vadcmpxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelccmp', [('elccfcmp','Mtoe')], [('vadcmpxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbcmp', [('cmbcfcmp','Mtoe')], [('vadcmpxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocppp', [('toccfppp','Mtoe')], [('vadpppxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcppp', [('elccfppp','Mtoe')], [('vadpppxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbppp', [('cmbcfppp','Mtoe')], [('vadpppxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocmnm', [('toccfmnm','Mtoe')], [('vadmnmxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcmnm', [('elccfmnm','Mtoe')], [('vadmnmxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbmnm', [('cmbcfmnm','Mtoe')], [('vadmnmxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietociaa', [('toccfiaa','Mtoe')], [('vadiaaxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelciaa', [('elccfiaa','Mtoe')], [('vadiaaxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbiaa', [('cmbcfiaa','Mtoe')], [('vadiaaxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietoceqp', [('toccfeqp','Mtoe')], [('vadeqpxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelceqp', [('elccfeqp','Mtoe')], [('vadeqpxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbeqp', [('cmbcfeqp','Mtoe')], [('vadeqpxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocmac', [('toccfmac','Mtoe')], [('vadmacxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcmac', [('elccfmac','Mtoe')], [('vadmacxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbmac', [('cmbcfmac','Mtoe')], [('vadmacxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocveh', [('toccfveh','Mtoe')], [('vadvehxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcveh', [('elccfveh','Mtoe')], [('vadvehxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbveh', [('cmbcfveh','Mtoe')], [('vadvehxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocfab', [('toccffab','Mtoe')], [('vadfabxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcfab', [('elccffab','Mtoe')], [('vadfabxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbfab', [('cmbcffab','Mtoe')], [('vadfabxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietoctex', [('toccftex','Mtoe')], [('vadtexxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelctex', [('elccftex','Mtoe')], [('vadtexxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbtex', [('cmbcftex','Mtoe')], [('vadtexxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocmin', [('toccfmin','Mtoe')], [('vadminxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcmin', [('elccfmin','Mtoe')], [('vadminxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbmin', [('cmbcfmin','Mtoe')], [('vadminxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietoccon', [('toccfcon','Mtoe')], [('vadconxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelccon', [('elccfcon','Mtoe')], [('vadconxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbcon', [('cmbcfcon','Mtoe')], [('vadconxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocboi', [('toccfboi','Mtoe')], [('vadboixx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcboi', [('elccfboi','Mtoe')], [('vadboixx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbboi', [('cmbcfboi','Mtoe')], [('vadboixx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocidv', [('toccfidv','Mtoe')], [('vadidvxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcidv', [('elccfidv','Mtoe')], [('vadidvxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbidv', [('cmbcfidv','Mtoe')], [('vadidvxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocwat', [('elccfwat','Mtoe')], [('vadenexx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+--coment : 1.5 Tertiary sector intensities;
+resOdy = affectationParMultiplication(resOdy, 'ietocter', [('toccfter','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcter', [('elccfter','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbter', [('cmbcfter','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieeleter', [('elecfter','TWh')], [('vadterxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietoctercc', [('toccftercc','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelctercc', [('elccftercc','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbtercc', [('cmbcftercc','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieeletercc', [('elecftercc','TWh')], [('vadterxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocdvr', [('toccfdvr','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcdvr', [('elccfdvr','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbdvr', [('cmbcfdvr','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieeledvr', [('elecfdvr','TWh')], [('vadterxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocdvrcc', [('toccfdvrcc','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcdvrcc', [('elccfdvrcc','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbdvrcc', [('cmbcfdvrcc','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieeledvrcc', [('elecfdvrcc','TWh')], [('vadterxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'ietocterce', [('toccfterce','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocgov', [('toccfgov','Mtoe')], [('vadgovxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcgov', [('elccfgov','Mtoe')], [('vadgovxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbgov', [('cmbcfgov','Mtoe')], [('vadgovxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelegov', [('elecfgov','TWh')], [('vadgovxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocbur', [('toccfbur','Mtoe')], [('vadburxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcbur', [('elccfbur','Mtoe')], [('vadburxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbbur', [('cmbcfbur','Mtoe')], [('vadburxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelebur', [('elecfbur','TWh')], [('vadburxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocbup', [('toccfbup','Mtoe')], [('vadbupxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcbup', [('elccfbup','Mtoe')], [('vadbupxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbbup', [('cmbcfbup','Mtoe')], [('vadbupxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelebup', [('elecfbup','TWh')], [('vadbupxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietoccom', [('toccfcom','Mtoe')], [('vadcomxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelccom', [('elccfcom','Mtoe')], [('vadcomxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbcom', [('cmbcfcom','Mtoe')], [('vadcomxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelecom', [('elecfcom','TWh')], [('vadcomxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocedu', [('toccfedu','Mtoe')], [('vadeduxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcedu', [('elccfedu','Mtoe')], [('vadeduxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbedu', [('cmbcfedu','Mtoe')], [('vadeduxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieeleedu', [('elecfedu','TWh')], [('vadeduxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietochos', [('toccfhos','Mtoe')], [('vadhosxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelchos', [('elccfhos','Mtoe')], [('vadhosxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbhos', [('cmbcfhos','Mtoe')], [('vadhosxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelehos', [('elecfhos','TWh')], [('vadhosxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietochcr', [('toccfhcr','Mtoe')], [('vadhcrxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelchcr', [('elccfhcr','Mtoe')], [('vadhcrxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbhcr', [('cmbcfhcr','Mtoe')], [('vadhcrxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelehcr', [('elecfhcr','TWh')], [('vadhcrxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+
+--coment : 1.6 Agriculture intensities;
+resOdy = affectationParMultiplication(resOdy, 'ietocagr', [('toccfagr','Mtoe')], [('vadagrxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ieelcagr', [('elccfagr','Mtoe')], [('vadagrxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'iecmbagr', [('cmbcfagr','Mtoe')], [('vadagrxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+--coment : 1.7 Intensity of industry at constant structure;
+--coment : Divisia Index;
+--coment : Total;
+
+resOdy = affectation(resOdy, 'toccfwat', 'elccfwat', 'Mtoe')
+
+--calcul_series('toccfdvi=toccfind-toccfiaa-toccftex-toccfboi-toccfppp-toccfchi-toccfmnm-toccfmpr-toccfmac-toccfveh-toccfmin-toccfcon');
+--calcul_series('vaddviec00=vadindec00-vadiaaec00-vadtexec00-vadboiec00-vadpppec00-vadchiec00-vadmnmec00-vadmprec00-vadmacec00-vadvehec00-vadminec00-vadconec00');
+
+resOdy = multiAffectation(resOdy, 'toccfima1', ['toccfmpr', 'toccfchi', 'toccfppp', 'toccfmnm', 'toccfiaa', 'toccfmac', 'toccfveh', 'toccftex', 'toccfidv', 'toccfboi', 'toccfwat'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfdvi', ['toccfima','-toccfima1'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'vadimaxx1', ['vadmprxx', 'vadchixx', 'vadpppxx', 'vadmnmxx', 'vadiaaxx', 'vadmacxx', 'vadvehxx', 'vadtexxx', 'vadidvxx', 'vadboixx', 'vadwatxx'], 'MEUR2010')
+resOdy = multiAffectation(resOdy, 'vaddvixx', ['vadimaxx','-vadimaxx1'], 'MEUR2010')
+
+resOdy = calculVITOC_Branche(resOdy, 'vitocimamprsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocimachisd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocimapppsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocimamnmsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocimaiaasd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocimamacsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocimavehsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocimaeqpsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocimatexsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocimaboisd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocimadvisd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocimawatsd')
+resOdy = multiAffectation(resOdy, 'vitocimasd', ['vitocimamprsd', 'vitocimachisd', 'vitocimapppsd', 'vitocimamnmsd', 'vitocimaiaasd', 'vitocimamacsd', 'vitocimavehsd', 'vitocimatexsd', 'vitocimadvisd', 'vitocimaboisd', 'vitocimawatsd'], '1')
+
+resOdy = calculVITOC_ED(resOdy, 'vitocimaed')
+
+resOdy = totalCumul(resOdy, 'vitocimasdto', 'vitocimasd', '1')
+resOdy = totalCumul(resOdy, 'vitocimaedto', 'vitocimaed', '1')
+
+resOdy = affectation(resOdy, 'ivtocimasd', 'vitocimasdto', '2000=100', formule=lambda x : np.exp(x-recupSerie(resOdy,'vitocimasdto',2000))*100)
+resOdy = affectation(resOdy, 'ivtocimaed', 'vitocimaedto', '2000=100', formule=lambda x : np.exp(x-recupSerie(resOdy,'vitocimaedto',2000))*100)
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('vadmprxx','vadmacxx','vadchixx') AND Code_pays=pays_cour AND Temp=temporalisation;
+IF serie_existe=3 THEN
+resOdy = affectation(resOdy, 'ietocimaed', 'ivtocimaed', 'koe/EUR2010', poids=0.01*recupSerie(resOdy,'ietocima',2000))
+resOdy = affectation(resOdy, 'ietocimasd', 'ivtocimasd', 'koe/EUR2010', poids=0.01*recupSerie(resOdy,'ietocima',2000))
+END IF;
+
+--coment : 1.8 Final intensity at constant structure;
+--coment : Final energy intensity at constant structure of GDP between main;
+--coment   sectors (agriculture, industry, services);
+resOdy = affectation(resOdy, 'ivadindxx', 'vadindxx', '2000=100', poids=100/recupSerie(resOdy,'vadindxx',2000))
+resOdy = affectation(resOdy, 'ivadagrxx', 'vadagrxx', '2000=100', poids=100/recupSerie(resOdy,'vadagrxx',2000))
+resOdy = affectation(resOdy, 'ivadterxx', 'vadterxx', '2000=100', poids=100/recupSerie(resOdy,'vadterxx',2000))
+resOdy = affectation(resOdy, 'ipibxx', 'pibxx', '2000=100', poids=100/recupSerie(resOdy,'pibxx',2000))
+resOdy = affectation(resOdy, 'icprxx', 'cprxx', '2000=100', poids=100/recupSerie(resOdy,'cprxx',2000))
+
+resOdy = affectationParMultiplication(resOdy, 'toccfindcst', [('toccfind','Mtoe')], [('ivadindxx','2000=100')], 'Mtoe', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'toccfagrcst', [('toccfagr','Mtoe')], [('ivadagrxx','2000=100')], 'Mtoe', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'toccftercst', [('toccfdvr','Mtoe')], [('ivadterxx','2000=100')], 'Mtoe', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'toccftracst', [('toccftra','Mtoe')], [('ipibxx','2000=100')], 'Mtoe', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'toccfrescst', [('toccfres','Mtoe')], [('icprxx','2000=100')], 'Mtoe', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'toccftercstcc', [('toccfdvrcc','Mtoe')], [('ivadterxx','2000=100')], 'Mtoe', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'toccfrescstcc', [('toccfrescc','Mtoe')], [('icprxx','2000=100')], 'Mtoe', poids=100)
+resOdy = affectation(resOdy, 'toccfimacst', 'ietocimaed', 'Mtoe', poids=0.001*recupSerie(resOdy,'vadimaxx',2000))
+
+resOdy = multiAffectation(resOdy, 'ietoctfcst1', ['toccfagrcst', 'toccftracst', 'toccftercst', 'toccfrescst', 'toccfimacst'], 'koe/EUR2010', poids=1000/recupSerie(resOdy,'pibxx',2000))
+resOdy = multiAffectation(resOdy, 'ietoctfcst1cc', ['toccfagrcst', 'toccftracst', 'toccftercstcc', 'toccfrescstcc', 'toccfindcst'], 'koe/EUR2010', poids=1000/recupSerie(resOdy,'pibxx',2000))
+
+SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('vadmprxx','vadmacxx','vadchixx') AND code_pays=pays_cour;
+IF (serie_existe=3) THEN
+resOdy = multiAffectation(resOdy, 'ietoctfcst', ['toccfagrcst', 'toccftracst', 'toccftercst', 'toccfrescst', 'toccfimacst'], 'koe/EUR2010', poids=1000/recupSerie(resOdy,'pibxx',2000))
+	IF pays_cour='fin' THEN
+resOdy = affectation(resOdy, 'ietoctfcstcc', 'ietoctfcst1cc', 'koe/EUR2010')
+	ELSE
+resOdy = multiAffectation(resOdy, 'ietoctfcstcc', ['toccfagrcst', 'toccftracst', 'toccftercstcc', 'toccfrescstcc', 'toccfimacst'], 'koe/EUR2010', poids=1000/recupSerie(resOdy,'pibxx',2000))
+	END IF;
+END IF;
+
+--coment : 2 TECHNICO-ECONOMIC RATIOS;
+--coment : 2.1 Residential technico-economic ratios;
+--coment : Average unit consumption per dwellings;
+resOdy = affectationParMultiplication(resOdy, 'cutocmen', [('toccfres','Mtoe')], [('men','k')], 'toe/hh', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelcmen', [('elccfres','Mtoe')], [('men','k')], 'toe/hh', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelelog', [('elecfres','TWh')], [('nbrlpr','k')], 'kWh/dw', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cutoclog', [('toccfres','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutoclogcc', [('toccfrescc','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutoclogchf', [('toccfreschf','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelelogcc', [('elecfrescc','TWh')], [('nbrlpr','k')], 'kWh/dw', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cuelelogcli', [('elecfrescli','TWh')], [('nbrlpr','k')], 'kWh/dw', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cucmblogcc', [('cmbcfrescc','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+
+--Specific consumption for households
+--Specific consumption for households for space heating and ECS
+resOdy = multiAffectation(resOdy, 'tocreschecs', ['toccfreschc','toccfresecs'], 'Mtoe')
+resOdy = affectationParMultiplication(resOdy, 'cutocreschecs', [('tocreschecs','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+
+--Specific consumption for households for space heating, lighting and ECS
+resOdy = multiAffectation(resOdy, 'tocreschgtecs', ['tocreschecs','elccfreslgt'], 'Mtoe')
+resOdy = affectationParMultiplication(resOdy, 'cutocreschgtecs', [('tocreschgtecs','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+
+--Specific consumption for households for space heating, lighting and ECS
+resOdy = affectationParMultiplication(resOdy, 'cutocreschgtecsm2', [('tocreschgtecs','Mtoe')], [('surres','Mm2')], 'koe/m2', poids=1000)
+--Specific consumption for households for lighting
+resOdy = affectationParMultiplication(resOdy, 'cutocreslgtm2', [('elccfreslgt','Mtoe')], [('surres','Mm2')], 'koe/m2', poids=1000)
+
+--coment : Average unit consumption per m2;
+resOdy = affectationParMultiplication(resOdy, 'cutocsur', [('toccfres','Mtoe')], [('surres','Mm2')], 'koe/m2', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutocsurcc', [('toccfrescc','Mtoe')], [('surres','Mm2')], 'koe/m2', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutocsurchf', [('toccfreschf','Mtoe')], [('surres','Mm2')], 'koe/m2', poids=1000)
+
+resOdy = affectation(resOdy, 'coeff_equivChf', 'pcdwchc', formule=lambda x : x+((1-x)*0.75))
+resOdy = affectationConv(resOdy, 'cutocsurchch', 'cutocsurchc', 'coeff_equivChf', '/', 'koe/m2')
+resOdy = affectationConv(resOdy, 'cutoclogchch', 'cutoclogchc', 'coeff_equivChf', '/', 'toe/dw')
+resOdy = affectationConv(resOdy, 'cucmblogch', 'cucmblogcc', 'coeff_equivChf', '/', 'toe/dw')
+
+lcoeff = list(const.VALEUR[['cst_cmsrend', 'cst_petrend', 'cst_gazrend', 'cst_encrend', 'cst_vaprend', 'cst_elerend']])
+resOdy = multiAffectationMultiConv(resOdy, 'cueurlogchf_prov', ['cmscfreschf','petcfreschf','gazcfreschf','enccfreschf','vapcfreschf','elccfreschf'], ['Mtoe'], lcoeff, None)
+resOdy = affectationParMultiplication(resOdy, 'cueurlogchf', [('cueurlogchf_prov',None)], [('nbrlpr','k')], 'toe/dw', poids=10)
+resOdy = multiAffectationMultiConv(resOdy, 'cueurlogchc_prov', ['cmscfreschc','petcfreschc','gazcfreschc','enccfreschc','vapcfreschc','elccfreschc'], ['Mtoe'], lcoeff, None)
+resOdy = affectationParMultiplication(resOdy, 'cueurlogchc', [('cueurlogchc_prov',None)], [('nbrlpr','k')], 'toe/dw', poids=10)
+resOdy = multiAffectationMultiConv(resOdy, 'cueursurchc_prov', ['cmscfreschc','petcfreschc','gazcfreschc','enccfreschc','vapcfreschc','elccfreschc'], ['Mtoe'], lcoeff, None)
+resOdy = affectationParMultiplication(resOdy, 'cueursurchc', [('cueursurchc_prov',None)], [('surres','Mm2')], 'koe/m2', poids=10)
+
+resOdy = affectationParMultiplication(resOdy, 'cueurlogchcd', [('cueurlogchc','toe/dw')], [('djref','degree')], 'koe/dw/dj', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cueursurchcd', [('cueursurchc','koe/m2')], [('djref','degree')], 'goe/m2/dj', poids=1000)
+
+resOdy = correctionClimatiqueChf(resOdy, 'toccfmprchc', 'Mtoe')
+resOdy = correctionClimatiqueChf(resOdy, 'toccfiprchc', 'Mtoe')
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='toccfmprchc' AND code_pays=pays_cour;
+IF serie_existe>0 THEN
+resOdy = affectationParMultiplication(resOdy, 'cutocmprchc', [('toccfmprchc','Mtoe')], [('nbrmpr','k')], 'toe/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutociprchc', [('toccfiprchc','Mtoe')], [('nbripr','k')], 'toe/dw', poids=1000)
+ELSE
+resOdy = calculCUCC(resOdy, 'cutocmprchc', 'csmprchf', 'toe/dw')
+resOdy = calculCUCC(resOdy, 'cutociprchc', 'csiprchf', 'toe/dw')
+
+	--calcul_series('cutocedwchc=((cutocmprchc*nbrmpr)+(cutociprchc*nbripr))/((nbrmpr*icumpr)+nbripr)'); --n'existe pas dans l'interface
+END IF;
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='toccfmprchf' AND code_pays=pays_cour;
+IF serie_existe>0 THEN
+resOdy = affectationParMultiplication(resOdy, 'cutocmprchf', [('toccfmprchf','Mtoe')], [('nbrmpr','k')], 'toe/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutociprchf', [('toccfiprchf','Mtoe')], [('nbripr','k')], 'toe/dw', poids=1000)
+ELSE
+resOdy = affectation(resOdy, 'cutocmprchf', 'csmprchf', 'toe/dw')
+resOdy = affectation(resOdy, 'cutociprchf', 'csiprchf', 'toe/dw')
+END IF;
+
+resOdy = affectationParMultiplication(resOdy, 'cutocsurmprchf', [('toccfmprchf','Mtoe')], [('surmpr','m2')], 'koe/m2', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutocsurmprchc', [('toccfmprchc','Mtoe')], [('surmpr','m2')], 'koe/m2', poids=1000)
+-- IF pays_cour='fin' THEN
+	-- --inclus les parties communes
+-- ELSE
+	--hors parties communes (sauf fin, décommenter la condition quand validé par EED)
+resOdy = affectationParMultiplication(resOdy, 'cutocsuriprchf', [('toccfiprchf','Mtoe')], [('suripr','m2')], 'koe/m2', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutocsuriprchc', [('toccfiprchc','Mtoe')], [('suripr','m2')], 'koe/m2', poids=1000)
+-- END IF;
+
+resOdy = affectationParMultiplication(resOdy, 'cselelgt', [('elecfreslgt','TWh')], [('nbrlpr','k')], 'kWh/dw', poids=1000000)
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='nbrlprele' AND code_pays=pays_cour;
+IF serie_existe>0 THEN
+resOdy = affectationParMultiplication(resOdy, 'pcdwnbrele', [('nbrlprele','k')], [('nbrlpr','k')], '%', poids=100)
+ELSE
+resOdy = affectationParMultiplication(resOdy, 'cuelcres', [('elccfres','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'pcdwnbrele', [('cuelcres','toe/dw')], [('cueurlogchc','toe/dw')], '%', poids=97)
+END IF;
+
+
+--IF pays_cour NOT IN ('bgr','fin','ita','lth','lux','pol','prt','slo','swe') THEN
+--	CALC_INDICATEURS.Calcul_Serie_EFF('effele','pcdwelehpeff','97','300','%',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id); --ne sert pas actuellement
+--ELSE
+resOdy = CompletionSerie(resOdy, 'effele', 'fill', '97')
+--END IF;
+
+IF pays_cour IN ('rfa') THEN
+resOdy = affectationParMultiplication(resOdy, 'pcdwgaz', [('nbrlprgaz','k')], [('nbrlpr','k')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'cugazres', [('gazcfres','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'pcdwgaz', [('cugazres','toe/dw')], [('cueurlogchc','toe/dw')], '%', poids=80)
+ELSE
+ 	SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='nbrlprgaz' AND code_pays=pays_cour;
+	IF serie_existe>0 THEN
+resOdy = affectationParMultiplication(resOdy, 'pcdwgaz', [('nbrlprgaz','k')], [('nbrlpr','k')], '%', poids=100)
+	ELSE
+resOdy = affectationParMultiplication(resOdy, 'cugazres', [('gazcfres','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'pcdwgaz', [('cugazres','toe/dw')], [('cueurlogchc','toe/dw')], '%', poids=80)
+	END IF;
+END IF;
+
+
+--IF pays_cour IN ('fra','gbr','nld','rcz','rfa') THEN
+--	CALC_INDICATEURS.Calcul_Serie_EFF('effgaz','pcdwgazcb','80','107','%',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);--effgaz remplace effgas, ne sert pas actuellement
+--ELSE
+resOdy = CompletionSerie(resOdy, 'effgaz', 'fill', '80')
+--END IF;
+
+--coment : water heating, cooking;
+resOdy = affectationParMultiplication(resOdy, 'cutoclogecs', [('toccfresecs','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutocsurecs', [('toccfresecs','Mtoe')], [('surres','Mm2')], 'koe/m2', poids=1000)
+--IF pays_cour NOT IN ('usa','cor','can','jpn','aus','nzl','sui') THEN
+resOdy = affectationParMultiplication(resOdy, 'cutocecshab', [('toccfresecs','Mtoe')], [('pop','k')], 'toe/cap', poids=1000)
+--END IF;
+resOdy = affectationParMultiplication(resOdy, 'cutoclogcui', [('toccfrescui','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutoclogels', [('elecfresels','TWh')], [('nbrlpr','k')], 'kWh/dw', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cutoclogcli', [('toccfrescli','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+
+--coment : 2.2 Transport technico-economic ratios;
+resOdy = MoyennePond(resOdy, 'csvlr', ['csvlress','csvlrgzl'], [1.0,1.0], ['nbrvlress','nbrvlrgzl'], 'l/100km')
+resOdy = MoyennePond(resOdy, 'cscamvlr', ['cscamvlress','cscamvlrgzl'], [1.0,1.0], ['nbrcamvlress','nbrcamvlrgzl'], 'l/100km')
+
+--coment : specific consumption of new cars (test values);
+-- IF pays_cour='grc' THEN
+	-- DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='csvpnth');
+	-- DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='csvpnth');
+	-- DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='csvpnth');
+	-- DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='csvpnth');
+	-- DELETE Series WHERE code_serie='csvpnth' AND code_pays=pays_cour;
+-- END IF;
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='csvpnth' AND code_pays=pays_cour;
+IF (serie_existe=0) THEN
+	SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('csvpnessth','csvpngzlth') AND code_pays=pays_cour;
+	IF (serie_existe=2) THEN
+resOdy = MoyennePond(resOdy, 'csvpnth', ['csvpnessth','csvpngzlth'], [1.0,1.0], ['newvpcess','newvpcgzl'], 'l/100km')
+	END IF;
+END IF;
+
+resOdy = calculCSVPCTH(resOdy, 'csvpcth', 'l/100km')
+
+--coment : specific consumption of new cars at constant structure of new;
+--coment   car registration by category of cars;
+resOdy = MoyennePondStruCste(resOdy, 'csvpnthst', ['csvpnessth','csvpngzlth'], ['newvpcess','newvpcgzl'], 2000, 'l/100km')
+
+--coment : gasoline;
+--coment : unit consumption per gasoline vehicle;
+resOdy = multiAffectation(resOdy, 'nbrvehess', ['nbrvpcess','nbrvlress','nbrbusess'], 'M')
+resOdy = affectationParMultiplication(resOdy, 'cuessveh', [('esscfrou','Mtoe')], [('nbrvehess','M')], 'toe/veh', poids=1)
+
+--coment : unit consumption of gasoline per equivalent car;
+--coment : all motor fuels;
+--coment : unit consumption of cars;
+
+
+resOdy = affectationParMultiplication(resOdy, 'cutocvpc', [('toccfvpc','Mtoe')], [('nbrvpc','M')], 'toe/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cutoccam', [('toccfcam','Mtoe')], [('nbrcam','M')], 'toe/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cutocbus', [('toccfbus','Mtoe')], [('nbrbus','M')], 'toe/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cutoccamvlr', [('toccfcamvlr','Mtoe')], [('nbrcamvlr','M')], 'toe/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cutocvpcvkm', [('cutocvpc','toe/veh')], [('kmvvpc','km')], 'koe/vkm', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutoccamvkm', [('cutoccam','toe/veh')], [('kmvcam','km')], 'koe/vkm', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutocbusvkm', [('cutocbus','toe/veh')], [('kmvbus','km')], 'koe/vkm', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutoccamvlrvkm', [('cutoccamvlr','toe/veh')], [('kmvcamvlr','km')], 'koe/vkm', poids=1000)
+resOdy = affectation(resOdy, 'csvpcj', 'cutocvpcvkm', 'MJ/km', poids=10*const.VALEUR['cst_tclun'])
+resOdy = affectation(resOdy, 'cscamj', 'cutoccamvkm', 'MJ/km', poids=10*const.VALEUR['cst_tclun'])
+resOdy = affectation(resOdy, 'csbusj', 'cutocbusvkm', 'MJ/km', poids=10*const.VALEUR['cst_tclun'])
+resOdy = affectation(resOdy, 'cscamvlrj', 'cutoccamvlrvkm', 'MJ/km', poids=10*const.VALEUR['cst_tclun'])
+
+--coment : unit consumption of light vehicles;
+resOdy = multiAffectation(resOdy, 'nbrveh', ['nbrvpc','nbrcamvlr','nbrbus'], 'M')
+resOdy = affectationParMultiplication(resOdy, 'cutocveh', [('toccfrou','Mtoe')], [('nbrveh','M')], 'toe/veh', poids=1)
+l_coeff = [1]+list(const.VALEUR[['cst_coefvpcmot','cst_coefvpcbus','cst_coefvpccamvlre']])
+resOdy = multiAffectationMultiConv(resOdy, 'coeff_cuesseqc', ['nbrvpcess','nbrmot','nbrbusess','nbrcamvlress'], ['M'], l_coeff, None)
+resOdy = affectationConv(resOdy, 'cuesseqc', 'esscfroudom', 'coeff_cuesseqc', '/', 'toe/careq')
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='kmvvpcess' AND code_pays=pays_cour;
+IF serie_existe>0 THEN
+resOdy = affectationParMultiplication(resOdy, 'cuesseqcvkm', [('cuesseqc','toe/careq')], [('kmvvpcess','km')], 'koe/vkm', poids=1000)
+ELSE
+resOdy = affectationParMultiplication(resOdy, 'cuesseqcvkm', [('cuesseqc','toe/careq')], [('kmvvpc','km')], 'koe/vkm', poids=1000)
+END IF;
+
+cst_travail = 100/(const.VALEUR['cst_essun']*const.VALEUR['cst_essdn'])
+resOdy = affectation(resOdy, 'csesseqc', 'cuesseqcvkm', 'l/100km', poids=cst_travail)
+
+--coment : unit consumption of light vehicles;
+SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('toccfvlr','toccfvpc') AND code_pays=pays_cour;
+IF (serie_existe=2) THEN
+resOdy = multiAffectation(resOdy, 'toccfvll', ['toccfvpc','toccfvlr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'nbrvll', ['nbrvpc','nbrvlr'], 'M')
+resOdy = affectationParMultiplication(resOdy, 'cutocvll', [('toccfvll','Mtoe')], [('nbrvll','M')], 'toe/veh', poids=1)
+ELSE
+	SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('toccfvpc','nbrvpc') AND code_pays=pays_cour;
+	IF (serie_existe=2) THEN
+resOdy = affectationParMultiplication(resOdy, 'cutocvll', [('toccfvpc','Mtoe')], [('nbrvpc','M')], 'toe/veh', poids=1)
+	ELSE
+resOdy = affectation(resOdy, 'cuessvlr', 'cuesseqc', 'toe/veh', poids=1*const.VALEUR['cst_coefvpcvlre'])
+resOdy = MoyennePond(resOdy, 'cutocvll', ['cuesseqc','cuessvlr'], [1.0,1.0], ['nbrvpc','nbrvlr'], 'toe/veh')
+	END IF;
+END IF;
+
+--coment:total consumption of trucks and light vehicules;
+resOdy = affectationParMultiplication(resOdy, 'cutoccamvlr', [('toccfcamvlr','Mtoe')], [('nbrcamvlr','M')], 'toe/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cutoccamvlrvkm', [('cutoccamvlr','toe/veh')], [('kmvcamvlr','km')], 'koe/vkm', poids=1000)
+
+SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('toccfvlr','kmvvlr','nbrvlr') AND code_pays=pays_cour;
+IF (serie_existe=3) THEN
+resOdy = MoyennePond(resOdy, 'kmvvll', ['kmvvpc','kmvvlr'], [1.0,1.0], ['nbrvpc','nbrvlr'], 'km')
+resOdy = affectationParMultiplication(resOdy, 'cutocvllvkm', [('cutocvll','toe/veh')], [('kmvvll','km')], 'koe/vkm', poids=1000)
+ELSE
+resOdy = affectation(resOdy, 'cutocvllvkm', 'cutocvpcvkm', 'koe/vkm')
+END IF;
+resOdy = affectationParMultiplication(resOdy, 'cstocvll', [('cutocvllvkm','koe/vkm')], [('vpcun','koe/l')], 'l/100km', poids=100)
+
+--coment : unit consumption per vkm of heavy vehicle;
+resOdy = multiAffectation(resOdy, 'esscfhvv', ['esscfrou', '-esscfvpctot', '-esscfvlr', '-esscfmot'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'gzlcfhvv', ['gzlcfrou', '-gzlcfvpctot', '-gzlcfvlr', '-gzlcfmot'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfhvv', ['esscfhvv','gzlcfhvv'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'nbrhvv', ['nbrcam','nbrbus'], 'M')
+resOdy = multiAffectation(resOdy, 'kmvhvv', ['kmcamv','kmvbus'], 'km')
+resOdy = affectationParMultiplication(resOdy, 'cutochvv', [('toccfhvv','Mtoe')], [('nbrhvv','M')], 'toe/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cutochvvvkm', [('cutochvv','toe/veh')], [('kmvhvv','km')], 'koe/vkm', poids=1000)
+
+cst_travail = 100/(const.VALEUR['cst_gzlun']*const.VALEUR['cst_gzldn'])
+resOdy = affectation(resOdy, 'cstochvv', 'cutochvvvkm', 'l/100km', poids=cst_travail)
+
+l_coeff = [1]+list(const.VALEUR[['cst_coefvpcmot','cst_coefvpcbus','cst_coefvpccamvlr']])
+resOdy = multiAffectationMultiConv(resOdy, 'coeff_cutoceqc', ['nbrvpc','nbrmot','nbrbus','nbrcamvlr'], ['M'], l_coeff, None)
+resOdy = affectationConv(resOdy, 'cutoceqc', 'toccfroudom', 'coeff_cutoceqc', '/', 'toe/careq')
+
+--coment : unit consumption per gasoline light vehicle;
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='esscfvlr' AND code_pays=pays_cour;
+IF (serie_existe=0) THEN
+resOdy = affectation(resOdy, 'cuessvlr', 'cuesseqc', 'toe/veh', poids=1*const.VALEUR['cst_coefvpcvlre'])
+resOdy = affectationParMultiplication(resOdy, 'esscfvlr', [('nbrvlress','M'),('cuessvlr','toe/veh')], None, 'Mtoe', poids=1)
+END IF;
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='esscfvpctot' AND code_pays=pays_cour;
+IF (serie_existe=0) THEN
+resOdy = affectationParMultiplication(resOdy, 'esscfvpctot', [('nbrvpcess','M'),('cuesseqc','toe/careq')], None, 'Mtoe', poids=1)
+END IF;
+
+
+SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('esscfvlr','nbrvlress') AND code_pays=pays_cour;
+IF (serie_existe=2) THEN
+resOdy = multiAffectation(resOdy, 'esscfvll', ['esscfvpctot','esscfvlr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'nbrvlless', ['nbrvpcess','nbrvlress'], 'M')
+resOdy = affectationParMultiplication(resOdy, 'cuessvll', [('esscfvll','Mtoe')], [('nbrvlless','M')], 'toe/veh', poids=1)
+ELSE
+resOdy = affectation(resOdy, 'cuessvlr', 'cuesseqc', 'toe/veh', poids=1*const.VALEUR['cst_coefvpcvlre'])
+resOdy = MoyennePond(resOdy, 'cuessvll', ['cuesseqc','cuessvlr'], [1.0,1.0], ['nbrvpcess','nbrvlress'], 'toe/veh')
+END IF;
+
+--coment : specific consumption per vkm of gasoline light vehicle;
+resOdy = affectationParMultiplication(resOdy, 'cuessvpcvkm', [('cuessvpc','toe/veh')], [('kmvvpcess','km')], 'koe/vkm', poids=1000)
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='kmvvpcess' AND code_pays=pays_cour;
+IF (serie_existe>0) THEN
+	SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('esscfvlr','kmvvlress','nbrvlress') AND code_pays=pays_cour;
+	IF (serie_existe=3) THEN
+resOdy = MoyennePond(resOdy, 'kmvvlless', ['kmvvpcess','kmvvlress'], [1.0,1.0], ['nbrvpcess','nbrvlress'], 'km')
+resOdy = affectationParMultiplication(resOdy, 'cuessvllvkm', [('cuessvll','toe/veh')], [('kmvvlless','km')], 'koe/vkm', poids=1000)
+	ELSE
+		SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('esscfvlr','kmvvlr','nbrvlress') AND code_pays=pays_cour;
+		IF (serie_existe=3) THEN
+resOdy = MoyennePond(resOdy, 'kmvvlless', ['kmvvpcess','kmvvlr'], [1.0,1.0], ['nbrvpcess','nbrvlress'], 'km')
+resOdy = affectationParMultiplication(resOdy, 'cuessvllvkm', [('cuessvll','toe/veh')], [('kmvvlless','km')], 'koe/vkm', poids=1000)
+		ELSE
+			SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('esscfvlr','nbrvlress') AND code_pays=pays_cour;
+			IF (serie_existe=2) THEN
+resOdy = MoyennePond(resOdy, 'kmvvlless', ['kmvvpcess','kmvvpcess'], [1.0,1.0], ['nbrvpcess','nbrvlress'], 'km')
+resOdy = affectationParMultiplication(resOdy, 'cuessvllvkm', [('cuessvll','toe/veh')], [('kmvvlless','km')], 'koe/vkm', poids=1000)
+			ELSE
+resOdy = affectation(resOdy, 'cuessvllvkm', 'cuessvpcvkm', 'koe/vkm')
+			END IF;
+		END IF;
+	END IF;
+END IF;
+
+cst_travail = 100/(const.VALEUR['cst_essun']*const.VALEUR['cst_essdn'])
+resOdy = affectation(resOdy, 'csessvll', 'cuessvllvkm', 'l/100km', poids=cst_travail)
+
+--coment : unit consumption of diesel of light vehicles;
+resOdy = affectationParMultiplication(resOdy, 'ratvpcessgzl', [('kmvvpcgzl','km')], [('kmvvpcess','km')], '%', poids=1)
+v_date:=annee_initiale;
+while v_date<=annee_finale
+LOOP
+	SELECT COUNT(DISTINCT(valeur)) INTO serie_existe FROM Valeurs_tab WHERE
+		ticker IN (SELECT numero FROM Series WHERE code_serie IN ('ratvpcessgzl') AND code_pays=pays_cour) AND tyear=v_date;
+	IF (serie_existe=0) THEN
+		UPDATE valeurs_tab SET valeur=2.5 WHERE ticker=(SELECT numero FROM Series WHERE code_serie='ratvpcessgzl' AND code_pays=pays_cour) AND tyear=v_date;
+	END IF;
+v_date:=v_date+1;
+END LOOP;
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='gzlcfvlr' AND code_pays=pays_cour;
+IF (serie_existe=0) THEN
+resOdy = affectationParMultiplication(resOdy, 'cugzlvlr', [('cuesseqc','toe/careq'),('ratvpcessgzl','%')], None, 'toe/veh', poids=const.VALEUR['cst_coefvpcvlr'])
+resOdy = affectationParMultiplication(resOdy, 'gzlcfvlr', [('cugzlvlr','toe/veh'),('nbrvlrgzl','M')], None, 'Mtoe', poids=1)
+ END IF;
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='gzlcfvpctot' AND code_pays=pays_cour;
+IF (serie_existe=0) THEN
+resOdy = affectationParMultiplication(resOdy, 'cugzlvpc', [('cuesseqc','toe/careq'),('ratvpcessgzl','%')], None, 'toe/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'gzlcfvpctot', [('cugzlvpc','toe/veh'),('nbrvpcgzl','M')], None, 'Mtoe', poids=1)
+END IF;
+
+
+--Remplacement
+resOdy = multiAffectation(resOdy, 'gzlcfvll', ['gzlcfvpctot','gzlcfvlr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'nbrvllgzl', ['nbrvpcgzl','nbrvlrgzl'], 'M')
+resOdy = affectationParMultiplication(resOdy, 'cugzlvll', [('gzlcfvll','Mtoe')], [('nbrvllgzl','M')], 'toe/veh', poids=1)
+resOdy = MoyennePond(resOdy, 'kmvvllgzl', ['kmvvpcgzl','kmvvlrgzl'], [1.0,1.0], ['nbrvpcgzl','nbrvlrgzl'], 'km')
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='kmvvllgzl' AND code_pays=pays_cour;
+IF (serie_existe>0) THEN
+resOdy = affectationParMultiplication(resOdy, 'cugzlvllvkm', [('cugzlvll','toe/veh')], [('kmvvllgzl','km')], 'koe/vkm', poids=1000)
+ELSE
+resOdy = affectationParMultiplication(resOdy, 'cugzlvllvkm', [('cugzlvll','toe/veh')], [('kmvvpcgzl','km')], 'koe/vkm', poids=1000)
+END IF;
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='gzlcfcamvlrtot' AND code_pays=pays_cour;
+IF serie_existe>0 AND pays_cour NOT IN ('dnk') THEN
+resOdy = affectationParMultiplication(resOdy, 'cugzltgr', [('gzlcfcamvlrtot','Mtoe')], [('tkmrou','Gtkm')], 'koe/tkm', poids=1)
+ELSE
+resOdy = affectationParMultiplication(resOdy, 'cugzltgr', [('gzlcfcam','Mtoe')], [('tkmrou','Gtkm')], 'koe/tkm', poids=1)
+END IF;
+
+/*Non pertinent selon FGB mais conservé au cas où
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='gzlcfvlr' AND code_pays=pays_cour;
+IF (serie_existe>0) THEN
+resOdy = multiAffectation(resOdy, 'gzlcfvll', ['gzlcfvpctot','gzlcfvlr'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'nbrvllgzl', ['nbrvpcgzl','nbrvlrgzl'], 'M')
+resOdy = affectationParMultiplication(resOdy, 'cugzlvll', [('gzlcfvll','Mtoe')], [('nbrvllgzl','M')], 'toe/veh', poids=1)
+END IF;
+
+--coment : unit consumption per vkm of diesel light vehicle;
+SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('gzlcfvlr','kmvvlrgzl','nbrvlrgzl') AND code_pays=pays_cour;
+IF (serie_existe=3) THEN
+resOdy = MoyennePond(resOdy, 'kmvvllgzl', ['kmvvpcgzl','kmvvlrgzl'], [1.0,1.0], ['nbrvpcgzl','nbrvlrgzl'], 'km')
+resOdy = affectationParMultiplication(resOdy, 'cugzlvllvkm', [('cugzlvll','toe/veh')], [('kmvvllgzl','km')], 'koe/vkm', poids=1000)
+ELSE
+resOdy = affectationParMultiplication(resOdy, 'cugzlvll', [('gzlcfvpctot','Mtoe')], [('nbrvpcgzl','M')], 'toe/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cugzlvllvkm', [('cugzlvll','toe/veh')], [('kmvvpcgzl','km')], 'koe/vkm', poids=1000)
+END IF;
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='gzlcfcamvlrtot' AND code_pays=pays_cour;
+IF serie_existe>0 THEN
+	IF pays_cour IN ('dnk') THEN
+resOdy = affectationParMultiplication(resOdy, 'cugzltgr', [('gzlcfcam','Mtoe')], [('tkmrou','Gtkm')], 'koe/tkm', poids=1)
+	ELSE
+resOdy = affectationParMultiplication(resOdy, 'cugzltgr', [('gzlcfcamvlrtot','Mtoe')], [('tkmrou','Gtkm')], 'koe/tkm', poids=1)
+	END IF;
+ELSE
+resOdy = affectationParMultiplication(resOdy, 'cugzlvll', [('gzlcfvpctot','Mtoe')], [('nbrvpcgzl','M')], 'toe/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cugzlvllvkm', [('cugzlvll','toe/veh')], [('kmvvpcgzl','km')], 'koe/vkm', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cugzltgr', [('gzlcfcam','Mtoe')], [('tkmrou','Gtkm')], 'koe/tkm', poids=1)
+END IF;*/
+
+cst_travail = 100/(const.VALEUR['cst_gzlun']*const.VALEUR['cst_gzldn'])
+resOdy = affectation(resOdy, 'csgzlvll', 'cugzlvllvkm', 'l/100km', poids=cst_travail)
+
+--coment : unit consumption of diesel of heavy vehicles, per vehicle and per vkm;
+IF pays_cour NOT IN ('pol','rsl','rcz','esp','rom') THEN
+resOdy = affectationParMultiplication(resOdy, 'cugzlcam', [('gzlcfcam','Mtoe')], [('nbrcam','M')], 'toe/veh', poids=1)
+END IF;
+--IF pays_cour NOT IN ('lat') THEN
+resOdy = affectationParMultiplication(resOdy, 'cugzlcamvlr', [('gzlcfcamvlrtot','Mtoe')], [('nbrcamvlrgzl','M')], 'toe/veh', poids=1)
+--END IF;
+--IF pays_cour NOT IN ('cro') THEN
+resOdy = affectationParMultiplication(resOdy, 'cuesscamvlr', [('esscfcamvlrtot','Mtoe')], [('nbrcamvlress','M')], 'toe/veh', poids=1)
+--END IF;
+resOdy = affectationParMultiplication(resOdy, 'cugzlcamvkm', [('cugzlcam','toe/veh')], [('kmvcam','km')], 'koe/vkm', poids=1000)
+
+--Remplace
+resOdy = multiAffectation(resOdy, 'nbrhvvgzl', ['nbrcam','nbrbusgzl'], 'M')
+resOdy = affectationParMultiplication(resOdy, 'cugzlhvv', [('gzlcfhvv','Mtoe')], [('nbrhvvgzl','M')], 'toe/veh', poids=1)
+resOdy = MoyennePond(resOdy, 'kmvhvvgzl', ['kmvcam','kmvbus'], [1.0,1.0], ['nbrcam','nbrbusgzl'], 'km')
+resOdy = affectationParMultiplication(resOdy, 'cugzlhvvvkm', [('cugzlhvv','toe/veh')], [('kmvhvvgzl','km')], 'koe/vkm', poids=1000)
+
+/*Non pertinent selon FGB mais conservé au cas où
+SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('gzlcfvpctot','gzlcfbus','nbrcam') AND code_pays=pays_cour;
+IF (serie_existe=3) THEN
+resOdy = multiAffectation(resOdy, 'nbrhvvgzl', ['nbrcam','nbrbusgzl'], 'M')
+resOdy = affectationParMultiplication(resOdy, 'cugzlhvv', [('gzlcfhvv','Mtoe')], [('nbrhvvgzl','M')], 'toe/veh', poids=1)
+	SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='kmvcam' AND code_pays=pays_cour;
+	IF (serie_existe>0) THEN
+resOdy = MoyennePond(resOdy, 'kmvhvvgzl', ['kmvcam','kmvbus'], [1.0,1.0], ['nbrcam','nbrbusgzl'], 'km')
+resOdy = affectationParMultiplication(resOdy, 'cugzlhvvvkm', [('cugzlhvv','toe/veh')], [('kmvhvvgzl','km')], 'koe/vkm', poids=1000)
+	END IF;
+ELSE
+	SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('gzlcfvpctot','nbrcam') AND code_pays=pays_cour;
+	IF (serie_existe=2) THEN
+		calcul_series('cugzlhvv=((gzlcfrou-gzlcfvpctot-(nbrvlrgzl*cuesseqc*cst_coefvpcvlr))/(nbrcam+nbrbus-nbrbusess))*1000');
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='vkmcam' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+			calcul_series('cugzlhvvvkm=(gzlcfrou-gzlcfvpctot-(nbrvlrgzl*cuesseqc*cst_coefvpcvlr))');
+			calcul_series('cugzlhvvvkm=(cugzlhvvvkm/((vkmcam*(nbrcam)/nbrcam)+(vkmbus*(nbrbus-nbrbusess)/nbrbus)))*1000');
+		END IF;
+	ELSE
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='nbrvlrgzl' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+			calcul_series('cugzlhvv=(gzlcfrou-(nbrvpcgzl*cuesseqc)-(nbrvlrgzl*cuesseqc*cst_coefvpcvlr))/(nbrcam+nbrbus)*1000');
+			SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='vkmcam' AND code_pays=pays_cour;
+			IF (serie_existe>0) THEN
+				calcul_series('cugzlhvvvkm=gzlcfrou-(nbrvpcgzl*cuesseqc)-(nbrvlrgzl*cuesseqc*cst_coefvpcvlr)');
+				calcul_series('cugzlhvvvkm=(cugzlhvvvkm/((vkmcam*(nbrcam-nbrcamess-nbrcamgpl)/nbrcam)+(vkmbus*(nbrbus-nbrbusess-nbrbusgpl)/nbrbus)))*1000');
+			END IF;
+		END IF;
+	END IF;
+END IF;*/
+DBMS_OUTPUT.PUT_LINE('Début INDIC 5');
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='cscamgzl' AND code_pays=pays_cour;
+IF (serie_existe=0) THEN
+resOdy = affectation(resOdy, 'cscamgzl', 'cugzlcamvkm', 'l/100km', poids=cst_travail)
+END IF;
+
+resOdy = affectation(resOdy, 'csgzlhvv', 'cugzlhvvvkm', 'l/100km', poids=cst_travail)
+
+--coment : LPG, Gas;
+--coment : unit consumption LPG light vehicle, per vehicle and per vkm;
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='gplcfvpc' AND code_pays=pays_cour;
+IF (serie_existe=0) THEN
+resOdy = affectationParMultiplication(resOdy, 'gplcfvpc', [('nbrvpcgpl','M'),('cuesseqc','toe/careq')], None, 'Mtoe', poids=1)
+END IF;
+
+--coment : unit consumption of good transport for road, rail, and;
+--coment : water transport;
+
+resOdy = affectationParMultiplication(resOdy, 'cutocmot', [('toccfmot','Mtoe')], [('nbrmot','M')], 'toe/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cutocfer', [('toccffer','Mtoe')], [('tkbfer','Gtkb')], 'koe/tkb', poids=1)
+IF pays_cour NOT IN ('gbr','lth') THEN
+resOdy = affectationParMultiplication(resOdy, 'cutocflv', [('toccfflv','Mtoe')], [('tkmflv','Gtkm')], 'koe/tkm', poids=1)
+END IF;
+
+resOdy = affectationParMultiplication(resOdy, 'cuessbus', [('esscfbus','Mtoe')], [('nbrbusess','M')], 'toe/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cugzlbus', [('gzlcfbus','Mtoe')], [('nbrbusgzl','M')], 'toe/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cutocbuspkm', [('toccfbus','Mtoe')], [('pkmbus','Gpkm')], 'koe/pkm', poids=1)
+
+--coment : unit consumption of air transport;
+IF pays_cour NOT IN ('lux') THEN
+resOdy = affectationParMultiplication(resOdy, 'cutocair', [('toccfair','Mtoe')], [('pasair','k')], 'toe/pas', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucarair', [('carcfair','Mtoe')], [('pasair','k')], 'toe/pas', poids=1000)
+END IF;
+resOdy = affectationParMultiplication(resOdy, 'cutocavd', [('carcfado','Mtoe')], [('pkmavd','Gpkm')], 'koe/pkm', poids=1)
+
+-- comment: Part des transports publiques dans le total transport
+resOdy = multiAffectation(resOdy, 'pkmpub', ['pkmbus','pkmfertot'], 'Gpkm')
+resOdy = multiAffectation(resOdy, 'tkmpub', ['tkmfer','tkmflv'], 'Gtkm')
+resOdy = multiAffectation(resOdy, 'pkmter', ['pkmrou','pkmfertot'], 'Gpkm')
+resOdy = affectationParMultiplication(resOdy, 'pcpkmpub', [('pkmpub','Gpkm')], [('pkmter','Gpkm')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pctkmpub', [('tkmpub','Gtkm')], [('tkm','Gtkm')], '%', poids=100)
+
+--coment : unit consumption per passenger-km;
+resOdy = affectationParMultiplication(resOdy, 'cutocvpcpkm', [('toccfvpc','Mtoe')], [('pkmvpc','Gpkm')], 'koe/pkm', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cutocflvpkm', [('toccfflv','Mtoe')], [('pkmflv','Gpkm')], 'koe/pkm', poids=1)
+resOdy = affectation(resOdy, 'cutocferpkm', 'cutocfer', 'koe/pkm', poids=1.7)
+resOdy = affectation(resOdy, 'cutocfertkm', 'cutocfer', 'koe/tkm', poids=2.5)
+
+resOdy = multiAffectation(resOdy, 'toccfroupas', ['toccfvpc','toccfbus'], 'Mtoe')
+resOdy = affectationParMultiplication(resOdy, 'cutocpkmrou', [('toccfroupas','Mtoe')], [('pkmrou','Gpkm')], 'koe/pkm', poids=1)
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='toccfcamvlr' AND code_pays=pays_cour;
+IF (serie_existe>0) THEN
+	IF pays_cour='eso' THEN
+resOdy = MoyennePond(resOdy, 'cutocmch', ['cutoctgr','cutocfertkm'], [1.0,1.0], ['tkmrou','tkmfer'], 'koe/tkm')
+	ELSE
+resOdy = MoyennePond(resOdy, 'cutocmch', ['cutoctgr','cutocfertkm','cutocflv'], [1.0,1.0,1.0], ['tkmrou','tkmfer','tkmflv'], 'koe/tkm')
+	END IF;
+END IF;
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='cutoctgr' AND code_pays=pays_cour;
+IF (serie_existe>0) THEN
+resOdy = MoyennePondStruCste(resOdy, 'cutocmchst', ['cutocfertkm','cutoctgr','cutocflv'], ['tkmfer','tkmrou','tkmflv'], 2000, 'koe/tkm')
+END IF;
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='cutocpkmrou' AND code_pays=pays_cour;
+IF (serie_existe>0) THEN
+resOdy = MoyennePond(resOdy, 'cutocpkm', ['cutocpkmrou','cutocferpkm'], [1.0,1.0], ['pkmrou','pkmfertot'], 'koe/pkm')
+	SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmavd' AND code_pays=pays_cour;
+	IF (serie_existe>0) THEN
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmflv' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+resOdy = MoyennePond(resOdy, 'cutocpkm', ['cutocpkm','cutocflvpkm','cutocavd'], [1.0,1.0,1.0], ['pkmter','pkmflv','pkmavd'], 'koe/pkm')
+		ELSE
+resOdy = MoyennePond(resOdy, 'cutocpkm', ['cutocpkmrou','cutocferpkm','cutocavd'], [1.0,1.0,1.0], ['pkmrou','pkmfertot','pkmavd'], 'koe/pkm')
+		END IF;
+	ELSE
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmflv' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+resOdy = MoyennePond(resOdy, 'cutocpkm', ['cutocpkmrou','cutocferpkm','cutocflvpkm'], [1.0,1.0,1.0], ['pkmrou','pkmfertot','pkmflv'], 'koe/pkm')
+		END IF;
+	END IF;
+END IF;
+
+
+--coment : Unit consumption per passenger-km at constant structure;
+--coment   by mode;
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='cutocpkmrou' AND code_pays=pays_cour;
+IF (serie_existe>0) THEN
+resOdy = MoyennePondStruCste(resOdy, 'cutocpkmst', ['cutocpkmrou','cutocferpkm'], ['pkmrou','pkmfertot'], 2000, 'koe/pkm')
+	SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmavd' AND code_pays=pays_cour;
+	IF (serie_existe>0) THEN
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmflv' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+resOdy = MoyennePondStruCste(resOdy, 'cutocpkmst', ['cutocpkmst','cutocflvpkm','cutocavd'], ['pkmter','pkmflv','pkmavd'], 2000, 'koe/pkm')
+		ELSE
+resOdy = MoyennePondStruCste(resOdy, 'cutocpkmst', ['cutocpkmrou','cutocferpkm','cutocavd'], ['pkmrou','pkmfertot','pkmavd'], 2000, 'koe/pkm')
+		END IF;
+	ELSE
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmflv' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+resOdy = MoyennePondStruCste(resOdy, 'cutocpkmst', ['cutocpkmrou','cutocferpkm','cutocflvpkm'], ['pkmrou','pkmfertot','pkmflv'], 2000, 'koe/pkm')
+		END IF;
+	END IF;
+END IF;
+
+resOdy = affectationParMultiplication(resOdy, 'tkmpib', [('tkm','Gtkm')], [('pibxx','MEUR2010')], 'tkm/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'pkmpib', [('pkm','Gpkm')], [('pibxx','MEUR2010')], 'pkm/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'pkmterpib', [('pkmter','Gpkm')], [('pibxx','MEUR2010')], 'pkm/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutoctkm', [('toccfmch','Mtoe')], [('tkm','Gtkm')], 'koe/tkm', poids=1)
+resOdy = MoyennePondStruCste(resOdy, 'cutoctkmst', ['cutocflv','cutoctgr','cutocavd'], ['tkmflv','tkmfer','tkmrou'], 2000, 'koe/tkm')
+
+--coment : 2.3 Industry technico-economic ratios;
+--coment : Unit consumption of energy intensive products;
+
+--cutocacb calculé uniquement si la production de papier est supérieure à 1000 kt en 2010.
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='prdacb' AND code_pays=pays_cour;
+IF serie_existe>0 AND pays_cour NOT IN ('dnk','eso','irl','cro','nor') THEN
+	SELECT valeur INTO somser FROM Valeurs_tab WHERE ticker=(SELECT numero FROM Series WHERE code_serie='prdacb' AND code_pays=pays_cour) AND tyear=2010;
+	IF ABS(somser)>1000 THEN
+resOdy = affectationParMultiplication(resOdy, 'cutocacb', [('toccfsid1','Mtoe')], [('prdacb','kt')], 'toe/t', poids=1000)
+resOdy = affectation(resOdy, 'icutocacb', 'cutocacb', '2000=100', poids=100/recupSerie(resOdy,'cutocacb',2000))
+	END IF;
+END IF;
+
+IF pays_cour NOT IN ('nor') THEN
+resOdy = affectationParMultiplication(resOdy, 'cucmbacb', [('cmbcfsid1','Mtoe')], [('prdacb','kt')], 'toe/t', poids=1000)
+END IF;
+
+resOdy = affectationParMultiplication(resOdy, 'cutoccim', [('toccfcim','Mtoe')], [('prdcim','kt')], 'toe/t', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelccim', [('elccfcim','Mtoe')], [('prdcim','kt')], 'toe/t', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbcim', [('cmbcfcim','Mtoe')], [('prdcim','kt')], 'toe/t', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelecim', [('elecfcim','TWh')], [('prdcim','kt')], 'kWh/t', poids=1000000)
+--IF pays_cour NOT IN ('esp') THEN
+resOdy = affectationParMultiplication(resOdy, 'shclkcim', [('prdclk','kt')], [('prdcim','kt')], '%', poids=100)
+--END IF;
+resOdy = affectationParMultiplication(resOdy, 'cucmbclk', [('cmbcfcim','Mtoe')], [('prdclk','kt')], 'toe/t', poids=1000)
+
+IF pays_cour NOT IN ('pol') THEN
+resOdy = affectationParMultiplication(resOdy, 'cutocver', [('toccfver','Mtoe')], [('prdver','kt')], 'toe/t', poids=1000)
+END IF;
+resOdy = affectationParMultiplication(resOdy, 'cuelcver', [('elccfver','Mtoe')], [('prdver','kt')], 'toe/t', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbver', [('cmbcfver','Mtoe')], [('prdver','kt')], 'toe/t', poids=1000)
+resOdy = affectation(resOdy, 'icutocver', 'cutocver', '2000=100', poids=100/recupSerie(resOdy,'cutocver',2000))
+resOdy = affectationParMultiplication(resOdy, 'cuelever', [('elecfver','TWh')], [('prdver','kt')], 'kWh/t', poids=1000000)
+
+--coment : Specific consumption by product/process;
+resOdy = affectation(resOdy, 'cscmbacboxy', 'cmbcsacboxy', 'toe/t')
+SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('cscmbacboxy','cseleacboxy') AND code_pays=pays_cour;
+IF (serie_existe=2) THEN
+	cst_travail = const.VALEUR['cst_elcun]/1000
+END IF;
+resOdy = affectation(resOdy, 'cscmbacbele', 'cmbcsacbele', 'toe/t')
+
+SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('cscmbacbele','cseleacbele') AND code_pays=pays_cour;
+IF (serie_existe=2) THEN
+	cst_travail = const.VALEUR['cst_elcun]/1000
+END IF;
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='toccscim' AND code_pays=pays_cour;
+IF serie_existe>0 THEN
+ELSE
+	SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('cscmbcim','cselecim') AND code_pays=pays_cour;
+	IF (serie_existe=2) THEN
+		cst_travail = const.VALEUR['cst_elcun]/1000
+	END IF;
+END IF;
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='toccsclk' AND code_pays=pays_cour;
+IF serie_existe>0 THEN
+ELSE
+	SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('cscmbclk','cseleclk');
+	IF (serie_existe=2) THEN
+		cst_travail = const.VALEUR['cst_elcun]/1000
+	END IF;
+END IF;
+
+--coment : specific consumption of energy intensive product at constant;
+--coment   process mix;
+SELECT COUNT(valeur) INTO serie_existe FROM Valeurs_tab WHERE ticker IN (SELECT numero FROM Series WHERE code_serie='cstocacbst1' AND Code_pays=pays_cour AND unite='toe/t' AND Temp=temporalisation) AND Tyear=v_an_base;
+IF (serie_existe=1) THEN
+	cst_travail = recupSerie(resOdy, 'cstocacbst1', 2000)
+END IF;
+
+--coment : 2.4 Tertiary technico-economic ratios;
+resOdy = transfert(resOdy, UEdata, [('djrefcomp','degree')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'pcuedjref', [('djrefcomp_UE','degree')], [('djrefcomp','degree')], '1')
+
+resOdy = affectationParMultiplication(resOdy, 'cutocter', [('toccfter','Mtoe')], [('empter','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelcter', [('elccfter','Mtoe')], [('empter','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbter', [('cmbcfter','Mtoe')], [('empter','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutoctercc', [('toccftercc','Mtoe')], [('empter','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelctercc', [('elccftercc','Mtoe')], [('empter','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbtercc', [('cmbcftercc','Mtoe')], [('empter','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cueleter', [('elecfter','TWh')], [('empter','k')], 'kWh/emp', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cueletercc', [('elecftercc','TWh')], [('empter','k')], 'kWh/emp', poids=1000000)
+
+
+resOdy = multiAffectation(resOdy, 'elccfterdiv', ['elccfter','-elccfterchf'], 'Mtoe')
+resOdy = affectation(resOdy, 'elecfterdiv', 'elccfterdiv', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+resOdy = affectationParMultiplication(resOdy, 'cueleterdiv', [('elecfterdiv','TWh')], [('empter','k')], 'kWh/emp', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cutocterchc', [('toccfterchc','Mtoe')], [('empter','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelcterchc', [('cuelctercc','toe/emp'),('pcchftercc','1')], None, 'toe/emp', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cucmbterchc', [('cucmbtercc','toe/emp'),('pcchftercc','1')], None, 'toe/emp', poids=1)
+
+resOdy = multiAffectation(resOdy, 'cutocterdiv', ['cutoctercc','-cutocterchc'], 'toe/emp')
+resOdy = multiAffectation(resOdy, 'cuelcterdiv', ['cuelctercc','-cuelcterchc'], 'toe/emp')
+resOdy = multiAffectation(resOdy, 'cucmbterdiv', ['cucmbtercc','-cucmbterchc'], 'toe/emp')
+resOdy = affectationParMultiplication(resOdy, 'cutocterche', [('cutocterchc','toe/emp'),('pcuedjref','1')], None, 'toe/emp', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cuelcterche', [('cuelcterchc','toe/emp'),('pcuedjref','1')], None, 'toe/emp', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cucmbterche', [('cucmbterchc','toe/emp'),('pcuedjref','1')], None, 'toe/emp', poids=1)
+resOdy = multiAffectation(resOdy, 'cutocterce', ['cutocterche','cutocterdiv'], 'toe/emp')
+resOdy = multiAffectation(resOdy, 'cuelcterce', ['cuelcterche','cuelcterdiv'], 'toe/emp')
+resOdy = multiAffectation(resOdy, 'cucmbterce', ['cucmbterche','cucmbterdiv'], 'toe/emp')
+
+resOdy = affectationParMultiplication(resOdy, 'cutocterm2', [('toccfter','Mtoe')], [('surter','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cucmbterm2', [('cmbcfter','Mtoe')], [('surter','Mm2')], 'toe/m2', poids=1)
+--IF pays_cour NOT IN ('grc') THEN
+resOdy = affectationParMultiplication(resOdy, 'cuelcterm2', [('elccfter','Mtoe')], [('surter','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cueleterm2', [('elecfter','TWh')], [('surter','Mm2')], 'kWh/m2', poids=1000)
+--END IF;
+resOdy = affectationParMultiplication(resOdy, 'cutocterccm2', [('toccftercc','Mtoe')], [('surter','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cuelcterccm2', [('elccftercc','Mtoe')], [('surter','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cucmbterccm2', [('cmbcftercc','Mtoe')], [('surter','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cueleterccm2', [('elecftercc','TWh')], [('surter','Mm2')], 'kWh/m2', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'cutocgov', [('toccfgov','Mtoe')], [('empgov','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelcgov', [('elccfgov','Mtoe')], [('empgov','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbgov', [('cmbcfgov','Mtoe')], [('empgov','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelegov', [('elecfgov','TWh')], [('empgov','k')], 'kWh/emp', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cutocgovm2', [('toccfgov','Mtoe')], [('surgov','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cuelcgovm2', [('elccfgov','Mtoe')], [('surgov','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cucmbgovm2', [('cmbcfgov','Mtoe')], [('surgov','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cuelegovm2', [('elecfgov','TWh')], [('surgov','Mm2')], 'kWh/m2', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'cutocbur', [('toccfbur','Mtoe')], [('empbur','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelcbur', [('elccfbur','Mtoe')], [('empbur','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbbur', [('cmbcfbur','Mtoe')], [('empbur','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelebur', [('elecfbur','TWh')], [('empbur','k')], 'kWh/emp', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cutocburm2', [('toccfbur','Mtoe')], [('surbur','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cuelcburm2', [('elccfbur','Mtoe')], [('surbur','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cucmbburm2', [('cmbcfbur','Mtoe')], [('surbur','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cueleburm2', [('elecfbur','TWh')], [('surbur','Mm2')], 'kWh/m2', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'cutocbup', [('toccfbup','Mtoe')], [('empbup','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelcbup', [('elccfbup','Mtoe')], [('empbup','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbbup', [('cmbcfbup','Mtoe')], [('empbup','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelebup', [('elecfbup','TWh')], [('empbup','k')], 'kWh/emp', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cutocbupm2', [('toccfbup','Mtoe')], [('surbup','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cuelcbupm2', [('elccfbup','Mtoe')], [('surbup','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cucmbbupm2', [('cmbcfbup','Mtoe')], [('surbup','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cuelebupm2', [('elecfbup','TWh')], [('surbup','Mm2')], 'kWh/m2', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'cutochos', [('toccfhos','Mtoe')], [('emphos','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelchos', [('elccfhos','Mtoe')], [('emphos','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbhos', [('cmbcfhos','Mtoe')], [('emphos','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelehos', [('elecfhos','TWh')], [('emphos','k')], 'kWh/emp', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cutochosm2', [('toccfhos','Mtoe')], [('surhos','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cuelchosm2', [('elccfhos','Mtoe')], [('surhos','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cucmbhosm2', [('cmbcfhos','Mtoe')], [('surhos','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cuelehosm2', [('elecfhos','TWh')], [('surhos','Mm2')], 'kWh/m2', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'cutoccom', [('toccfcom','Mtoe')], [('empcom','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelccom', [('elccfcom','Mtoe')], [('empcom','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbcom', [('cmbcfcom','Mtoe')], [('empcom','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelecom', [('elecfcom','TWh')], [('empcom','k')], 'kWh/emp', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cutoccomm2', [('toccfcom','Mtoe')], [('surcom','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cuelccomm2', [('elccfcom','Mtoe')], [('surcom','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cucmbcomm2', [('cmbcfcom','Mtoe')], [('surcom','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cuelecomm2', [('elecfcom','TWh')], [('surcom','Mm2')], 'kWh/m2', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'cutochcr', [('toccfhcr','Mtoe')], [('emphcr','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelchcr', [('elccfhcr','Mtoe')], [('emphcr','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbhcr', [('cmbcfhcr','Mtoe')], [('emphcr','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelehcr', [('elecfhcr','TWh')], [('emphcr','k')], 'kWh/emp', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cutochcrm2', [('toccfhcr','Mtoe')], [('surhcr','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cucmbhcrm2', [('cmbcfhcr','Mtoe')], [('surhcr','Mm2')], 'toe/m2', poids=1)
+IF pays_cour NOT IN ('prt') THEN
+resOdy = affectationParMultiplication(resOdy, 'cuelchcrm2', [('elccfhcr','Mtoe')], [('surhcr','Mm2')], 'toe/m2', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cuelehcrm2', [('elecfhcr','TWh')], [('surhcr','Mm2')], 'kWh/m2', poids=1000)
+END IF;
+
+resOdy = affectationParMultiplication(resOdy, 'cutocedu', [('toccfedu','Mtoe')], [('empedu','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelcedu', [('elccfedu','Mtoe')], [('empedu','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbedu', [('cmbcfedu','Mtoe')], [('empedu','k')], 'toe/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cueleedu', [('elecfedu','TWh')], [('empedu','k')], 'kWh/emp', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cutocedum2', [('toccfedu','Mtoe')], [('suredu','Mm2')], 'koe/m2', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cuelcedum2', [('elccfedu','Mtoe')], [('suredu','Mm2')], 'koe/m2', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cucmbedum2', [('cmbcfedu','Mtoe')], [('suredu','Mm2')], 'koe/m2', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cueleedum2', [('elecfedu','TWh')], [('suredu','Mm2')], 'kWh/m2', poids=1000)
+
+--coment : 3 ADJUSTED INDICATORS FOR CROSS COUNTRY COMPARAISONS;
+--coment : 3.1 Macro-economic indicators;
+--coment : Energy intensities at purchasing power parities (2010p);
+resOdy = affectationParMultiplication(resOdy, 'ietoctpcpp', [('toccp','Mtoe')], [('pibxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietoctfcpp', [('toccf','Mtoe')], [('pibxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietoctpcppcc', [('toccpcc','Mtoe')], [('pibxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietoctfcppcc', [('toccfcc','Mtoe')], [('pibxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietoctrapp', [('toccftra','Mtoe')], [('pibxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocindpp', [('toccfind','Mtoe')], [('vadindxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocrespp', [('toccfres','Mtoe')], [('cprxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocresppcc', [('toccfrescc','Mtoe')], [('cprxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocterpp', [('toccfter','Mtoe')], [('vadterxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocterppcc', [('toccftercc','Mtoe')], [('vadterxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocdvrpp', [('toccfdvr','Mtoe')], [('vadterxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocimapp', [('toccfima','Mtoe')], [('vadimaxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'ietociaapp', [('toccfiaa','Mtoe')], [('vadiaaxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietoctexpp', [('toccftex','Mtoe')], [('vadtexxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocmnmpp', [('toccfmnm','Mtoe')], [('vadmnmxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocmacpp', [('toccfmac','Mtoe')], [('vadmacxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocvehpp', [('toccfveh','Mtoe')], [('vadvehxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocfabpp', [('toccffab','Mtoe')], [('vadfabxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocchipp', [('toccfchi','Mtoe')], [('vadchixxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocppppp', [('toccfppp','Mtoe')], [('vadpppxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocmprpp', [('toccfmpr','Mtoe')], [('vadmprxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocboipp', [('toccfboi','Mtoe')], [('vadboixxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocidvpp', [('toccfidv','Mtoe')], [('vadidvxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietoccmppp', [('toccfcmp','Mtoe')], [('vadcmpxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocminpp', [('toccfmin','Mtoe')], [('vadminxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'ietocconpp', [('toccfcon','Mtoe')], [('vadconxxppp','MEUR2010p')], 'koe/EUR2010p', poids=1000)
+
+coeff_ppp = recupSerie(resOdy,'pibxx',2010)/recupSerie(resOdy,'pib',2010)*(recupSerie(resOdy,'txchgppp',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'ieelcterppcc', 'ieelctercc', 'koe/EUR2010p', poids=coeff_ppp)
+resOdy = affectation(resOdy, 'ieeleterppcc', 'ieeletercc', 'kWh/kEUR10p', poids=coeff_ppp)
+
+--coment : Energy intensities adjusted to reference climate at;
+--coment   purchasing power parities;
+resOdy = affectationParMultiplication(resOdy, 'ietoctfcce', [('toccfce','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+
+--coment : intensity at constant structure;
+resOdy = affectation(resOdy, 'ietoctfcstpp', 'ietoctfcst', 'koe/EUR2010p', poids=coeff_ppp)
+resOdy = affectation(resOdy, 'ietoctfcstppcc', 'ietoctfcstcc', 'koe/EUR2010p', poids=coeff_ppp)
+
+--coment : Final energy intensity at adjusted structure of a reference country;
+--coment   at purchasin power parities;
+resOdy = affectation(resOdy, 'ietocimaedpp', 'ietocimaed', 'koe/EUR2010p', poids=coeff_ppp)
+
+--coment : Intensity of manufacturing at adjusted structure of ref country;
+resOdy = affectationParMultiplication(resOdy, 'ipcim', [('prdcim','kt')], [('vadimaxx','MEUR2010')], 'kt/MEUR2010', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'ipppp', [('prdppp','kt')], [('vadimaxx','MEUR2010')], 'kt/MEUR2010', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'ipacb', [('prdacb','kt')], [('vadimaxx','MEUR2010')], 'kt/MEUR2010', poids=1)
+
+resOdy = affectationParMultiplication(resOdy, 'shind', [('toccfind','Mtoe')], [('toccf','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shchi', [('vadchixx','MEUR2010')], [('vadimaxx','MEUR2010')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shmpr', [('vadmprxx','MEUR2010')], [('vadimaxx','MEUR2010')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shmnm', [('vadmnmxx','MEUR2010')], [('vadimaxx','MEUR2010')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shppp', [('vadpppxx','MEUR2010')], [('vadimaxx','MEUR2010')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shiaa', [('vadiaaxx','MEUR2010')], [('vadimaxx','MEUR2010')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shtex', [('vadtexxx','MEUR2010')], [('vadimaxx','MEUR2010')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'sheqp', [('vadeqpxx','MEUR2010')], [('vadimaxx','MEUR2010')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shmac', [('vadmacxx','MEUR2010')], [('vadimaxx','MEUR2010')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shveh', [('vadvehxx','MEUR2010')], [('vadimaxx','MEUR2010')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shboi', [('vadboixx','MEUR2010')], [('vadimaxx','MEUR2010')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shidv', [('vadidvxx','MEUR2010')], [('vadimaxx','MEUR2010')], '%', poids=100)
+
+resOdy = transfert(resOdy, UEdata, [('vadmprxx','MEUR2010'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimampraj', [('ietocmpr','koe/EUR2010'), ('vadmprxx_UE','MEUR2010')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadchixx','MEUR2010'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimachiaj', [('ietocchi','koe/EUR2010'), ('vadchixx_UE','MEUR2010')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadmnmxx','MEUR2010'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimamnmaj', [('ietocmnm','koe/EUR2010'), ('vadmnmxx_UE','MEUR2010')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadiaaxx','MEUR2010'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimaiaaaj', [('ietociaa','koe/EUR2010'), ('vadiaaxx_UE','MEUR2010')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadmacxx','MEUR2010'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimamacaj', [('ietocmac','koe/EUR2010'), ('vadmacxx_UE','MEUR2010')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadvehxx','MEUR2010'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimavehaj', [('ietocveh','koe/EUR2010'), ('vadvehxx_UE','MEUR2010')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadtexxx','MEUR2010'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimatexaj', [('ietoctex','koe/EUR2010'), ('vadtexxx_UE','MEUR2010')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadidvxx','MEUR2010'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimaidvaj', [('ietocidv','koe/EUR2010'), ('vadidvxx_UE','MEUR2010')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadboixx','MEUR2010'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimaboiaj', [('ietocboi','koe/EUR2010'), ('vadboixx_UE','MEUR2010')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('cutocppp') AND code_pays=pays_cour;
+IF (serie_existe=1) THEN
+resOdy = transfert(resOdy, UEdata, [('prdppp','kt'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimapppaj', [('cutocppp','toe/t'), ('prdppp_UE','kt')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+ELSE
+resOdy = transfert(resOdy, UEdata, [('vadpppxx','MEUR2010'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimapppaj', [('ietocppp','koe/EUR2010'), ('vadpppxx_UE','MEUR2010')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+END IF;
+
+resOdy = multiAffectation(resOdy, 'ietocimaaj', ['ietocimampraj', 'ietocimachiaj', 'ietocimapppaj', 'ietocimamnmaj', 'ietocimaiaaaj', 'ietocimamacaj', 'ietocimavehaj', 'ietocimatexaj', 'ietocimaidvaj', 'ietocimaboiaj', 'ietocimawataj'], 'koe/EUR2010')
+resOdy = affectation(resOdy, 'ietocimaajpp', 'ietocimaaj', 'koe/EUR2010p', poids=coeff_ppp)
+
+--coment : energy intensity of manufacturing adjusted from VA and production;
+resOdy = affectationParMultiplication(resOdy, 'ietocmnf', [('toccfmnf','Mtoe')], [('vadmprxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = transfert(resOdy, UEdata, [('prdacb','kt'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimaacbaj', [('cutocacb','toe/t'), ('prdacb_UE','kt')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadmprxx','MEUR2010'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimamnfaj', [('ietocmnf','koe/EUR2010'), ('vadmprxx_UE','MEUR2010')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('prdcim','kt'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimacimaj', [('cutoccim','toe/t'), ('prdcim_UE','kt')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('prdpap','kt'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimapapaj', [('cutocpap','toe/t'), ('prdpap_UE','kt')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadeqpxx','MEUR2010'),('vadimaxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocimaeqpaj', [('ietoceqp','koe/EUR2010'), ('vadeqpxx_UE','MEUR2010')], [('vadimaxx_UE','MEUR2010')], 'koe/EUR2010')
+
+resOdy = affectationParMultiplication(resOdy, 'toccfchiaj', [('ietocimachiaj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'toccfmnmaj', [('ietocimamnmaj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'toccfpppaj', [('ietocimapppaj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'toccfiaaaj', [('ietocimaiaaaj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'toccftexaj', [('ietocimatexaj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'toccfmacaj', [('ietocimamacaj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'toccfvehaj', [('ietocimavehaj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'toccfboiaj', [('ietocimaboiaj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+IF pays_cour NOT IN ('nor') THEN
+resOdy = affectationParMultiplication(resOdy, 'toccfsidaj', [('ietocimaacbaj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'toccfmnfaj', [('ietocimamnfaj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+resOdy = multiAffectation(resOdy, 'toccfmpraj', ['toccfsidaj','toccfmnfaj'], 'Mtoe')
+ELSE
+resOdy = affectationParMultiplication(resOdy, 'toccfmpraj', [('ietocimampraj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+END IF;
+resOdy = affectationParMultiplication(resOdy, 'toccfcimaj', [('ietocimacimaj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'toccfpapaj', [('ietocimapapaj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+resOdy = affectationParMultiplication(resOdy, 'toccfeqpaj', [('ietocimaeqpaj','koe/EUR2010'),('vadimaxx','MEUR2010')], None, 'Mtoe', poids=0.001)
+
+resOdy = multiAffectation(resOdy, 'toccfmnmoaj', ['toccfmnmaj','-toccfcimaj'], 'Mtoe')
+resOdy = affectation(resOdy, 'toccfidvaj', 'toccfidv', 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfimaaj', ['toccfmpraj', 'toccfchiaj', 'toccfpppaj', 'toccfmnmaj', 'toccfiaaaj', 'toccfmacaj', 'toccfvehaj', 'toccftexaj', 'toccfidvaj', 'toccfboiaj', 'toccfwataj'], 'Mtoe')
+
+resOdy = affectationParMultiplication(resOdy, 'ietocimaaj2', [('toccfimaaj','Mtoe')], [('vadimaxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectation(resOdy, 'ietocimaaj2pp', 'ietocimaaj2', 'koe/EUR2010p', poids=coeff_ppp)
+
+SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('vadmprxx','vadmacxx','vadchixx') AND code_pays=pays_cour;
+IF (serie_existe=3) THEN
+resOdy = multiAffectation(resOdy, 'vadinmxx', ['vadindxx','-vadimaxx'], 'MEUR2010')
+resOdy = multiAffectation(resOdy, 'toccfinm', ['toccfind','-toccfima'], 'Mtoe')
+resOdy = affectationParMultiplication(resOdy, 'ietocinm', [('toccfinm','Mtoe')], [('vadinmxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = transfert(resOdy, UEdata, [('vadinmxx','MEUR2010'),('vadindxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocindinmaj', [('ietocinm','koe/EUR2010'), ('vadinmxx_UE','MEUR2010')], [('vadindxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadimaxx','MEUR2010'),('vadindxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietocindimaaj', [('ietocimaaj','koe/EUR2010'), ('vadimaxx_UE','MEUR2010')], [('vadindxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = multiAffectation(resOdy, 'ietocindaj', ['ietocindinmaj','ietocindimaaj'], 'koe/EUR2010')
+	
+resOdy = transfert(resOdy, UEdata, [('vadinmxx','MEUR2010'),('pibxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietoctfcinmaj', [('ietocinm','koe/EUR2010'), ('vadinmxx_UE','MEUR2010')], [('pibxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadimaxx','MEUR2010'),('pibxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietoctfcimaaj', [('ietocimaaj','koe/EUR2010'), ('vadimaxx_UE','MEUR2010')], [('pibxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadagrxx','MEUR2010'),('pibxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietoctfcagraj', [('ietocagr','koe/EUR2010'), ('vadagrxx_UE','MEUR2010')], [('pibxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadterxx','MEUR2010'),('pibxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietoctfcdvraj', [('ietocdvr','koe/EUR2010'), ('vadterxx_UE','MEUR2010')], [('pibxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('pibxx','MEUR2010'),('pibxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietoctfctraaj', [('ietoctra','koe/EUR2010'), ('pibxx_UE','MEUR2010')], [('pibxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('cprxx','MEUR2010'),('pibxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietoctfcresaj', [('ietocres','koe/EUR2010'), ('cprxx_UE','MEUR2010')], [('pibxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = multiAffectation(resOdy, 'ietoctfcindaj', ['ietoctfcinmaj','ietoctfcimaaj'], 'koe/EUR2010')
+resOdy = multiAffectation(resOdy, 'ietoctfcaj', ['ietoctfcindeaj', 'ietoctfcindaj', 'ietoctfcresaj', 'ietoctfcdvraj', 'ietoctfctraaj', 'ietoctfcagraj'], 'koe/EUR2010')
+	
+resOdy = multiAffectation(resOdy, 'toccfdvr1', ['toccfdvr','-toccfter'], 'Mtoe')
+resOdy = affectationParMultiplication(resOdy, 'ietocdvr1', [('toccfdvr1','Mtoe')], [('vadterxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = transfert(resOdy, UEdata, [('vadterxx','MEUR2010'),('pibxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietoctfcdvr1aj', [('ietocdvr1','koe/EUR2010'), ('vadterxx_UE','MEUR2010')], [('pibxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('vadterxx','MEUR2010'),('pibxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietoctfcterceaj', [('ietocterce','koe/EUR2010'), ('vadterxx_UE','MEUR2010')], [('pibxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = transfert(resOdy, UEdata, [('cprxx','MEUR2010'),('pibxx','MEUR2010')], 'UE')
+resOdy = affectationParMultiplication(resOdy, 'ietoctfcresceaj', [('ietocresce','koe/EUR2010'), ('cprxx_UE','MEUR2010')], [('pibxx_UE','MEUR2010')], 'koe/EUR2010')
+resOdy = multiAffectation(resOdy, 'ietoctfcdvrceaj', ['ietoctfcdvr1aj','ietoctfcterceaj'], 'koe/EUR2010')
+resOdy = multiAffectation(resOdy, 'ietoctfcceaj', ['ietoctfcindeaj', 'ietoctfcindaj', 'ietoctfcresceaj', 'ietoctfcdvrceaj', 'ietoctfctraaj', 'ietoctfcagraj'], 'koe/EUR2010')
+END IF;
+
+SELECT COUNT(distinct(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('vadmprxx','vadmacxx','vadchixx') AND code_pays=pays_cour;
+IF (serie_existe=3) THEN
+resOdy = affectation(resOdy, 'ietocindajpp', 'ietocindaj', 'koe/EUR2010p', poids=coeff_ppp)
+resOdy = affectation(resOdy, 'ietoctfcajpp', 'ietoctfcaj', 'koe/EUR2010p', poids=coeff_ppp)
+resOdy = affectation(resOdy, 'ietoctfcceajpp', 'ietoctfcceaj', 'koe/EUR2010p', poids=coeff_ppp)
+resOdy = affectationParMultiplication(resOdy, 'dflpibxx', [('pib','MEUR')], [('pibxx','MEUR2010')], '2010=100', poids=100)
+resOdy = affectation(resOdy, 'itxchgppp', 'txchgppp', '2010=100', poids=100/recupSerie(resOdy,'txchgppp',2010))
+resOdy = affectation(resOdy, 'idflpibxx', 'dflpibxx', '2010=100', poids=100/recupSerie(resOdy,'dflpibxx',2010))
+resOdy = affectationParMultiplication(resOdy, 'coef_cstp_crtp', [('idflpibxx','2010=100')], [('itxchgppp','2010=100')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'ietoctfcceajp', [('ietoctfcceajpp','koe/EUR2010p'),('coef_cstp_crtp','1')], None, 'koe/EURp', poids=1)
+END IF;
+
+cst_travail = recupSerie(resOdy,'txchgeuro',2010)/recupSerie(resOdy,'txchgppp',2010)
+
+resOdy = affectation(resOdy, 'cprmenp', 'cprmen', 'kEUR2010p/hh', poids=cst_travail)
+
+--coment : 3.2 Residential sector;
+--coment : Unit consumption adjusted to reference climate;
+resOdy = affectationParMultiplication(resOdy, 'cutoclogche', [('cutoclogchc','toe/dw'),('pcuedjref','1')], None, 'toe/dw', poids=1)
+
+
+
+
+resOdy = affectationParMultiplication(resOdy, 'cutoclogce', [('toccfresce','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+--IF pays_cour NOT IN ('lux') THEN
+--IF pays_cour NOT IN ('lux','mlt') THEN
+resOdy = affectationParMultiplication(resOdy, 'cutocsurce', [('toccfresce','Mtoe')], [('surres','Mm2')], 'koe/m2', poids=1000)
+--END IF;
+resOdy = affectationParMultiplication(resOdy, 'cutocsurche', [('cutocsurchc','koe/m2'),('pcuedjref','1')], None, 'koe/m2', poids=1)
+
+/*IF pays_cour IN ('lux') THEN
+	DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurcc');
+	DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurcc');
+	DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurcc');
+	DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurcc');
+	DELETE Series WHERE code_serie='cutocsurcc' AND code_pays=pays_cour;
+END IF;
+
+IF pays_cour='cyp' THEN
+	DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurchc');
+	DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurchc');
+	DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurchc');
+	DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocsurchc');
+	DELETE Series WHERE code_serie='cutocsurchc' AND code_pays=pays_cour;
+	
+	DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cueursurchc');
+	DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cueursurchc');
+	DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cueursurchc');
+	DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cueursurchc');
+	DELETE Series WHERE code_serie='cueursurchc' AND code_pays=pays_cour;
+END IF;*/
+
+--coment : Transport;
+--coment : unit consumption per passenger-km at reference model split;
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='cutocpkmrou' AND code_pays=pays_cour;
+IF (serie_existe>0) THEN
+resOdy = transfert(resOdy, UEdata, [('pkmrou','Gpkm'), ('pkmfertot','Gpkm')], 'UE')
+resOdy = MoyennePond(resOdy, 'cutocpkmaj', ['cutocpkmrou','cutocferpkm'], [1.0,1.0,1.0], ['pkmrou_UE','pkmfertot_UE'], 'koe/pkm')
+	SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmavd' AND code_pays=pays_cour;
+	IF (serie_existe>0) THEN
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmflv' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+resOdy = transfert(resOdy, UEdata, [('pkmter','Gpkm'), ('pkmflv','Gpkm'), ('pkmavd','Gpkm')], 'UE')
+resOdy = MoyennePond(resOdy, 'cutocpkmaj', ['cutocpkmaj','cutocflvpkm','cutocavd'], [1.0,1.0,1.0], ['pkmter_UE','pkmflv_UE','pkmavd_UE'], 'koe/pkm')
+		ELSE
+resOdy = transfert(resOdy, UEdata, [('pkmrou','Gpkm'), ('pkmfertot','Gpkm'), ('pkmavd','Gpkm')], 'UE')
+resOdy = MoyennePond(resOdy, 'cutocpkmaj', ['cutocpkmrou','cutocferpkm','cutocavd'], [1.0,1.0,1.0], ['pkmrou_UE','pkmfertot_UE','pkmavd_UE'], 'koe/pkm')
+		END IF;
+	ELSE
+		SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmflv' AND code_pays=pays_cour;
+		IF (serie_existe>0) THEN
+resOdy = transfert(resOdy, UEdata, [('pkmrou','Gpkm'), ('pkmfertot','Gpkm'), ('pkmflv','Gpkm')], 'UE')
+resOdy = MoyennePond(resOdy, 'cutocpkmaj', ['cutocpkmrou','cutocferpkm','cutocflvpkm'], [1.0,1.0,1.0], ['pkmrou_UE','pkmfertot_UE','pkmflv_UE'], 'koe/pkm')
+		END IF;
+	END IF;
+END IF;
+
+--coment : unit consumption per tons-km at reference model split;
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='cugzltgr' AND code_pays=pays_cour;
+IF (serie_existe>0) THEN
+resOdy = transfert(resOdy, UEdata, [('tkmfer','Gtkm'), ('tkmrou','Gtkm'), ('tkmflv','Gtkm')], 'UE')
+resOdy = MoyennePond(resOdy, 'cutocmchaj', ['cutocfertkm','cugzltgr','cutocflv'], [1.0,1.0,1.0], ['tkmfer_UE','tkmrou_UE','tkmflv_UE'], 'koe/tkm')
+END IF;
+
+/*IF pays_cour='cyp' THEN
+	DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmch');
+	DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmch');
+	DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmch');
+	DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmch');
+	DELETE Series WHERE code_serie='cutocmch' AND code_pays=pays_cour;
+	
+	DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchst');
+	DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchst');
+	DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchst');
+	DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchst');
+	DELETE Series WHERE code_serie='cutocmchst' AND code_pays=pays_cour;
+	
+	DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchaj');
+	DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchaj');
+	DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchaj');
+	DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='cutocmchaj');
+	DELETE Series WHERE code_serie='cutocmchaj' AND code_pays=pays_cour;
+END IF;*/
+
+--Calcul Energy Efficiency Gains
+resOdy = affectation(resOdy, 'eegtottot', 'odextottot', '%', formule=lambda x : recupSerie(resOdy, 'odextottot', 2000)-x)
+resOdy = affectation(resOdy, 'eegres', 'odexres', '%', formule=lambda x : recupSerie(resOdy, 'odexres', 2000)-x)
+resOdy = affectation(resOdy, 'eegtra', 'odextra', '%', formule=lambda x : recupSerie(resOdy, 'odextra', 2000)-x)
+resOdy = affectation(resOdy, 'eegman', 'odexman', '%', formule=lambda x : recupSerie(resOdy, 'odexman', 2000)-x)
+resOdy = affectation(resOdy, 'eegind', 'odexind', '%', formule=lambda x : recupSerie(resOdy, 'odexind', 2000)-x)
+resOdy = affectation(resOdy, 'eegter', 'odexter', '%', formule=lambda x : recupSerie(resOdy, 'odexter', 2000)-x)
+resOdy = affectation(resOdy, 'eegtot', 'odextot', '%', formule=lambda x : recupSerie(resOdy, 'odextot', 2000)-x)
+
+--coment : INDICATEURS CARBON EMMISSIONS;
+resOdy = affectationParMultiplication(resOdy, 'cicmbtfcpop', [('cmbectfc','MtCO2')], [('pop','k')], 'tCO2/pop', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcetfcpop', [('cmbectot','MtCO2')], [('pop','k')], 'tCO2/pop', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbtfcccpo', [('cmbectfccc','MtCO2')], [('pop','k')], 'tCO2/pop', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcetfcccpo', [('cmbectotcc','MtCO2')], [('pop','k')], 'tCO2/pop', poids=1000)
+
+--coment : 1 ECONOMIC INDICATORS;
+--coment : 1.1 Primary and final energy intensity;
+resOdy = affectationParMultiplication(resOdy, 'cicmbtfc', [('cmbectfc','MtCO2')], [('pibxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcetfc', [('cmbectot','MtCO2')], [('pibxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+
+--coment : 1.2 Primary and final intensities with climatic variations;
+resOdy = affectationParMultiplication(resOdy, 'cicmbtfccc', [('cmbectfccc','MtCO2')], [('pibxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcetfccc', [('cmbectotcc','MtCO2')], [('pibxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+
+--coment : 1.3 Transport intensities;
+resOdy = affectationParMultiplication(resOdy, 'cicmbtra', [('cmbectra','MtCO2')], [('pibxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcetra', [('tceectra','MtCO2')], [('pibxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+
+--coment : 1.4 Industry intensities;
+resOdy = affectationParMultiplication(resOdy, 'cicmbind', [('cmbecind','MtCO2')], [('vadindxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citceind', [('tceecind','MtCO2')], [('vadindxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbima', [('cmbecima','MtCO2')], [('vadimaxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citceima', [('tceecima','MtCO2')], [('vadimaxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbchi', [('cmbecchi','MtCO2')], [('vadchixx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcechi', [('tceecchi','MtCO2')], [('vadchixx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbmac', [('cmbecmac','MtCO2')], [('vadmacxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcemac', [('tceecmac','MtCO2')], [('vadmacxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbveh', [('cmbecveh','MtCO2')], [('vadvehxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citceveh', [('tceecveh','MtCO2')], [('vadvehxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbfab', [('cmbecfab','MtCO2')], [('vadfabxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcefab', [('tceecfab','MtCO2')], [('vadfabxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbiaa', [('cmbeciaa','MtCO2')], [('vadiaaxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citceiaa', [('tceeciaa','MtCO2')], [('vadiaaxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbtex', [('cmbectex','MtCO2')], [('vadtexxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcetex', [('tceectex','MtCO2')], [('vadtexxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbmnm', [('cmbecmnm','MtCO2')], [('vadmnmxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcemnm', [('tceecmnm','MtCO2')], [('vadmnmxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbmpr', [('cmbecmpr','MtCO2')], [('vadmprxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcempr', [('tceecmpr','MtCO2')], [('vadmprxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+
+--coment : 1.5 Tertiary sector intensities;
+resOdy = affectationParMultiplication(resOdy, 'cicmbter', [('cmbecter','MtCO2')], [('vadterxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citceter', [('tceecter','MtCO2')], [('vadterxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbtercc', [('cmbectercc','MtCO2')], [('vadterxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcetercc', [('tceectercc','MtCO2')], [('vadterxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+
+--coment : 1.6 Agriculture intensities;
+resOdy = affectationParMultiplication(resOdy, 'cicmbagr', [('cmbecagr','MtCO2')], [('vadagrxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citceagr', [('tceecagr','MtCO2')], [('vadagrxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+
+--coment : 2 TECHNICO-ECONOMIC RATIOS;
+--coment : 2.1 Residential technico-economic ratios;
+--coment : Average unit consumption per dwellings;
+resOdy = affectationParMultiplication(resOdy, 'cicmblog', [('cmbecres','MtCO2')], [('nbrlpr','k')], 'tCO2/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcelog', [('tceecres','MtCO2')], [('nbrlpr','k')], 'tCO2/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmblogcc', [('cmbecrescc','MtCO2')], [('nbrlpr','k')], 'tCO2/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcelogcc', [('tceecrescc','MtCO2')], [('nbrlpr','k')], 'tCO2/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmblogchf', [('cmbecreschf','MtCO2')], [('nbrlpr','k')], 'tCO2/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcelogchf', [('tceecreschf','MtCO2')], [('nbrlpr','k')], 'tCO2/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmblogchc', [('cmbecreschc','MtCO2')], [('nbrlpr','k')], 'tCO2/dw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcelogchc', [('tceecreschc','MtCO2')], [('nbrlpr','k')], 'tCO2/dw', poids=1000)
+--coment : 2.2 Transport technico-economic ratios;
+resOdy = affectationParMultiplication(resOdy, 'cicmbvpc', [('cmbecvpc','MtCO2')], [('nbrvpc','M')], 'tCO2/veh', poids=1)
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='cmbecvpc' AND code_pays=pays_cour;
+IF (serie_existe>0) THEN
+resOdy = affectationParMultiplication(resOdy, 'cicmbvpckm', [('cicmbvpc','tCO2/veh')], [('kmvvpc','km')], 'gCO2/km', poids=1000000)
+ELSE
+	cst_travail = const.VALEUR['cst_essco2ccbl']*const.VALEUR['cst_essun']*const.VALEUR['cst_essdn']*const.VALEUR['cst_pcpetoxy']/100*1000
+
+    
+	cst_travail = const.VALEUR['cst_gzlco2ccbl']*const.VALEUR['cst_gzlun']*const.VALEUR['cst_gzldn']*const.VALEUR['cst_pcpetoxy']/100*1000
+
+
+resOdy = MoyennePond(resOdy, 'cicmbvpckm', ['cicmbvpcesskm','cicmbvpcgzlkm'], [1.0,1.0], ['nbrvpcess','nbrvpcgzl'], 'gCO2/km')
+END IF;
+
+--coment : unit consumption of good transport for road, rail, and water transport;
+resOdy = affectationParMultiplication(resOdy, 'cicmbmch', [('cmbecmch','MtCO2')], [('tkm','Gtkm')], 'kCO2/tkm', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'citcemch', [('tceecmch','MtCO2')], [('tkm','Gtkm')], 'kCO2/tkm', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cicmbmot', [('cmbecmot','MtCO2')], [('nbrmot','M')], 'tCO2/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'citcemot', [('tceecmot','MtCO2')], [('nbrmot','M')], 'tCO2/veh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cicmbfer', [('cmbecfer','MtCO2')], [('tkbfer','Gtkb')], 'kCO2/tkb', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'citcefer', [('tceecfer','MtCO2')], [('tkbfer','Gtkb')], 'kCO2/tkb', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cicmbflv', [('cmbecflv','MtCO2')], [('tkmflv','Gtkm')], 'kCO2/tkm', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'citceflv', [('tceecflv','MtCO2')], [('tkmflv','Gtkm')], 'kCO2/tkm', poids=1)
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='gzleccamvlr' AND code_pays=pays_cour;
+IF (serie_existe>0) THEN
+	--IF pays_cour='dnk' THEN
+resOdy = affectationParMultiplication(resOdy, 'cigzltgr', [('gzleccam','MtCO2')], [('tkmrou','Gtkm')], 'kCO2/tkm', poids=1)
+	--ELSE
+resOdy = affectationParMultiplication(resOdy, 'cigzltgr', [('gzleccamvlr','MtCO2')], [('tkmrou','Gtkm')], 'kCO2/tkm', poids=1)
+	--END IF;
+ELSE
+END IF;
+
+resOdy = affectation(resOdy, 'cicmbtgr', 'cigzltgr', 'kCO2/tkm')
+
+--IF pays_cour='dnk' THEN
+--	CALC_INDICATEURS.Calcul_Serie_Part('cigzlcamvlr','gzleccam','tkmrou',1,'kCO2/tkm',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+--ELSE
+resOdy = affectationParMultiplication(resOdy, 'cigzlcamvlr', [('gzleccamvlr','MtCO2')], [('tkmrou','Gtkm')], 'kCO2/tkm', poids=1)
+--END IF;
+--coment : unit consumption per passenger-km;
+resOdy = affectationParMultiplication(resOdy, 'cicmbvpcpkm', [('cmbecvpc','MtCO2')], [('pkmvpc','Gpkm')], 'kCO2/pkm', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'citcevpcpkm', [('tceecvpc','MtCO2')], [('pkmvpc','Gpkm')], 'kCO2/pkm', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cicmbflvpkm', [('cmbecflv','MtCO2')], [('pkmflv','Gpkm')], 'kCO2/pkm', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'citceflvpkm', [('tceecflv','MtCO2')], [('pkmflv','Gpkm')], 'kCO2/pkm', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cicmbadopkm', [('carecado','MtCO2')], [('pkmavd','Gpkm')], 'kCO2/pkm', poids=1)
+
+resOdy = affectationParMultiplication(resOdy, 'pctkbferpas', [('tkbferpas','Gtkb')], [('tkbfer','Gtkb')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'cmbecferpas1', [('cmbecfer','MtCO2'),('pctkbferpas','%')], None, 'MtCO2', poids=0.01)
+resOdy = affectationParMultiplication(resOdy, 'pctkbfermch', [('tkbfermch','Gtkb')], [('tkbfer','Gtkb')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'cmbecfermch', [('cmbecfer','MtCO2'),('pctkbfermch','%')], None, 'MtCO2', poids=0.01)
+resOdy = affectationParMultiplication(resOdy, 'tceecferpas1', [('tceecfer','MtCO2'),('pctkbferpas','%')], None, 'MtCO2', poids=0.01)
+resOdy = affectationParMultiplication(resOdy, 'tceecfermch', [('tceecfer','MtCO2'),('pctkbfermch','%')], None, 'MtCO2', poids=0.01)
+
+resOdy = affectationParMultiplication(resOdy, 'cicmbferpkm', [('cmbecferpas1','MtCO2')], [('pkmfertot','Gpkm')], 'kCO2/pkm', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'citceferpkm', [('tceecferpas1','MtCO2')], [('pkmfertot','Gpkm')], 'kCO2/pkm', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cicmbfertkm', [('cmbecfermch','MtCO2')], [('tkmfer','Gtkm')], 'kCO2/tkm', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'citcefertkm', [('tceecfermch','MtCO2')], [('tkmfer','Gtkm')], 'kCO2/tkm', poids=1)
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='cicmbvpcpkm' AND code_pays=pays_cour;
+IF (serie_existe>0) THEN
+	SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie='pkmavd' AND code_pays=pays_cour;
+	IF (serie_existe>0) THEN
+resOdy = MoyennePond(resOdy, 'cicmbpkm', ['cicmbvpcpkm','cicmbferpkm','cicmbadopkm'], [1.0,1.0,1.0], ['pkmvpc','pkmfertot','pkmavd'], 'kCO2/pkm')
+	ELSE
+resOdy = MoyennePond(resOdy, 'cicmbpkm', ['cicmbvpcpkm','cicmbferpkm'], [1.0,1.0], ['pkmvpc','pkmfertot'], 'kCO2/pkm')
+	END IF;
+END IF;
+
+resOdy = multiAffectation(resOdy, 'cmbecncv', ['cmbecvpc','cmbecbus','cmbecmot'], 'MtCO2')
+resOdy = affectationParMultiplication(resOdy, 'cicmbroupkm', [('cmbecncv','MtCO2')], [('pkmrou','Gpkm')], 'kCO2/pkm', poids=1)
+
+
+--coment : 2.3 Industry technico-economic ratios;
+--coment : Unit consumption of energy intensive products;
+resOdy = affectationParMultiplication(resOdy, 'cicmbcim', [('cmbeccim','MtCO2')], [('prdcim','kt')], 'tCO2/t', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcecim', [('tceeccim','MtCO2')], [('prdcim','kt')], 'tCO2/t', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbppp', [('cmbecppp','MtCO2')], [('prdppp','kt')], 'tCO2/t', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citceppp', [('tceecppp','MtCO2')], [('prdppp','kt')], 'tCO2/t', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbver', [('cmbecver','MtCO2')], [('prdver','kt')], 'tCO2/t', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcever', [('tceecver','MtCO2')], [('prdver','kt')], 'tCO2/t', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'cicmbppp1', [('cmbecppp','MtCO2')], [('vadpppxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citceppp1', [('tceecppp','MtCO2')], [('vadpppxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'cicmbair', [('petecado','MtCO2')], [('pasair','k')], 'kCO2/pas', poids=1000000)
+
+--coment : 2.4 Tertiary technico-economic ratios;
+resOdy = affectationParMultiplication(resOdy, 'cicmbterem', [('cmbecter','MtCO2')], [('empter','k')], 'tCO2/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citceterem', [('tceecter','MtCO2')], [('empter','k')], 'tCO2/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbteremcc', [('cmbectercc','MtCO2')], [('empter','k')], 'tCO2/emp', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citceteremcc', [('tceectercc','MtCO2')], [('empter','k')], 'tCO2/emp', poids=1000)
+
+--coment: CO2 avec donnees inventaire;
+resOdy = affectationParMultiplication(resOdy, 'cico2totpop', [('cmbectot','MtCO2')], [('pop','k')], 'tCO2/pop', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cico2cmbpop', [('cmbectfc','MtCO2')], [('pop','k')], 'tCO2/pop', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cico2tcepop', [('tceectfc','MtCO2')], [('pop','k')], 'tCO2/pop', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cico2tot', [('cmbectot','MtCO2')], [('pibxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cico2cmb', [('cmbectfc','MtCO2')], [('pibxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cico2tce', [('tceectfc','MtCO2')], [('pibxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbnav', [('cmbecflv','MtCO2')], [('tkmflv','Gtkm')], 'kCO2/tkm', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'cicmbres', [('cmbecres','MtCO2')], [('cprxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citceres', [('tceecres','MtCO2')], [('cprxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+IF pays_cour NOT IN ('nor') THEN
+resOdy = affectationParMultiplication(resOdy, 'cicmbacb', [('cmbecsid1','MtCO2')], [('prdacb','kt')], 'tCO2/t', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citceacb', [('tceecsid1','MtCO2')], [('prdacb','kt')], 'tCO2/t', poids=1000)
+END IF;
+--coment : CO2 inventaire avec cc;
+resOdy = affectationParMultiplication(resOdy, 'cico2cmbpopc', [('cmbectfccc','MtCO2')], [('pop','k')], 'tCO2/pop', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cico2tcepopc', [('tceectfccc','MtCO2')], [('pop','k')], 'tCO2/pop', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cico2cmbc', [('cmbectfccc','MtCO2')], [('pibxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cico2tcec', [('tceectfccc','MtCO2')], [('pibxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cicmbrescc', [('cmbecrescc','MtCO2')], [('cprxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'citcerescc', [('tceecrescc','MtCO2')], [('cprxx','MEUR2010')], 'kCO2/EUR2010', poids=1000)
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------Calcul : Intensité à structure constante industrie-------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+DBMS_OUTPUT.PUT_LINE('Calcul 1 : Intensité à structure constante industrie');
+
+resOdy = calculVITOC_Branche(resOdy, 'vitocindmprsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocindchisd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocindpppsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocindmnmsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocindiaasd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocindmacsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocindvehsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocindtexsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocinddvisd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocindboisd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocindwatsd')
+
+resOdy = calculVITOC_Branche(resOdy, 'vitocindconsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocindminsd')
+
+resOdy = multiAffectation(resOdy, 'vitocindimasd', ['vitocindmprsd', 'vitocindchisd', 'vitocindpppsd', 'vitocindmnmsd', 'vitocindiaasd', 'vitocindmacsd', 'vitocindvehsd', 'vitocindtexsd', 'vitocinddvisd', 'vitocindboisd', 'vitocindwatsd'], '1')
+resOdy = multiAffectation(resOdy, 'vitocindsd', ['vitocindimasd','vitocindconsd','vitocindminsd'], '1')
+
+resOdy = calculVITOC_ED(resOdy, 'vitocinded')
+
+resOdy = totalCumul(resOdy, 'vitocindsdto', 'vitocindsd', '1')
+resOdy = totalCumul(resOdy, 'vitocindedto', 'vitocinded', '1')
+
+resOdy = affectation(resOdy, 'ivtocindsd', 'vitocindsdto', '2000=100', formule=lambda x : np.exp(x-recupSerie(resOdy,'vitocindsdto',2000))*100)
+resOdy = affectation(resOdy, 'ivtocinded', 'vitocindedto', '2000=100', formule=lambda x : np.exp(x-recupSerie(resOdy,'vitocindedto',2000))*100)
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('vadmprxx','vadmacxx','vadchixx') AND Code_pays=pays_cour AND Temp=temporalisation;
+IF serie_existe=3 THEN
+resOdy = affectation(resOdy, 'ietocinded', 'ivtocinded', 'koe/EUR2010', poids=0.01*recupSerie(resOdy,'ietocind',2000))
+resOdy = affectation(resOdy, 'ietocindsd', 'ivtocindsd', 'koe/EUR2010', poids=0.01*recupSerie(resOdy,'ietocind',2000))
+END IF;
+
+DBMS_OUTPUT.PUT_LINE('Début INDIC 9');
+
+--coment : at purchasing power parities;
+resOdy = affectation(resOdy, 'ietocindedpp', 'ietocinded', 'koe/EUR2010p', poids=coeff_ppp)
+resOdy = affectation(resOdy, 'ietocindsdpp', 'ietocindsd', 'koe/EUR2010p', poids=coeff_ppp)
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------- AJOUT CALCULS KP / 23-01-2018------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------- Calcul : Intensité finale à structure constante ------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+DBMS_OUTPUT.PUT_LINE('Calcul 2 : Intensité finale à structure constante');
+
+--------------------------------------------------------------------------TOTAL-------------------------------------------------------------------------------------------------------------------
+--comment : 1.10 Intensity at constant structure
+
+resOdy = calculVITOC_Branche(resOdy, 'vitocpibindsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocpibressd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocpibdvrsd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocpibtrasd')
+resOdy = calculVITOC_Branche(resOdy, 'vitocpibagrsd')
+resOdy = calculVITOC_ED_Secteur(resOdy, 'vitocpibinded')
+resOdy = calculVITOC_ED_Secteur(resOdy, 'vitocpibinded1')
+resOdy = multiAffectation(resOdy, 'vitocpibindesd', ['vitocpibinded1','-vitocpibinded'], '1')
+resOdy = multiAffectation(resOdy, 'vitoccfccsd', ['vitocpibindesd', 'vitocpibindsd', 'vitocpibressd', 'vitocpibdvrsd', 'vitocpibtrasd', 'vitocpibagrsd'], '1')
+
+--CALC_INDICATEURS.Calcul_VITOC_ED('vitoccfcced',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+resOdy = calculVITOC_ED_Secteur(resOdy, 'vitocpibinded')
+resOdy = calculVITOC_ED_Secteur(resOdy, 'vitocpibresed')
+resOdy = calculVITOC_ED_Secteur(resOdy, 'vitocpibdvred')
+resOdy = calculVITOC_ED_Secteur(resOdy, 'vitocpibtraed')
+resOdy = calculVITOC_ED_Secteur(resOdy, 'vitocpibagred')
+resOdy = multiAffectation(resOdy, 'vitoccfcced', ['vitocpibindeed', 'vitocpibinded', 'vitocpibresed', 'vitocpibdvred', 'vitocpibtraed', 'vitocpibagred'], '1')
+
+resOdy = totalCumul(resOdy, 'vitoccfccsdto', 'vitoccfccsd', '1')
+resOdy = totalCumul(resOdy, 'vitoccfccedto', 'vitoccfcced', '1')
+
+resOdy = affectation(resOdy, 'ivtoccfccsd', 'vitoccfccsdto', '2000=100', formule=lambda x : np.exp(x-recupSerie(resOdy,'vitoccfccsdto',2000))*100)
+resOdy = affectation(resOdy, 'ivtoccfcced', 'vitoccfccedto', '2000=100', formule=lambda x : np.exp(x-recupSerie(resOdy,'vitoccfccedto',2000))*100)
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('vadmprxx','vadmacxx','vadchixx') AND Code_pays=pays_cour AND Temp=temporalisation;
+IF serie_existe=3 THEN
+resOdy = affectation(resOdy, 'ietoccfcced', 'ivtoccfcced', 'koe/EUR2010', poids=0.01*recupSerie(resOdy,'ietoctfccc',2000))
+resOdy = affectation(resOdy, 'ietoccfccsd', 'ivtoccfccsd', 'koe/EUR2010', poids=0.01*recupSerie(resOdy,'ietoctfccc',2000))
+END IF;
+
+--comment : at purchasing power parities;
+resOdy = affectation(resOdy, 'ietoccfccedpp', 'ietoccfcced', 'koe/EUR2010p', poids=coeff_ppp)
+resOdy = affectation(resOdy, 'ietoccfccsdpp', 'ietoccfccsd', 'koe/EUR2010p', poids=coeff_ppp)
+
+DBMS_OUTPUT.PUT_LINE('Début INDIC 10');
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------Structure effects -----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+DBMS_OUTPUT.PUT_LINE('Calcul 3 : Structure effect from HOUSEHOLDS');
+resOdy = totalCumul(resOdy, 'vitocpibressdto', 'vitocpibressd', '1')
+resOdy = affectation(resOdy, 'ivtocpibressd', 'vitocpibressdto', '2000=100', formule=lambda x : np.exp(x-recupSerie(resOdy,'vitocpibressdto',2000))*100)
+resOdy = affectation(resOdy, 'ietocpibressd', 'ivtocpibressd', 'koe/EUR2010', poids=0.01*recupSerie(resOdy,'ietoctfccc',2000))
+
+--comment : at purchasing power parities;
+resOdy = affectation(resOdy, 'ietocpibressdpp', 'ietocpibressd', 'koe/EUR2010p', poids=coeff_ppp)
+
+
+--------------------------------------------------------------------------INDUSTRY---------------------------------------------------------------------------------------------------------------
+DBMS_OUTPUT.PUT_LINE('Calcul 4 : Structure effect in industrial branches');
+--Intensity due to variation of intensity: efficiency component
+resOdy = totalCumul(resOdy, 'vitocpibindesdto', 'vitocpibindesd', '1')
+resOdy = affectation(resOdy, 'ivtocpibindesd', 'vitocpibindesdto', '2000=100', formule=lambda x : np.exp(x-recupSerie(resOdy,'vitocpibindesdto',2000))*100)
+resOdy = affectation(resOdy, 'ietocindesd', 'ivtocpibindesd', 'koe/EUR2010', poids=0.01*recupSerie(resOdy,'ietoctfccc',2000))
+
+--comment : at purchasing power parities;
+resOdy = affectation(resOdy, 'ietocindesdpp', 'ietocindesd', 'koe/EUR2010p', poids=coeff_ppp)
+
+
+DBMS_OUTPUT.PUT_LINE('Début INDIC 11');
+--------------------------------------------------------------------------Other sectors---------------------------------------------------------------------------------------------------------------
+DBMS_OUTPUT.PUT_LINE('Calcul 5 : Structure effect from other sectors such services, whole industry and agriculture');
+
+resOdy = multiAffectation(resOdy, 'vitoccfccsd1', ['vitocpibindsd','vitocpibdvrsd','vitocpibagrsd'], '1')
+resOdy = totalCumul(resOdy, 'vitoccfccsd1to', 'vitoccfccsd1', '1')
+resOdy = affectation(resOdy, 'ivtoccfccsd1', 'vitoccfccsd1to', '2000=100', formule=lambda x : np.exp(x-recupSerie(resOdy,'vitoccfccsd1to',2000))*100)
+resOdy = affectation(resOdy, 'ietocpibothsd', 'ivtoccfccsd1', 'koe/EUR2010', poids=0.01*recupSerie(resOdy,'ietoctfccc',2000))
+
+--comment : at purchasing power parities;
+resOdy = affectation(resOdy, 'ietocpibothsdpp', 'ietocpibothsd', 'koe/EUR2010p', poids=coeff_ppp)
+
+--------------------------------------------------------------------------calculation of GDP structure in tep---------------------------------------------------------------------------------------------------------------
+CALC_INDICATEURS.Calcul_Serie_gdpstruct('gdpstruct','toccfcc','ivtoccfccsd1','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+----on retire de l'effet activité calculé dans les feuilles pays l'effet de structure du pib et on l'ajoute à l'effet de structure
+resOdy = multiAffectation(resOdy, 'actfin1', ['actfin','-gdpstruct'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'structfin1', ['structfin','gdpstruct'], 'Mtoe')
+
+
+--------------------------------------------------------------------------Final energy intensity without savings---------------------------------------------------------------------------------------------------------------
+resOdy = totalCumul(resOdy, 'savfincum', 'savfin', 'Mtoe')
+resOdy = totalCumul(resOdy, 'savindcum', 'savind', 'Mtoe')
+resOdy = totalCumul(resOdy, 'savtracum', 'savtra', 'Mtoe')
+resOdy = totalCumul(resOdy, 'savrescum', 'savres', 'Mtoe')
+resOdy = totalCumul(resOdy, 'savtercum', 'savter', 'Mtoe')
+
+
+resOdy = multiAffectation(resOdy, 'toccfccns', ['toccfcc','savfincum'], 'Mtoe')
+resOdy = affectationParMultiplication(resOdy, 'ietoctfcccns', [('toccfccns','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectation(resOdy, 'iietoctfcccns', 'ietoctfcccns', '2000=100', poids=100/recupSerie(resOdy,'ietoctfcccns',2000))
+
+resOdy = affectationParMultiplication(resOdy, 'ietoctfsav', [('ietoctfccc','koe/EUR2010')], [('iietoctfcccns','2000=100')], 'koe/EUR2010', poids=100)
+resOdy = affectation(resOdy, 'iietoctfsav', 'ietoctfsav', '2000=100', poids=100/recupSerie(resOdy,'ietoctfsav',2000))
+resOdy = affectation(resOdy, 'iietoccfccsd', 'ietoccfccsd', '2000=100', poids=100/recupSerie(resOdy,'ietoccfccsd',2000))
+resOdy = affectationParMultiplication(resOdy, 'iietoccfccsdsav', [('iietoctfsav','2000=100'),('iietoccfccsd','2000=100')], None, 'koe/EUR2010', poids=0.0001)
+resOdy = affectationParMultiplication(resOdy, 'ietoctfoth', [('ietoctfccc','koe/EUR2010')], [('iietoccfccsdsav','koe/EUR2010')], 'koe/EUR2010', poids=1)
+--CALC_INDICATEURS.Calcul_Serie_Part('iietoccfccsdsav','iietoccfccsd','iietoctfsav',1,'koe/EUR2010',pays_cour,2000,annee_finale,temporalisation,Job,Job_Id);
+--CALC_INDICATEURS.Produit_2Series_coeff('ietoctfoth','ietoctfccc','iietoccfccsdsav',1,'koe/EUR2010',pays_cour,2000,annee_finale,temporalisation,Job,Job_Id);
+
+-- Ajout financial indicators 28/07/2021
+
+--CALC_DATA.Affectation_Serie('savrescum','savrescum',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id); -- doublon série calculée précédemment 
+--CALC_DATA.Affectation_Serie ('eegres','eegres',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id); -- doublon série calculée précédemment 
+resOdy = affectation(resOdy, 'savresmencumE', 'savresmencumE')
+resOdy = affectation(resOdy, 'savtramencumE', 'savtramencumE')
+resOdy = affectation(resOdy, 'savmencumE', 'savmencumE')
+resOdy = affectation(resOdy, 'denresmenE', 'denresmenE')
+resOdy = affectation(resOdy, 'dentramenE', 'dentramenE')
+resOdy = affectation(resOdy, 'denmenE', 'denmenE')
+resOdy = affectation(resOdy, 'pcsavdenres', 'pcsavdenres')
+resOdy = affectation(resOdy, 'pcsavdentra', 'pcsavdentra')
+resOdy = affectation(resOdy, 'pcsavden', 'pcsavden')
+resOdy = affectation(resOdy, 'pcdenrescpr', 'pcdenrescpr')
+resOdy = affectation(resOdy, 'pcdentracpr', 'pcdentracpr')
+resOdy = affectation(resOdy, 'pcdencpr', 'pcdencpr')
+resOdy = affectation(resOdy, 'pcsavrescpr', 'pcsavrescpr')
+resOdy = affectation(resOdy, 'pcsavtracpr', 'pcsavtracpr')
+resOdy = affectation(resOdy, 'pcsavcpr', 'pcsavcpr')
+resOdy = affectation(resOdy, 'pcdenddw', 'pcdenddw')
+--CALC_DATA.Affectation_Serie ('savindcum','savindcum',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id); -- doublon série calculée précédemment 
+--CALC_DATA.Affectation_Serie ('eegind','eegind',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id); -- doublon série calculée précédemment 
+resOdy = affectation(resOdy, 'savindcumE', 'savindcumE')
+resOdy = affectation(resOdy, 'denindE', 'denindE')
+resOdy = affectation(resOdy, 'pcsavdenind', 'pcsavdenind')
+resOdy = affectation(resOdy, 'vadtocind', 'vadtocind')
+resOdy = affectation(resOdy, 'vadtocindsav', 'vadtocindsav')
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------CORRESPOND A LA MACRO INDICODY_NEW_DATA---------------------------------------------------------------------------
+/* CALCULS AJOUTES PAR MARC LE 3 Octobre 2016 : Pour DATAMAPPER DE KARINE*/
+
+/* CALCULS */
+resOdy = affectation(resOdy, 'elecfresels1', 'elccfresels1', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+resOdy = affectation(resOdy, 'elecfoffsels', 'elccfoffsels', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+
+resOdy = multiAffectation(resOdy, 'elecfressm', ['elecfresels1','-elecfreslar'], 'TWh')
+resOdy = multiAffectation(resOdy, 'ietoctfcstrp', ['ietoctfcstppcc','-ietoctfcppcc'], 'koe/EUR2010p')
+resOdy = multiAffectation(resOdy, 'thrcftercc', ['toccftercc','-elccftercc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'thrcfter', ['toccfter','-elccfter'], 'Mtoe')
+
+resOdy = multiAffectation(resOdy, 'toccfpub', ['toccffer','toccfbus'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfrester', ['toccfres','toccfter'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfrestercc', ['toccfrescc','toccftercc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfresterchf', ['toccfreschf','toccfterchf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'toccfresterchc', ['toccfreschc','toccfterchc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'elccfrester', ['elccfres','elccfter'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'elccfrestercc', ['elccfrescc','elccftercc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'elccfresterchf', ['elccfreschf','elccfterchf'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'elccfresterchc', ['elccfreschc','elccfterchc'], 'Mtoe')
+resOdy = multiAffectation(resOdy, 'surrester', ['surres','surter'], 'Mm2')
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('toccfrester','toccfresterchf') AND Code_pays=pays_cour AND Temp=temporalisation;
+IF serie_existe=2 THEN
+resOdy = multiAffectation(resOdy, 'toccfresteroth', ['toccfrester','-toccfresterchf'], 'Mtoe')
+END IF;
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('toccfrestercc','toccfresterchc') AND Code_pays=pays_cour AND Temp=temporalisation;
+IF serie_existe=2 THEN
+resOdy = multiAffectation(resOdy, 'toccfresterccoth', ['toccfrestercc','-toccfresterchc'], 'Mtoe')
+END IF;
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('elccfrester','elccfresterchf') AND Code_pays=pays_cour AND Temp=temporalisation;
+IF serie_existe=2 THEN
+resOdy = multiAffectation(resOdy, 'elccfresteroth', ['elccfrester','-elccfresterchf'], 'Mtoe')
+END IF;
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('elccfrestercc','elccfresterchc') AND Code_pays=pays_cour AND Temp=temporalisation;
+IF serie_existe=2 THEN
+resOdy = multiAffectation(resOdy, 'elccfresterccoth', ['elccfrestercc','-elccfresterchc'], 'Mtoe')
+END IF;
+
+resOdy = affectationParMultiplication(resOdy, 'shacbele', [('prdacbele','kt')], [('prdacb','kt')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shpatppp', [('prdpat','kt')], [('prdppp','kt')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shco2ina', [('cmbecind','MtCO2')], [('tceecind','MtCO2')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shtra', [('toccftra','Mtoe')], [('toccf','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shelctra', [('elccftra','Mtoe')], [('toccftra','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'nbcarpop', [('nbrvpc','M')], [('pop','k')], 'car/kcap', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cuvpcpop', [('toccfvpc','Mtoe')], [('pop','k')], 'toe/cap', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'tkmpin', [('tkm','Gtkm')], [('pibxxppp','MEUR2010p')], 'tkm/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'tucamvlr', [('tkmrou','Gtkm')], [('nbrcamvlr','M')], 'tkm/kveh', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'tkmpibppp', [('tkm','Gtkm')], [('pibxxppp','MEUR2010p')], 'tkm/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'pkmpibppp', [('pkm','Gpkm')], [('pibxxppp','MEUR2010p')], 'pkm/EUR2010p', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'cutocpub', [('toccfpub','Mtoe')], [('pkmpub','Gpkm')], 'koe/pkm', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'shdj', [('dj','degree')], [('djref','degree')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'shreschc', [('toccfreschc','Mtoe')], [('toccfrescc','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shrescui', [('toccfrescui','Mtoe')], [('toccfrescc','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shresecs', [('toccfresecs','Mtoe')], [('toccfrescc','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shrescli', [('toccfrescli','Mtoe')], [('toccfrescc','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shresels', [('elccfresels','Mtoe')], [('toccfrescc','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shresels1', [('elccfresels1','Mtoe')], [('toccfrescc','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shreslgt', [('elccfreslgt','Mtoe')], [('toccfrescc','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'cutoclogels1', [('elecfresels1','TWh')], [('nbrlpr','k')], 'kWh/dw', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'cutoclogsm', [('elecfressm','TWh')], [('nbrlpr','k')], 'kWh/dw', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'pcscl', [('nbrscl','k')], [('nbrlpr','k')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'pclvv', [('nbrlvv','k')], [('nbrlpr','k')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'pcrfg', [('nbrrfg','k')], [('nbrlpr','k')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'pclvl', [('nbrlvl','k')], [('nbrlpr','k')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'pccgl', [('nbrcgl','k')], [('nbrlpr','k')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'pctvs', [('nbrtvs','k')], [('nbrlpr','k')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'shterthermcc', [('elecftercc','TWh')], [('empter','k')], '%', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'shtertherm', [('elecfter','TWh')], [('empter','k')], '%', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'shteroffels', [('elecfoffsels','TWh')], [('empter','k')], '%', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'shelcter', [('elccfter','Mtoe')], [('toccfter','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'shelcterc', [('elccftercc','Mtoe')], [('toccftercc','Mtoe')], '%', poids=100)
+
+cst_travail = 1000000/const.VALEUR['cst_elcun']
+resOdy = affectationParMultiplication(resOdy, 'cutochoswh', [('toccfhos','Mtoe')], [('emphos','k')], 'kWh/emp', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutoccomwh', [('toccfcom','Mtoe')], [('empcom','k')], 'kWh/emp', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutochcrwh', [('toccfhcr','Mtoe')], [('emphcr','k')], 'kWh/emp', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutoceduwh', [('toccfedu','Mtoe')], [('empedu','k')], 'kWh/emp', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutocbupwh', [('toccfbup','Mtoe')], [('empbup','k')], 'kWh/emp', poids=cst_travail)
+
+cst_travail = 1000/const.VALEUR['cst_elcun']
+resOdy = affectationParMultiplication(resOdy, 'cutochosm2wh', [('toccfhos','Mtoe')], [('surhos','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutoccomm2wh', [('toccfcom','Mtoe')], [('surcom','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutocchcrm2wh', [('toccfhcr','Mtoe')], [('surhcr','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutocedum2wh', [('toccfedu','Mtoe')], [('suredu','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutocbupm2wh', [('toccfbup','Mtoe')], [('surbup','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutocsurrester', [('toccfrester','Mtoe')], [('surrester','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutocsurrestercc', [('toccfrestercc','Mtoe')], [('surrester','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutocsurresterchf', [('toccfresterchf','Mtoe')], [('surrester','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutocsurresterchc', [('toccfresterchc','Mtoe')], [('surrester','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cuelcsurrester', [('elccfrester','Mtoe')], [('surrester','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cuelcsurrestercc', [('elccfrestercc','Mtoe')], [('surrester','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cuelcsurresterchf', [('elccfresterchf','Mtoe')], [('surrester','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cuelcsurresterchc', [('elccfresterchc','Mtoe')], [('surrester','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutocsurresteroth', [('toccfresteroth','Mtoe')], [('surrester','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cutocsurresterothcc', [('toccfresterccoth','Mtoe')], [('surrester','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cuelcsurresteroth', [('elccfresteroth','Mtoe')], [('surrester','Mm2')], 'kWh/m2', poids=cst_travail)
+resOdy = affectationParMultiplication(resOdy, 'cuelcsurresterothcc', [('elccfresterccoth','Mtoe')], [('surrester','Mm2')], 'kWh/m2', poids=cst_travail)
+
+resOdy = affectationParMultiplication(resOdy, 'ietocpow', [('conspow','Mtoe')], [('pibxx','MEUR2010')], 'koe/EUR2010', poids=1000)
+resOdy = affectation(resOdy, 'varietocpow', 'ietocpow', '1', formule=lambda x:1+(x-recupSerie(resOdy,'ietocpow',2000))/recupSerie(resOdy,'ietoctpc',2000))
+resOdy = affectation(resOdy, 'varietoctpc', 'ietoctpc', '1', formule=lambda x:1+(x-recupSerie(resOdy,'ietoctpc',2000))/recupSerie(resOdy,'ietoctpc',2000))
+resOdy = affectation(resOdy, 'varietoctfc', 'ietoctfc', '1', formule=lambda x:1+(x-recupSerie(resOdy,'ietoctfc',2000))/recupSerie(resOdy,'ietoctpc',2000))
+resOdy = affectation(resOdy, 'ietocpow1', 'varietocpow', 'koe/EUR2010', poids=1*recupSerie(resOdy,'ietoctpc',2000))
+resOdy = affectation(resOdy, 'ietoccf1', 'varietoccf', 'koe/EUR2010', poids=1*recupSerie(resOdy,'ietoctpc',2000))
+resOdy = affectation(resOdy, 'ietoccp1', 'varietoccp', 'koe/EUR2010', poids=1*recupSerie(resOdy,'ietoctpc',2000))
+resOdy = affectation(resOdy, 'iietoccf1', 'ietoccf1', '2000=100', poids=100/recupSerie(resOdy,'ietoccf1',2000))
+resOdy = affectation(resOdy, 'iietocpow1', 'ietocpow1', '2000=100', poids=100/recupSerie(resOdy,'ietocpow1',2000))
+
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('iietoccf1','iietocpow1') AND code_pays=pays_cour;
+IF (serie_existe>0) THEN
+resOdy = affectationParMultiplication(resOdy, 'ietocoth2', [('ietoctpc','koe/EUR2010')], [('iietoccf1','2000=100')], 'koe/EUR2010', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'ietocoth2', [('ietocoth2','koe/EUR2010')], [('iietocpow1','2000=100')], 'koe/EUR2010', poids=100)
+	SELECT COUNT(DISTINCT(source)) INTO serie_existe FROM Series WHERE code_serie IN ('ietocoth2') AND code_pays=pays_cour;
+	IF (serie_existe>1) THEN
+		DELETE valeurs_tab WHERE TICKER IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='ietocoth2' AND source NOT IN ('ODYSSEE'));
+		DELETE sources_series WHERE SS_NUMERO IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='ietocoth2' AND source NOT IN ('ODYSSEE'));
+		DELETE ser_projet WHERE I_SERPROJET IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='ietocoth2' AND source NOT IN ('ODYSSEE'));
+		DELETE equations WHERE numero IN (SELECT numero FROM Series WHERE code_pays=pays_cour AND code_serie='ietocoth2' AND source NOT IN ('ODYSSEE'));
+		DELETE Series WHERE code_serie='ietocoth2' AND code_pays=pays_cour AND source NOT IN ('ODYSSEE');
+	END IF;
+END IF;
+--calcul_series('othcftra=toccftra-toccfrou-toccffer-carcfair-toccfflv');
+--calcul_series('shteruses=((toccfterchc+toccfterecs+toccftercui)/cst_elcun)/empter*1000*1000');
+
+-- IF pays_cour='fin' THEN
+-- ELSE
+resOdy = affectationParMultiplication(resOdy, 'surlogpop', [('surres','Mm2')], [('pop','k')], 'm2/hab', poids=1000)
+-- END IF;
+
+resOdy = affectationParMultiplication(resOdy, 'pctkmflv', [('tkmflv','Gtkm')], [('tkm','Gtkm')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pctkmfer', [('tkmfer','Gtkm')], [('tkm','Gtkm')], '%', poids=100)
+resOdy = multiAffectation(resOdy, 'pctkmferflv', ['pctkmfer','pctkmflv'], '%')
+resOdy = affectationParMultiplication(resOdy, 'pcpkmpubbus', [('pkmbus','Gpkm')], [('pkmter','Gpkm')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcpkmpubfer', [('pkmfer','Gpkm')], [('pkmter','Gpkm')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcpkmpubfermet', [('pkmfermet','Gpkm')], [('pkmter','Gpkm')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pkmferpop', [('pkmfer','Gpkm')], [('pop','k')], 'km/cap', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'pkmfermetpop', [('pkmfermet','Gpkm')], [('pop','k')], 'km/cap', poids=1000000)
+
+resOdy = affectation(resOdy, 'odexchi', 'odexchi')
+resOdy = affectation(resOdy, 'odexsid', 'odexsid')
+resOdy = affectation(resOdy, 'odexcim', 'odexcim')
+resOdy = affectation(resOdy, 'odexppp', 'odexppp')
+resOdy = affectation(resOdy, 'odexiaa', 'odexiaa')
+resOdy = affectation(resOdy, 'odexmac', 'odexmac')
+resOdy = affectation(resOdy, 'odexveh', 'odexveh')
+resOdy = affectation(resOdy, 'odexcar', 'odexcar')
+resOdy = affectation(resOdy, 'odexcamvlr', 'odexcamvlr')
+resOdy = affectation(resOdy, 'odexbus', 'odexbus')
+resOdy = affectation(resOdy, 'odexrail', 'odexrail')
+resOdy = affectation(resOdy, 'odexflv', 'odexflv')
+resOdy = affectation(resOdy, 'odexair', 'odexair')
+resOdy = affectation(resOdy, 'savbustech', 'savbustech')
+resOdy = affectation(resOdy, 'savferpastech', 'savferpastech')
+resOdy = affectation(resOdy, 'savairtech', 'savairtech')
+resOdy = affectation(resOdy, 'savcamvlrtech', 'savcamvlrtech')
+resOdy = affectation(resOdy, 'savfermchtech', 'savfermchtech')
+resOdy = affectation(resOdy, 'savwattech', 'savwattech')
+resOdy = affectation(resOdy, 'brent', 'brent')
+resOdy = affectation(resOdy, 'impprxgaz', 'impprxgaz')
+resOdy = affectation(resOdy, 'impprxcoal', 'impprxcoal')
+resOdy = affectation(resOdy, 'indexbrent', 'indexbrent')
+resOdy = affectation(resOdy, 'indeximpprxgaz', 'indeximpprxgaz')
+resOdy = affectation(resOdy, 'indeximpprxcoal', 'indeximpprxcoal')
+resOdy = affectation(resOdy, 'prxtra', 'prxtra')
+resOdy = affectation(resOdy, 'prxres', 'prxres')
+resOdy = affectation(resOdy, 'prxind', 'prxind')
+resOdy = affectation(resOdy, 'indexprxtra', 'indexprxtra')
+resOdy = affectation(resOdy, 'indexprxres', 'indexprxres')
+resOdy = affectation(resOdy, 'indexprxind', 'indexprxind')
+resOdy = affectation(resOdy, 'indexprxavg', 'indexprxavg')
+resOdy = affectation(resOdy, 'prxessxx', 'prxessxx')
+resOdy = affectation(resOdy, 'prxgzlxx', 'prxgzlxx')
+
+resOdy = affectationParMultiplication(resOdy, 'pkmpop', [('pkm','Gpkm')], [('pop','k')], 'km/cap', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'pkmbuspop', [('pkmbus','Gpkm')], [('pop','k')], 'km/cap', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'pkmbusferpop', [('pkmpub','Gpkm')], [('pop','k')], 'km/cap', poids=1000000)
+
+resOdy = affectationParMultiplication(resOdy, 'pcencind', [('enccfind','Mtoe')], [('toccfind','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcenctra', [('enccftra','Mtoe')], [('toccftra','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcencres', [('enccfres','Mtoe')], [('toccfres','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcencter', [('enccfter','Mtoe')], [('toccfter','Mtoe')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcencagr', [('enccfagr','Mtoe')], [('toccfagr','Mtoe')], '%', poids=100)
+
+resOdy = affectation(resOdy, 'pelletboilsale', 'pelletboilsale')
+resOdy = affectation(resOdy, 'pelletstovesale', 'pelletstovesale')
+resOdy = affectation(resOdy, 'pelletboilstock', 'pelletboilstock')
+resOdy = affectation(resOdy, 'pelletstovestock', 'pelletstovestock')
+
+resOdy = affectation(resOdy, 'nbrsmart', 'nbrsmart')
+resOdy = affectation(resOdy, 'salsmart', 'salsmart')
+
+resOdy = affectation(resOdy, 'elecftra', 'elccftra', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+resOdy = affectation(resOdy, 'elecfind', 'elccfind', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+resOdy = affectation(resOdy, 'elecf', 'elccf', 'TWh', poids=1/const.VALEUR['cst_elcun'])
+resOdy = affectationParMultiplication(resOdy, 'ieeletra', [('elecftra','TWh')], [('pibxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'ieeleind', [('elecfind','TWh')], [('vadindxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+resOdy = affectationParMultiplication(resOdy, 'ieeletfc', [('elecf','TWh')], [('pibxx','MEUR2010')], 'kWh/kEUR2010', poids=1000000)
+
+resOdy = affectationParMultiplication(resOdy, 'cutoclogelst', [('elccfresels','Mtoe')], [('nbrlpr','k')], 'toe/dw', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'pcindmpr', [('ietocmpr','koe/EUR2010')], [('ietocmac','koe/EUR2010')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'pcindchi', [('ietocchi','koe/EUR2010')], [('ietocmac','koe/EUR2010')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'pcindiaa', [('ietociaa','koe/EUR2010')], [('ietocmac','koe/EUR2010')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'pcindtex', [('ietoctex','koe/EUR2010')], [('ietocmac','koe/EUR2010')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'pcindveh', [('ietocveh','koe/EUR2010')], [('ietocmac','koe/EUR2010')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'pcindmnm', [('ietocmnm','koe/EUR2010')], [('ietocmac','koe/EUR2010')], '1', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'pcindppp', [('ietocppp','koe/EUR2010')], [('ietocmac','koe/EUR2010')], '1', poids=1)
+
+resOdy = multiAffectation(resOdy, 'savfinairexc', ['savinde', 'savind', 'savresxc', 'savdvrxc', 'savtra', 'savagr'], 'Mtoe')
+resOdy = totalCumul(resOdy, 'savfinairexccum1', 'savfinairexc', 'Mtoe')
+resOdy = totalCumul(resOdy, 'savfincum1', 'savfin', 'Mtoe')
+resOdy = totalCumul(resOdy, 'savindcum1', 'savind', 'Mtoe')
+resOdy = totalCumul(resOdy, 'savrescum1', 'savres', 'Mtoe')
+resOdy = totalCumul(resOdy, 'savtracum1', 'savtra', 'Mtoe')
+resOdy = totalCumul(resOdy, 'savtratotcum1', 'savtratot', 'Mtoe')
+resOdy = totalCumul(resOdy, 'savtercum1', 'savter', 'Mtoe')
+
+resOdy = totalCumul(resOdy, 'savfinairexccum3', 'savfinairexc', 'Mtoe')
+resOdy = totalCumul(resOdy, 'savfincum3', 'savfin', 'Mtoe')
+resOdy = totalCumul(resOdy, 'savfinairexccum4', 'savfinairexcum3', 'Mtoe')
+resOdy = totalCumul(resOdy, 'savfincum4', 'savficum3', 'Mtoe')
+
+resOdy = affectationParMultiplication(resOdy, 'cutocvpcpkm1', [('toccfvpc','Mtoe')], [('pkmvpc','Gpkm')], 'goe/pkm', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'pcroutra', [('toccfrou','Mtoe')], [('toccftra','Mtoe')], '%', poids=100)
+
+resOdy = affectationParMultiplication(resOdy, 'shpatpap', [('prdpat','kt')], [('prdpap','kt')], '%', poids=100)
+
+resOdy = affectation(resOdy, 'savgrossfin', 'savgrossfin')
+resOdy = affectation(resOdy, 'othgrossfin', 'othgrossfin')
+resOdy = affectation(resOdy, 'savgrosstratot', 'savgrosstratot')
+resOdy = affectation(resOdy, 'othgrosstratot', 'othgrosstratot')
+resOdy = affectation(resOdy, 'savgrosstra', 'savgrosstra')
+resOdy = affectation(resOdy, 'othgrosstra', 'othgrosstra')
+resOdy = affectation(resOdy, 'savgrosspasstot', 'savgrosspasstot')
+resOdy = affectation(resOdy, 'othgrosspasstot', 'othgrosspasstot')
+resOdy = affectation(resOdy, 'savgrosspass', 'savgrosspass')
+resOdy = affectation(resOdy, 'othgrosspass', 'othgrosspass')
+resOdy = affectation(resOdy, 'savgrossgoods', 'savgrossgoods')
+resOdy = affectation(resOdy, 'othgrossgoods', 'othgrossgoods')
+resOdy = affectation(resOdy, 'savgrosscar', 'savgrosscar')
+resOdy = affectation(resOdy, 'othgrosscar', 'othgrosscar')
+resOdy = affectation(resOdy, 'savgrossres', 'savgrossres')
+resOdy = affectation(resOdy, 'othgrossres', 'othgrossres')
+resOdy = affectation(resOdy, 'savgrosschf', 'savgrosschf')
+resOdy = affectation(resOdy, 'othgrosschf', 'othgrosschf')
+resOdy = affectation(resOdy, 'savgrosster', 'savgrosster')
+resOdy = affectation(resOdy, 'othgrosster', 'othgrosster')
+resOdy = affectation(resOdy, 'savgrossind', 'savgrossind')
+resOdy = affectation(resOdy, 'othgrossind', 'othgrossind')
+
+resOdy = affectation(resOdy, 'actresels', 'actresels')
+resOdy = affectation(resOdy, 'savgrossresels', 'savgrossresels')
+resOdy = affectation(resOdy, 'othresels', 'othresels')
+resOdy = affectation(resOdy, 'othgrossresels', 'othgrossresels')
+resOdy = affectation(resOdy, 'consfintot', 'consfintot')
+resOdy = affectation(resOdy, 'varconsfintot', 'varconsfintot')
+resOdy = affectation(resOdy, 'consfin2tot', 'consfin2tot')
+resOdy = affectation(resOdy, 'varconsfin2tot', 'varconsfin2tot')
+resOdy = affectation(resOdy, 'actfintot', 'actfintot')
+resOdy = affectation(resOdy, 'structfintot', 'structfintot')
+resOdy = affectation(resOdy, 'savgrossfintot', 'savgrossfintot')
+resOdy = affectation(resOdy, 'savfintot', 'savfintot')
+resOdy = affectation(resOdy, 'climfintot', 'climfintot')
+resOdy = affectation(resOdy, 'othfintot', 'othfintot')
+resOdy = affectation(resOdy, 'othgrossfintot', 'othgrossfintot')
+
+
+
+
+/*CALCULS AJOUTES APRES GENERATION DES SERIES*/
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------CORRESPOND A LA MACRO INDICODY_Pour_GRAPH.------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
+/* ======== AJOUT CALCUL TCAM PERIODE 14/02/2017 ====== */
+/*
+
+
+
+selection_series_source('tcietoctfcp1',pays_cour,'%');
+selection_series_source('tcietoctfcccp1',pays_cour,'%');
+selection_series_source('tcietoctfcstp1',pays_cour,'%');
+selection_series_source('tcietoctfcstccp1',pays_cour,'%');
+
+selection_series_source('tcietoctfcp2',pays_cour,'%');
+selection_series_source('tcietoctfcccp2',pays_cour,'%');
+selection_series_source('tcietoctfcstp2',pays_cour,'%');
+selection_series_source('tcietoctfcstccp2',pays_cour,'%');
+
+selection_series_source('tcietoctfcp3',pays_cour,'%');
+selection_series_source('tcietoctfcccp3',pays_cour,'%');
+selection_series_source('tcietoctfcstp3',pays_cour,'%');
+selection_series_source('tcietoctfcstccp3',pays_cour,'%');
+
+calcul_series('tcietoctfcrp1=tcietoctfcp1-tcietoctfcstp1');
+calcul_series('tcietoctfcccrp1=tcietoctfcccp1-tcietoctfcccstp1');
+
+calcul_series('tcietoctfcrp2=tcietoctfcp2-tcietoctfcstp2');
+calcul_series('tcietoctfcccrp2=tcietoctfcccp2-tcietoctfcccstp2');
+
+calcul_series('tcietoctfcrp3=tcietoctfcp3-tcietoctfcstp3');
+calcul_series('tcietoctfcccrp3=tcietoctfcccp3-tcietoctfcccstp3');
+
+generation_series('tcietoctfcrp1',pays_cour,'%');
+generation_series('tcietoctfcccrp1',pays_cour,'%');
+generation_series('tcietoctfcrp2',pays_cour,'%');
+generation_series('tcietoctfcccrp2',pays_cour,'%');
+generation_series('tcietoctfcrp3',pays_cour,'%');
+generation_series('tcietoctfcccrp3',pays_cour,'%');
+
+*/
+-------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Séries ajoutées de TOOLODY
+
+resOdy = affectationParMultiplication(resOdy, 'pcnbrvpcgna', [('nbrvpcgnabis','k')], [('nbrvpcbis','k')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcnbrvpcele', [('nbrvpcelebis','k')], [('nbrvpcbis','k')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcnbrvpcflex', [('nbrvpcflexbis','k')], [('nbrvpcbis','k')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcnbrvpchyb', [('nbrvpchybbis','k')], [('nbrvpcbis','k')], '%', poids=100)
+resOdy = multiAffectation(resOdy, 'pcnbrvpcelehyb', ['pcnbrvpcele','pcnbrvpchyb'], '%')
+resOdy = multiAffectation(resOdy, 'pcnbrvpcalter', ['pcnbrvpcelehyb','pcnbrvpcflex','pcnbrvpcgna'], '%')
+resOdy = affectationParMultiplication(resOdy, 'pcnewvpcgna', [('newvpcgnabis','k')], [('newvpcbis','k')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcnewvpcele', [('newvpcelebis','k')], [('newvpcbis','k')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcnewvpcflex', [('newvpcflexbis','k')], [('newvpcbis','k')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcnewvpchyb', [('newvpchybbis','k')], [('newvpcbis','k')], '%', poids=100)
+resOdy = multiAffectation(resOdy, 'pcnewvpcelehyb', ['pcnewvpcele','pcnewvpchyb'], '%')
+resOdy = multiAffectation(resOdy, 'pcnewvpcalter', ['pcnewvpcelehyb','pcnewvpcflex','pcnewvpcgna'], '%')
+
+resOdy = multiAffectation(resOdy, 'salpellet', ['pelletboilsalebis','pelletstovesalebis'], 'k')
+resOdy = multiAffectation(resOdy, 'nbrpellet', ['pelletboilstockbis','pelletstovestockbis'], 'k')
+
+resOdy = affectationParMultiplication(resOdy, 'teqpelletboil', [('pelletboilstockbis','k')], [('nbrlpr','k')], 'unit/kdw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'teqpelletstove', [('pelletstovestockbis','k')], [('nbrlpr','k')], 'unit/kdw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'teqpellet', [('nbrpellet','k')], [('nbrlpr','k')], 'unit/kdw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'teqsalpelletboil', [('pelletboilsalebis','k')], [('nbrlpr','k')], 'unit/kdw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'teqsalpelletstove', [('pelletstovesalebis','k')], [('nbrlpr','k')], 'unit/kdw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'teqsalpellet', [('salpellet','k')], [('nbrlpr','k')], 'unit/kdw', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'pcdwhp', [('nbrhpbis','k')], [('nbrlpr','k')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcdwhpeff', [('nbrhpeffbis','k')], [('nbrlpr','k')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcdwhpren', [('nbrhprenbis','k')], [('nbrlpr','k')], '%', poids=100)
+resOdy = affectationParMultiplication(resOdy, 'pcdwhpgeo', [('nbrhpgeobis','k')], [('nbrlpr','k')], '%', poids=100)
+
+resOdy = affectationParMultiplication(resOdy, 'teqsalhp', [('salhpbis','k')], [('nbrlpr','k')], 'unit/kdw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'teqsalhpren', [('salhprenbis','k')], [('nbrlpr','k')], 'unit/kdw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'teqsalhpeff', [('salhpeffbis','k')], [('nbrlpr','k')], 'unit/kdw', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'teqsalhpgeo', [('salhpgeobis','k')], [('nbrlpr','k')], 'unit/kdw', poids=1000)
+
+resOdy = affectationParMultiplication(resOdy, 'solm2pop', [('solm2bis','km2')], [('popbis','k')], 'm2/hab', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'teqsalsolm2', [('solm2anbis','km2')], [('popbis','k')], 'm2/khab', poids=1000)
+resOdy = affectationParMultiplication(resOdy, 'nbrdwsol', [('solm2bis','km2')], [('colm2','m2')], 'kdwe', poids=1)
+resOdy = affectationParMultiplication(resOdy, 'pcdwsol', [('nbrdwsol','kdwe')], [('nbrlpr','k')], '%', poids=100)
+
+resOdy = affectationParMultiplication(resOdy, 'pcdwsmart', [('nbrsmartbis','k')], [('nbrlpr','k')], '%', poids=100)
+
+
+
+
+-- Séries ODYSEC "oubliées"
+
+resOdy = affectation(resOdy, 'vadcomxx', 'vadcomxx', 'MEUR2010', poids=recupSerie(resOdy,'vadcom',2010)/recupSerie(resOdy,'vadcomxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadburxx', 'vadburxx', 'MEUR2010', poids=recupSerie(resOdy,'vadbur',2010)/recupSerie(resOdy,'vadburxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadbupxx', 'vadbupxx', 'MEUR2010', poids=recupSerie(resOdy,'vadbup',2010)/recupSerie(resOdy,'vadbupxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadhcrxx', 'vadhcrxx', 'MEUR2010', poids=recupSerie(resOdy,'vadhcr',2010)/recupSerie(resOdy,'vadhcrxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadgovxx', 'vadgovxx', 'MEUR2010', poids=recupSerie(resOdy,'vadgov',2010)/recupSerie(resOdy,'vadgovxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadeduxx', 'vadeduxx', 'MEUR2010', poids=recupSerie(resOdy,'vadedu',2010)/recupSerie(resOdy,'vadeduxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+resOdy = affectation(resOdy, 'vadhosxx', 'vadhosxx', 'MEUR2010', poids=recupSerie(resOdy,'vadhos',2010)/recupSerie(resOdy,'vadhosxx',2010)/recupSerie(resOdy,'txchgeuro',2010))
+
+
+
+
+resOdy = affectationConv(resOdy, 'pib', 'pib', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'cpr', 'cpr', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadagr', 'vadagr', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadboi', 'vadboi', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadchi', 'vadchi', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadcmp', 'vadcmp', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadcon', 'vadcon', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadegw', 'vadegw', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadfab', 'vadfab', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadiaa', 'vadiaa', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadidv', 'vadidv', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadind', 'vadind', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadmac', 'vadmac', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadman', 'vadman', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadmin', 'vadmin', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadmnm', 'vadmnm', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadmpr', 'vadmpr', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadpap', 'vadpap', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadppp', 'vadppp', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadref', 'vadref', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadter', 'vadter', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadtex', 'vadtex', 'txchgeuro', '/', 'MEUR')
+resOdy = affectationConv(resOdy, 'vadveh', 'vadveh', 'txchgeuro', '/', 'MEUR')

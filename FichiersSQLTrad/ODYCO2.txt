@@ -1,0 +1,630 @@
+-- CALCUL ET GENERATION DES DONNEES ODYSSEE BASE SECONDAIRE (TEP,CO2)
+-- Création le 26 Février 2009
+-- Auteur : Emilie DUVAL
+-- Dernière mise à jour : 13/02/2018 (passage base 2010)
+Job:='ODYCO2';
+/* AJOUT DES TRANSFERT DE SERIES SANS CALCUL ENTRE COLLECTE ET CALCUL */
+DBMS_OUTPUT.PUT_LINE('Début du calcul');
+CALC_DATA.Affectation_Serie_Rem_DIV_UNIT('cmbecieao','co2ieao','ktCO2',1000,'MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,'remote_ges',Job,Job_Id);
+CALC_DATA.Affectation_Serie_Rem_DIV_UNIT('cmbecenp','co2enp','ktCO2',1000,'MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,'remote_ges',Job,Job_Id);
+CALC_DATA.Affectation_Serie_Rem_DIV_UNIT('cmbecie','co2ie','ktCO2',1000,'MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,'remote_ges',Job,Job_Id);
+CALC_DATA.Affectation_Serie_Rem_DIV_UNIT('chatv','chatv','ktep',1000,'Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,'remote_energie',Job,Job_Id);
+CALC_DATA.Affectation_Serie_Rem_DIV_UNIT('gzltv','gzltv','ktep',1000,'Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,'remote_energie',Job,Job_Id);
+CALC_DATA.Affectation_Serie_Rem_DIV_UNIT('foltv','foltv','ktep',1000,'Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,'remote_energie',Job,Job_Id);
+CALC_DATA.Affectation_Serie_Rem_DIV_UNIT('gnatv','gnatv','ktep',1000,'Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,'remote_energie',Job,Job_Id);
+CALC_DATA.Affectation_Serie_Rem_DIV_UNIT('vappd','vappd','ktep',1000,'Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,'remote_energie',Job,Job_Id);
+CALC_DATA.Affectation_Serie_Rem_DIV_UNIT('elcpd','elcpd','ktep',1000,'Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,'remote_energie',Job,Job_Id);
+CALC_DATA.Affectation_Serie_Rem_DIV_UNIT('elepd','elepd','GWh',1000,'TWh',pays_cour,annee_initiale,annee_finale,temporalisation,'remote_energie',Job,Job_Id);
+CALC_DATA.Affectation_Serie_Rem_DIV_UNIT('eleci','eleci','GWh',1000,'TWh',pays_cour,annee_initiale,annee_finale,temporalisation,'remote_energie',Job,Job_Id);
+CALC_DATA.Affectation_Serie('cmbecene','co2ene',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('cmbeciepu','co2iepu',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('cmbecipsr','co2ipsr',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('cmbecsf','co2sf',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('cmbecoth','co2oth',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+/* ========================================================================== */
+/* ===================== CALCULATION OF CO2 EMISSIONS ======================= */
+/* ========================================================================== */
+--coment : calculations on CO2 emissions of industrie;
+DBMS_OUTPUT.PUT_LINE('Début du calcul CO2');
+CALC_CO2.Calcul_Serie_CO2('gzlecind','gzlcfind','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('folecind','folcfind','cst_folco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('pdvecind','pdvcfind','cst_pdvco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO serie_existe FROM Series WHERE code_serie='gzlecind' AND code_pays=pays_cour;
+IF serie_existe>0 THEN
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petecind','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_CO2.Calcul_Serie_CO2('petecind','petcfind','cst_folco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_CO2('chaecind','chacfind','cst_cbico2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('cokecind','cokcfind','cst_cokco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('ligecind','ligcfind','cst_ligco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('osfecind','osfcfind','cst_touco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT count(*) INTO serie_existe FROM Series WHERE code_serie='chacfind' AND code_pays=pays_cour;
+IF serie_existe>0 THEN
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMS('cmsecind','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_CO2.Calcul_Serie_CO2('cmsecind','cmscfind','cst_cbico2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_CO2('gnaecind','gnacfind','cst_gnaco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gadecind','gadcfind','cst_gnaco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO serie_existe FROM Series WHERE code_serie='gnacfind' AND code_pays=pays_cour;
+IF serie_existe>0 THEN
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_GAZ('gazecind','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_CO2.Calcul_Serie_CO2('gazecind','gazcfind','cst_gnaco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+
+--coment : calculations on CO2 emissions of transport;
+DBMS_OUTPUT.PUT_LINE('Début du calcul transport');
+CALC_CO2.Calcul_Serie_CO2('gzlectra','gzlcftra','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('essectra','esscftra','cst_essco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gplectra','gplcftra','cst_gplco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('carecair','carcfair','cst_carco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+--coment : calculations on CO2 emissions of residential;
+DBMS_OUTPUT.PUT_LINE('Début du calcul residentiel');
+CALC_CO2.Calcul_Serie_CO2('folecres','folcfres','cst_folco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gplecres','gplcfres','cst_gplco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('holecres','holcfres','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(DISTINCT(code_serie)) INTO serie_existe FROM Series WHERE code_serie IN ('holcfres','gplcfres') AND code_pays=pays_cour;
+IF serie_existe=2 THEN
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petecres','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_CO2.Calcul_Serie_CO2('petecres','petcfres','cst_gplco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_CO2('chaecres','chacfres','cst_cbico2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('cokecres','cokcfres','cst_cokco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('ligecres','ligcfres','cst_ligco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('touecres','toucfres','cst_touco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO serie_existe FROM Series WHERE code_serie='chacfres' AND code_pays=pays_cour;
+IF serie_existe>0 THEN
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMS('cmsecres','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_CO2.Calcul_Serie_CO2('cmsecres','cmscfres','cst_cbico2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_CO2('gazecres','gazcfres','cst_gnaco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+--coment : co2 emissions calculations;
+DBMS_OUTPUT.PUT_LINE('Début du calcul TV');
+CALC_CO2.Calcul_Serie_CO2('chaectv','chatv','cst_cbico2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gzlectv','gzltv','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('folectv','foltv','cst_folco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gnaectv','gnatv','cst_gnaco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMS('cmsectv','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_GAZ('gazectv','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petectv','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbectv','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DBMS_OUTPUT.PUT_LINE('Début du calcul CEF');
+CALC_INDICATEURS.Calcul_Ratio('vapcef','cmbectv','vappd','tCO2/toe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Ratio('elccef','cmbecie','elcpd','tCO2/toe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Ratio('cmscefind','cmsecind','cmscfind','tCO2/toe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Ratio('gazcefind','gazecind','gazcfind','tCO2/toe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Ratio('petcefind','petecind','petcfind','tCO2/toe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+--CALC_INDICATEURS.Calcul_Ratio('petceftra','petectra','petcftra','tCO2/toe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Ratio('cmscefres','cmsecres','cmscfres','tCO2/toe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Ratio('gazcefres','gazecres','gazcfres','tCO2/toe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Ratio('petcefres','petecres','petcfres','tCO2/toe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+v_date:=annee_initiale;
+WHILE v_date<=annee_finale
+LOOP
+	v_annee:=v_date-1;
+	SELECT COUNT(ticker) INTO serie_existe FROM Valeurs_tab WHERE ticker IN (SELECT numero FROM Series WHERE code_serie='cmscefind' AND code_pays=pays_cour) AND tyear=v_date;
+	IF serie_existe=0 THEN
+		CALC_CO2.Duplication_Serie_ODY('cmscefind','tCO2/toe',v_annee,pays_cour,v_date,annee_finale,temporalisation,Job,Job_Id);
+	END IF;
+	SELECT COUNT(ticker) INTO serie_existe FROM Valeurs_tab WHERE ticker IN (SELECT numero FROM Series WHERE code_serie='gazcefind' AND code_pays=pays_cour) AND tyear=v_date;
+	IF serie_existe=0 THEN
+		CALC_CO2.Duplication_Serie_ODY('gazcefind','tCO2/toe',v_annee,pays_cour,v_date,annee_finale,temporalisation,Job,Job_Id);
+	END IF;	
+	SELECT COUNT(ticker) INTO serie_existe FROM Valeurs_tab WHERE ticker IN (SELECT numero FROM Series WHERE code_serie='petcefind' AND code_pays=pays_cour) AND tyear=v_date;
+	IF serie_existe=0 THEN
+		CALC_CO2.Duplication_Serie_ODY('petcefind','tCO2/toe',v_annee,pays_cour,v_date,annee_finale,temporalisation,Job,Job_Id);
+	END IF;
+--	SELECT COUNT(ticker) INTO serie_existe FROM Valeurs_tab WHERE ticker IN (SELECT numero FROM Series WHERE code_serie='petceftra' AND code_pays=pays_cour) AND tyear=v_date;
+--	IF serie_existe=0 THEN
+--		CALC_CO2.Duplication_Serie_ODY('petceftra','tCO2/toe',v_annee,pays_cour,v_date,annee_finale,temporalisation,Job,Job_Id);
+--	END IF;
+	SELECT COUNT(ticker) INTO serie_existe FROM Valeurs_tab WHERE ticker IN (SELECT numero FROM Series WHERE code_serie='cmscefres' AND code_pays=pays_cour) AND tyear=v_date;
+	IF serie_existe=0 THEN
+		CALC_CO2.Duplication_Serie_ODY('cmscefres','tCO2/toe',v_annee,pays_cour,v_date,annee_finale,temporalisation,Job,Job_Id);
+	END IF;		
+	SELECT COUNT(ticker) INTO serie_existe FROM Valeurs_tab WHERE ticker IN (SELECT numero FROM Series WHERE code_serie='gazcefres' AND code_pays=pays_cour) AND tyear=v_date;
+	IF serie_existe=0 THEN
+		CALC_CO2.Duplication_Serie_ODY('gazcefres','tCO2/toe',v_annee,pays_cour,v_date,annee_finale,temporalisation,Job,Job_Id);
+	END IF;		
+	SELECT COUNT(ticker) INTO serie_existe FROM Valeurs_tab WHERE ticker IN (SELECT numero FROM Series WHERE code_serie='petcefres' AND code_pays=pays_cour) AND tyear=v_date;
+	IF serie_existe=0 THEN
+		CALC_CO2.Duplication_Serie_ODY('petcefres','tCO2/toe',v_annee,pays_cour,v_date,annee_finale,temporalisation,Job,Job_Id);
+	END IF;	
+	SELECT COUNT(ticker) INTO serie_existe FROM Valeurs_tab WHERE ticker IN (SELECT numero FROM Series WHERE code_serie='vapcef' AND code_pays=pays_cour) AND tyear=v_date;
+	IF serie_existe=0 THEN
+		CALC_CO2.Duplication_Serie_ODY('vapcef','tCO2/toe',v_annee,pays_cour,v_date,annee_finale,temporalisation,Job,Job_Id);
+	END IF;	
+	v_date:=v_date+1;
+END LOOP;
+
+/* ==================  CALCUL DES EMISSIONS DE CO2 ===================*/
+DBMS_OUTPUT.PUT_LINE('Début du calcul industrie');
+--coment : Co2 emissions ;
+CALC_CO2.Calcul_Serie_ELCEC('elcecind','elccfind','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecind','vapcfind','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2ina' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecind','co2ina',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBECIND('cmbecind','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecind','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecima','cmscfima','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecima','gazcfima','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecima','petcfima','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcecima','elccfima','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecima','vapcfima','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecima','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecima','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+DBMS_OUTPUT.PUT_LINE('Début du calcul transport 2');
+CALC_CO2.Calcul_Serie_CO2('carecair','carcfair','cst_carco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+DBMS_OUTPUT.PUT_LINE('Début du calcul transport 21');
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecair','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2air' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('carecado','co2air',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_CO2.Calcul_Serie_CO2('carecado','carcfado','cst_carco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecair','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petecado','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecado','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Affectation_Serie_ODY('carectra','carecado','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petectra','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_INDICATEURS.Calcul_Ratio('petceftra','petectra','petcftra','tCO2/toe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+v_date:=annee_initiale;
+WHILE v_date<=annee_finale
+LOOP
+	v_annee:=v_date-1;
+	SELECT COUNT(ticker) INTO serie_existe FROM Valeurs_tab WHERE ticker IN (SELECT numero FROM Series WHERE code_serie='petceftra' AND code_pays=pays_cour) AND tyear=v_date;
+	IF serie_existe=0 THEN
+		CALC_CO2.Duplication_Serie_ODY('petceftra','tCO2/toe',v_annee,pays_cour,v_date,annee_finale,temporalisation,Job,Job_Id);
+	END IF;	
+	v_date:=v_date+1;
+END LOOP;
+DBMS_OUTPUT.PUT_LINE('Début du calcul transport 22');
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2traoth' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecdvt','co2traoth',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_CO2('cmsectra','cmscftra','cst_cbico2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazectra','gazcftra','cst_gnaco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcectra','elccftra','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapectra','vapcftra','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+DBMS_OUTPUT.PUT_LINE('Début du calcul transport 24');
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2tra' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbectra','co2tra',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbectra','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceectra','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+DBMS_OUTPUT.PUT_LINE('Début du calcul residentiel 1');
+CALC_CO2.Calcul_Serie_CO2('cmsecret','cmscfret','cmscefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecret','gazcfret','gazcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecret','petcfret','petcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcecret','elccfret','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecret','vapcfret','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2ret' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecret','co2ret',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecret','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecret','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+DBMS_OUTPUT.PUT_LINE('Début du calcul residentiel 2');
+CALC_CO2.Calcul_Serie_ELCEC('elcecres','elccfres','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecres','vapcfres','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2res' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecres','co2res',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecres','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecres','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecter','cmscfter','cmscefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecter','gazcfter','gazcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecter','petcfter','petcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcecter','elccfter','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecter','vapcfter','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2ter' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecter','co2ter',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecter','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecter','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_INDICATEURS.Somme_2Series_ODY('cmbecrester','cmbecres','cmbecter','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+DBMS_OUTPUT.PUT_LINE('Début du calcul agriculture');
+CALC_CO2.Calcul_Serie_CO2('cmsecagr','cmscfagr','cst_cbico2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecagr','gazcfagr','cst_gnaco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecagr','petcfagr','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcecagr','elccfagr','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecagr','vapcfagr','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2agr' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecagr','co2agr',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecagr','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecagr','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_ECTFC('cmsectfc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ECTFC('petectfc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ECTFC('gazectfc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ECTFC('elcectfc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ECTFC('vapectfc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+--CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbectfc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ECTFC('cmbectfc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceectfc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+--coment : Final emissions corrected;
+DBMS_OUTPUT.PUT_LINE('Début du calcul ec finale');
+CALC_INDICATEURS.Difference_2Series_ODY('cmbecotr','cmbecenp','cmbecie','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+--CALC_AGREGAT_ENERGIE.Calcul_Serie_ECTOT('cmbectot','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_DATA.Affectation_Serie('cmbectot','co2cmb',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecsid1','cmscfsid1','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecsid1','gazcfsid1','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecsid1','petcfsid1','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2sid' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecsid1','co2sid',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecsid1','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elcecsid1','elccfsid1','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecsid1','vapcfsid1','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecsid1','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmseccim','cmscfcim','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazeccim','gazcfcim','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('peteccim','petcfcim','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2cim' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbeccim','co2cim',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbeccim','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elceccim','elccfcim','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapeccim','vapcfcim','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceeccim','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecchi','cmscfchi','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecchi','gazcfchi','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecchi','petcfchi','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2chi' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecchi','co2chi',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecchi','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elcecchi','elccfchi','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecchi','vapcfchi','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecchi','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecmnf','cmscfmnf','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecmnf','gazcfmnf','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecmnf','petcfmnf','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2mnf' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecmnf','co2mnf',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecmnf','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elcecmnf','elccfmnf','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecmnf','vapcfmnf','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecmnf','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecmpr','cmscfmpr','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecmpr','gazcfmpr','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecmpr','petcfmpr','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2mpr' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecmpr','co2mpr',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecmpr','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elcecmpr','elccfmpr','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecmpr','vapcfmpr','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecmpr','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecmnm','cmscfmnm','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecmnm','gazcfmnm','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecmnm','petcfmnm','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2mnm' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecmnm','co2mnm',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecmnm','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elcecmnm','elccfmnm','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecmnm','vapcfmnm','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecmnm','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecver','cmscfver','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecver','gazcfver','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecver','petcfver','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2ver' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecver','co2ver',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecver','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elcecver','elccfver','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecver','vapcfver','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecver','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecmac','cmscfmac','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecmac','gazcfmac','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecmac','petcfmac','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2mac' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecmac','co2mac',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecmac','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elcecmac','elccfmac','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecmac','vapcfmac','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecmac','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecveh','cmscfveh','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecveh','gazcfveh','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecveh','petcfveh','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2veh' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecveh','co2veh',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecveh','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elcecveh','elccfveh','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecveh','vapcfveh','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecveh','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecfab','cmscffab','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecfab','gazcffab','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecfab','petcffab','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2fab' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecfab','co2fab',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecfab','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elcecfab','elccffab','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecfab','vapcffab','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecfab','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmseciaa','cmscfiaa','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazeciaa','gazcfiaa','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('peteciaa','petcfiaa','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2iaa' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbeciaa','co2iaa',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbeciaa','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elceciaa','elccfiaa','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapeciaa','vapcfiaa','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceeciaa','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsectex','cmscftex','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazectex','gazcftex','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petectex','petcftex','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2tex' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbectex','co2tex',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbectex','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elcectex','elccftex','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapectex','vapcftex','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceectex','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecboi','cmscfboi','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecboi','gazcfboi','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecboi','petcfboi','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2boi' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecboi','co2boi',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecboi','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elcecboi','elccfboi','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecboi','vapcfboi','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecboi','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecppp','cmscfppp','cmscefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecppp','gazcfppp','gazcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecppp','petcfppp','petcefind','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2ppp' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecppp','co2ppp',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecppp','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_CO2.Calcul_Serie_ELCEC('elcecppp','elccfppp','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecppp','vapcfppp','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecppp','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2inaoth' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecidv','co2inaoth',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+
+DBMS_OUTPUT.PUT_LINE('Début du calcul chauffage');
+CALC_CO2.Calcul_Serie_CO2('cmsecreschf','cmscfreschf','cmscefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecreschf','gazcfreschf','gazcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecreschf','petcfreschf','petcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcecreschf','elccfreschf','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecreschf','vapcfreschf','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+--CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecreschf','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC_EEA('cmbecreschf','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecreschf','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+DBMS_OUTPUT.PUT_LINE('Début du calcul CC');
+CALC_CO2.Calcul_Serie_CO2('cmsecreschc','cmscfreschc','cmscefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecreschc','gazcfreschc','gazcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecreschc','petcfreschc','petcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcecreschc','elccfreschc','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecreschc','vapcfreschc','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecreschc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecreschc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecretcc','cmscfretcc','cmscefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecretcc','gazcfretcc','gazcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecretcc','petcfretcc','petcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcecretcc','elccfretcc','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecretcc','vapcfretcc','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC_EEA('cmbecretcc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecretcc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsecrescc','cmscfrescc','cmscefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazecrescc','gazcfrescc','gazcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petecrescc','petcfrescc','petcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcecrescc','elccfrescc','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapecrescc','vapcfrescc','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC_EEA('cmbecrescc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecrescc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('cmsectercc','cmscftercc','cmscefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gazectercc','gazcftercc','gazcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('petectercc','petcftercc','petcefres','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcectercc','elccftercc','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapectercc','vapcftercc','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC_EEA('cmbectercc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceectercc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_ECTFCCC('cmsectfccc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ECTFCCC('petectfccc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ECTFCCC('gazectfccc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcectfccc','elccfcc','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('vapectfccc','vapcfcc','vapcef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_PRODUIT.Calcul_Serie_ECTFCCC('cmbectfccc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceectfccc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_AGREGAT_ENERGIE.Affectation_Serie_ODY('cmbecenpcc','cmbecenp','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+--CALC_AGREGAT_ENERGIE.Calcul_Serie_ECTOT('cmbectotcc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC_EEA('cmbectotcc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('essecrou','esscfrou','cst_essco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gzlecrou','gzlcfrou','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gplecrou','gplcfrou','cst_gplco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petecrou','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2rou' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecrou','co2rou',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecrou','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecrou','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('essecroudom','esscfroudom','cst_essco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gzlecroudom','gzlcfroudom','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gplecroudom','gplcfroudom','cst_gplco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petecroudom','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecroudom','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecroudom','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2_EEA('essecmot','esscfmot','cst_essco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petecmot','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecmot','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecmot','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2_EEA('essecvpc','esscfvpc','cst_essco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2_EEA('gzlecvpc','gzlcfvpc','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2_EEA('gplecvpc','gplcfvpc','cst_gplco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petecvpc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecvpc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecvpc','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2_EEA('essecbus','esscfbus','cst_essco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2_EEA('gzlecbus','gzlcfbus','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petecbus','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecbus','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecbus','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('gzlecferpas','gzlcfferpas','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('folecferpas','folcfferpas','cst_folco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petecferpas','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcecferpas','elccfferpas','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecferpas','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecferpas','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('gzlecfer','gzlcffer','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('folecfer','folcffer','cst_folco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petecfer','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcecfer','elccffer','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2fer' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecfer','co2fer',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecfer','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecfer','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_AGREGAT_PRODUIT.Calcul_Serie_ECPAS('cmsecpas','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_PRODUIT.Calcul_Serie_ECPAS('petecpas','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_PRODUIT.Calcul_Serie_ECPAS('gazecpas','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_PRODUIT.Calcul_Serie_ECPAS('elcecpas','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_PRODUIT.Calcul_Serie_ECPAS('vapecpas','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecpas','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecpas','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('gzlecflv','gzlcfflv','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('folecflv','folcfflv','cst_folco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petecflv','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+SELECT COUNT(*) INTO ser_existe FROM Series@remote_sodyssee WHERE code_serie='co2nav' and code_pays=pays_cour;
+IF ser_existe>0 THEN
+	CALC_DATA.Affectation_Serie('cmbecflv','co2nav',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+ELSE
+	CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecflv','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+END IF;
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecflv','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('essecvlr','esscfvlr','cst_essco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gzlecvlr','gzlcfvlr','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gplecvlr','gplcfvlr','cst_gplco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petecvlr','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecvlr','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecvlr','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('gzleccam','gzlcfcam','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('peteccam','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbeccam','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceeccam','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2_EEA('esseccamvlr','esscfcamvlr','cst_essco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2_EEA('gzleccamvlr','gzlcfcamvlr','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('peteccamvlr','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbeccamvlr','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceeccamvlr','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+CALC_CO2.Calcul_Serie_CO2('essecmch','esscfmch','cst_essco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_CO2('gzlecmch','gzlcfmch','cst_gzlco2ccbl','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_PET('petecmch','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_CO2.Calcul_Serie_ELCEC('elcecmch','elccfmch','elccef','Mtoe',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_CMBEC('cmbecmch','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Calcul_Serie_TCEEC('tceecmch','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+--coment : CO2 inventories from EEA;
+CALC_AGREGAT_ENERGIE.Reaffectation_Serie_ODY('totec','cmbectfc','cmbecene','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Reaffectation_Serie_ODY('totecgen','tceectfc','cmbecotr','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+
+--coment : series avec cc source inventaire;
+CALC_AGREGAT_ENERGIE.Reaffectation_Serie_ODY('toteccc','cmbectfccc','cmbecene','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
+CALC_AGREGAT_ENERGIE.Reaffectation_Serie_ODY('totecgencc','tceectfccc','cmbecotr','MtCO2',pays_cour,annee_initiale,annee_finale,temporalisation,Job,Job_Id);
