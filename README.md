@@ -49,13 +49,13 @@ Exécuter l’ensemble du notebook permet de calculer les séries d’un unique 
 
 [_Traducteurs_](https://github.com/Tim-De-Decker/Stage_Enerdata/blob/main/Odyss%C3%A9e.ipynb)
 
-Ce notebook de travail a servi à traduire les fichiers d'appels des procédures PL/SQL en fonction des nouvelles fonctions créées sous Python. Il contient une boucle de traduction basée sur des RegEx par fichier initial ainsi qu'une boucle chargée de nettoyer les fichiers traduits. Les fichiers de base et leurs versions traduites se trouvent dans le dossier [FichiersSQLTrad](https://github.com/Tim-De-Decker/Stage_Enerdata/tree/main/FichiersSQLTrad).
+Ce notebook de travail a servi à traduire les fichiers d'appel des procédures PL/SQL pour les adapter aux nouvelles fonctions créées sous Python. Il contient une boucle de traduction basée sur des RegEx par fichier initial ainsi qu'une boucle chargée de nettoyer les fichiers traduits. Les fichiers de base et leurs versions traduites se trouvent dans le dossier [FichiersSQLTrad](https://github.com/Tim-De-Decker/Stage_Enerdata/tree/main/FichiersSQLTrad).
 
 _[Calcul pays](https://github.com/Tim-De-Decker/Stage_Enerdata/blob/main/Calcul%20pays.ipynb) et [Launcher Odyssée](https://github.com/Tim-De-Decker/Stage_Enerdata/blob/main/Launcher%20Odyssee.ipynb)_
 
 L’intérêt de ces deux notebooks est de permettre le lancement des calculs de plusieurs pays en parallèle sur les différents cœurs du processeur. Il suffit pour cela de paramétrer __Launcher Odyssée__ (liste des pays souhaités + dates de début et de fin des données) puis de l’exécuter dans son ensemble : le launcher va alors passer par __Calcul pays__ pour créer et lancer en simultané des versions d’Odyssée paramétrées pour chacun des pays de la liste renseignée.<br>
 Le processeur actuel comporte 4 cœurs : autrement dit, le launcher permet grossièrement de diviser par 4 le temps de calcul par pays obtenu grâce au notebook classique. <br>
-Le calcul de toutes les séries de l’ensemble des 33 pays référencés par Odyssée prend ainsi approximativement 18 minutes.
+Le calcul de toutes les séries de l’ensemble des 33 pays référencés par Odyssée prend ainsi approximativement 18 minutes contre près d'une demi-journée avec l'ancien process.
 
 _[Import GED](https://github.com/Tim-De-Decker/Stage_Enerdata/blob/main/Import%20GED.ipynb) et [Import Eurostat](https://github.com/Tim-De-Decker/Stage_Enerdata/blob/main/Import%20Eurostat.ipynb)_
 
