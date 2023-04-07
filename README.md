@@ -42,14 +42,15 @@ Mon travail a donc consisté dans un second temps à mettre en place les outils 
 
 [_Odyssée_](https://github.com/Tim-De-Decker/Stage_Enerdata/blob/main/Odyss%C3%A9e.ipynb)
 
-Le notebook Odyssée est dédié au calcul des séries placées dans la base de production à partir des données collectées auprès des partenaires du projet Odyssée-Mure, sur Eurostat ou dans les bases constitutives de GED. <br>
-Les données sources y sont stockées dans un dataframe (un tableau de données) nommé resOdy qui est mis à jour à chaque nouvelle ligne de calcul. <br>
-Le notebook Odyssée inclut une quinzaine de fonctions documentées ainsi qu’une partie Calculs où chaque série de la base de production est calculée via un appel de fonction. Ces appels fournissent en même temps un aperçu de la formule appliquée pour obtenir la série finale. <br>
+Le notebook Odyssée est au coeur du projet. Son rôle est de calculer les séries destinées à la base de production à partir des données collectées auprès des partenaires du projet Odyssée-Mure, sur Eurostat ou dans les bases constitutives de GED. <br>
+Les données sources sont importées d'Oracle ou de fichiers locaux (en attendant la finalisation du datalake), stockées dans un dataframe (un tableau de données) nommé resOdy qui est mis à jour à chaque nouvelle ligne de calcul, puis le résultat final est exporté vers le datalake HDFS. <br>
+Le notebook Odyssée inclut une quinzaine de fonctions documentées reproduisant le résultat des procédures PL/SQL ainsi qu’une partie Calculs contenant un appel de fonction pour chaque calcul de série destinée à la base de production. <br>
 Exécuter l’ensemble du notebook permet de calculer les séries d’un unique pays en un peu moins de deux minutes.
 
 [_Traducteurs_](https://github.com/Tim-De-Decker/Stage_Enerdata/blob/main/Odyss%C3%A9e.ipynb)
 
-Ce notebook de travail a servi à traduire les fichiers d'appel des procédures PL/SQL pour les adapter aux nouvelles fonctions créées sous Python. Il contient une boucle de traduction basée sur des RegEx par fichier initial ainsi qu'une boucle chargée de nettoyer les fichiers traduits. Les fichiers de base et leurs versions traduites se trouvent dans le dossier [FichiersSQLTrad](https://github.com/Tim-De-Decker/Stage_Enerdata/tree/main/FichiersSQLTrad).
+Ce notebook de travail a servi à traduire les fichiers d'appel des procédures PL/SQL pour les adapter aux nouvelles fonctions créées sous Python. Il contient une boucle de traduction basée sur des RegEx par fichier initial ainsi qu'une boucle chargée de nettoyer les fichiers traduits. <br>
+Les fichiers de base et leurs versions traduites se trouvent dans le dossier [FichiersSQLTrad](https://github.com/Tim-De-Decker/Stage_Enerdata/tree/main/FichiersSQLTrad). Le résultat final a été copié dans la partie _Calculs_ du notebook principal.
 
 _[Calcul pays](https://github.com/Tim-De-Decker/Stage_Enerdata/blob/main/Calcul%20pays.ipynb) et [Launcher Odyssée](https://github.com/Tim-De-Decker/Stage_Enerdata/blob/main/Launcher%20Odyssee.ipynb)_
 
