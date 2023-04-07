@@ -1,0 +1,149 @@
+PROCEDURE Calcul_Serie_Base
+-- Exemple : pibxx=(pibxx*pib[2010]/pibxx[2010])/txchgeuro[2010]
+(v_serie IN VARCHAR2,
+v_txchg IN VARCHAR2,
+v_unit IN VARCHAR2,
+v_pays IN VARCHAR2,
+v_an_base IN INTEGER,
+v_date_deb IN INTEGER,
+v_date_fin IN INTEGER,
+temporalisation IN VARCHAR2,
+Job IN VARCHAR2:=NULL,
+Job_Id IN VARCHAR2:=NULL)
+IS
+i INTEGER;
+t INTEGER;
+x INTEGER;
+z INTEGER;
+y INTEGER;
+coeff_ges NUMBER(34,15);
+nb_val INTEGER;
+nb_ser INTEGER;
+v_qualite INTEGER:=3;
+v_serie_cour VARCHAR2(20);
+v_source VARCHAR2(20);
+v_equation VARCHAR2(250):=NULL;
+v_equareel VARCHAR2(250):=NULL;
+v_serie_init VARCHAR2(20);
+energie VARCHAR2(3);
+flux VARCHAR2(8);
+Calcul_OK BOOLEAn:=TRUE;
+v_val NUMBER(34,15);
+v_val_base NUMBER(34,15);
+coeff_base NUMBER(34,15);
+coeff_txchg NUMBER(34,15);
+nb_pas INTEGER;
+tab_valeur VARCHAR2(16);
+v_requete VARCHAR2(500);
+BEGIN
+DBMS_OUTPUT.ENABLE(10000000000);
+nb_pas:=COMMON_DATA.Calc_Nb_Pas(temporalisation);
+tab_valeur:=COMMON_DATA.Nom_Tab_Val(temporalisation);
+IF v_txchg='txchgeuro' THEN
+v_serie_cour:=SUBSTR(v_serie,1,LENGTH(v_serie)-2);
+v_serie_init:=v_serie;
+ELSE
+v_serie_cour:=SUBSTR(v_serie,1,LENGTH(v_serie)-5);
+v_serie_init:=SUBSTR(v_serie,1,LENGTH(v_serie)-3);
+END IF;
+IF v_serie_cour='vadgov' or v_serie_cour='vadbur' or v_serie_cour='vadedu' or v_serie_cour='vadhcr' or
+v_serie_cour='vadcom' or v_serie_cour='vadbup' or v_serie_cour='vadhos' THEN
+v_serie_cour:='vadter';
+END IF;
+v_equation:=v_serie||'=('||v_serie_init||'*'||v_serie_cour||'['||v_an_base||']/'||v_serie_cour||'xx['||v_an_base|
+|'])/'||v_txchg||'['||v_an_base||']';
+v_equareel:=v_serie||'=('||v_serie_init||'*'||v_serie_cour||'['||v_an_base||']/'||v_serie_cour||'xx['||v_an_base|
+|'])/'||v_txchg||'['||v_an_base||']';
+35
+SELECT COUNT(DISTINCT(Code_serie)) INTO nb_ser FROM Series@remote_sodyssee WHERE Code_serie=v_serie_init AND
+Code_pays=v_pays AND Temp=temporalisation;
+IF nb_ser>0 THEN
+FOR i IN v_date_deb..v_date_fin
+LOOP
+FOR t IN 1..nb_pas
+LOOP
+v_requete:='SELECT COUNT(valeur) FROM '||tab_valeur||'
+WHERE ticker IN (SELECT numero FROM Series WHERE code_serie IN ('''||v_txchg||''') AND 
+Code_pays='''||v_pays||''' AND Temp='''||temporalisation||''')
+AND Tyear='||v_an_base||' AND TTemp='||t;
+EXECUTE IMMEDIATE v_requete INTO nb_val;
+IF nb_val>0 THEN
+v_requete:='SELECT valeur FROM '||tab_valeur||'
+WHERE ticker IN (SELECT numero FROM Series WHERE code_serie IN ('''||v_txchg||''') AND 
+Code_pays='''||v_pays||''' AND Temp='''||temporalisation||''')
+AND Tyear='||v_an_base||' AND TTemp='||t;
+EXECUTE IMMEDIATE v_requete INTO coeff_txchg;
+ELSE
+Calcul_OK:=FALSE;
+END IF;
+/* Selection des series de base */
+v_requete:='SELECT COUNT(valeur) FROM '||tab_valeur||'@remote_sodyssee
+WHERE ticker IN (SELECT numero FROM Series@remote_sodyssee WHERE code_serie IN 
+('''||v_serie_cour||''') AND Code_pays='''||v_pays||''' AND Temp='''||temporalisation||''')
+AND Tyear='||v_an_base||' AND TTemp='||t;
+EXECUTE IMMEDIATE v_requete INTO nb_val;
+IF nb_val>0 THEN
+v_requete:='SELECT valeur FROM '||tab_valeur||'@remote_sodyssee
+WHERE ticker IN (SELECT numero FROM Series@remote_sodyssee WHERE code_serie IN 
+('''||v_serie_cour||''') AND Code_pays='''||v_pays||''' AND Temp='''||temporalisation||'''
+AND Tyear='||v_an_base||' AND TTemp='||t;
+EXECUTE IMMEDIATE v_requete INTO coeff_base;
+END IF;
+v_requete:='SELECT COUNT(valeur) FROM '||tab_valeur||'@remote_sodyssee
+WHERE ticker IN (SELECT numero FROM Series@remote_sodyssee WHERE code_serie IN 
+('''||v_serie_cour||'xx'') AND Code_pays='''||v_pays||''' AND Temp='''||temporalisation||''')
+AND Tyear='||v_an_base||' AND TTemp='||t;
+EXECUTE IMMEDIATE v_requete INTO nb_val;
+IF nb_val>0 AND coeff_base IS NOT NULL THEN
+v_requete:='SELECT valeur FROM '||tab_valeur||'@remote_sodyssee
+WHERE ticker IN (SELECT numero FROM Series@remote_sodyssee WHERE code_serie IN 
+('''||v_serie_cour||'xx'') AND Code_pays='''||v_pays||''' AND Temp='''||temporalisation||''')
+AND Tyear='||v_an_base||' AND TTemp='||t;
+EXECUTE IMMEDIATE v_requete INTO v_val_base;
+IF v_val_base<>0 THEN
+v_requete:='SELECT '''||coeff_base||'''/valeur FROM '||tab_valeur||'@remote_sodyssee
+WHERE ticker IN (SELECT numero FROM Series@remote_sodyssee WHERE code_serie IN 
+('''||v_serie_cour||'xx'') AND Code_pays='''||v_pays||''' AND Temp='''||temporalisation||''')
+AND Tyear='||v_an_base||' AND TTemp='||t;
+EXECUTE IMMEDIATE v_requete INTO coeff_base;
+ELSE
+coeff_base:=NULL;
+END IF;
+END IF;
+IF (coeff_base IS NOT NULL) AND Calcul_OK THEN
+/*Calcul de la valeur de la série en base de v_an_base */
+v_requete:='SELECT COUNT(valeur) FROM '||tab_valeur||'@remote_sodyssee
+36
+WHERE ticker IN (SELECT numero FROM Series@remote_sodyssee WHERE code_serie IN 
+('''||v_serie_init||''') AND Code_pays='''||v_pays||''' AND Temp='''||temporalisation||''')
+AND Tyear='||i||' AND TTemp='||t;
+EXECUTE IMMEDIATE v_requete INTO nb_val;
+IF nb_val=1 THEN
+v_requete:='SELECT (valeur*'''||coeff_base||''')/'''||coeff_txchg||''' FROM 
+'||tab_valeur||'@remote_sodyssee
+WHERE ticker IN (SELECT numero FROM Series@remote_sodyssee
+WHERE code_serie IN ('''||v_serie_init||''') AND Code_pays='''||v_pays||''' AND 
+Temp='''||temporalisation||''') AND Tyear='||i||' AND TTemp='||t;
+EXECUTE IMMEDIATE v_requete INTO v_val;
+SELECT source INTO v_source FROM Series@remote_sodyssee WHERE Code_serie=v_serie_init AND
+Code_pays=v_pays AND Temp=temporalisation;
+CREATE_DATA.creer_valeurs_remote(v_serie,v_pays,v_unit,v_source,temporalisation,v_qualite,i,t
+,v_val,'remote_codyssee');
+CREATE_DATA.creer_comment_equation_remote(v_serie,v_pays,v_unit,v_source,temporalisation,i,v_
+equation,v_equareel,'remote_codyssee');
+CREATE_DATA.Creer_Series_Projet_remote(v_serie,v_pays,v_unit,v_source,temporalisation,'ODYSSE
+E','remote_codyssee');
+END IF;
+END IF;
+v_val:='';
+v_val_base:='';
+v_equareel:='';
+coeff_base:='';
+calcul_OK:=TRUE;
+END LOOP;
+END LOOP;
+END IF;
+EXCEPTION
+WHEN OTHERS THEN
+COMMON_DATA.Record_Error(SQLCODE,SQLERRM,v_serie,v_pays,v_unit,v_equation,$$plsql_Unit,'Calcul_Serie_Base',DB
+MS_UTILIT
